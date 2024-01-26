@@ -1,4 +1,4 @@
-# minishell | frankshell
+# 🍔Frankshell (minishell)
 42Seoul
 
 # Branching Strategy
