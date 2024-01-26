@@ -3,6 +3,8 @@
 
 # Branching Strategy
  - Git Flow Strategy
+![image](https://github.com/Tastypotato245/minishell/assets/63251068/1e0a9887-af03-4b95-a7ba-16a913e7d551)
+
 ## Branches
  - main
  - develope
