@@ -110,9 +110,12 @@ t_token	*create_here_doc_token(size_t *i)
 
 t_token	*create_word_token(const char *line, size_t *i)
 {
+	(void)line;
+	(void)i;
+	return (create_error_token());
 }
 
-t_token	*create_error()
+t_token	*create_error_token()
 {
 	t_token	*token;
 
