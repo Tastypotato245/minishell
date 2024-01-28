@@ -84,7 +84,7 @@ re			:
 %.o			:	%.c
 				@$(CC) $(CFLAGS) -I$(INCL_DIR) -c $^ -o $@
 
-test:
+test: all
 	./$(NAME)
 
 .PHONY		:	all clean fclean re bonus test
