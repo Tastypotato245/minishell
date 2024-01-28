@@ -20,12 +20,14 @@ SRCS		=	$(SRCS_DIR)main.c		\
 				$(SRCS_DIR)tokenize_categorize_token.c	\
 				$(SRCS_DIR)tokenize_create_token.c	\
 				$(SRCS_DIR)tokenize_print_token.c	\
+				$(SRCS_DIR)tokenize_utils.c	\
 
 SRCS_B		=	$(SRCS_B_DIR)main.c		\
 				$(SRCS_DIR)tokenize.c	\
 				$(SRCS_DIR)tokenize_categorize_token.c	\
 				$(SRCS_DIR)tokenize_create_token.c	\
 				$(SRCS_DIR)tokenize_print_token.c	\
+				$(SRCS_DIR)tokenize_utils.c	\
 
 OBJS		=	$(SRCS:.c=.o)
 OBJS_B		=	$(SRCS_B:.c=.o)

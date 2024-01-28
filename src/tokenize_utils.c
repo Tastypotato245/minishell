@@ -1,36 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize.c                                         :+:      :+:    :+:   */
+/*   tokenize_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/28 12:56:55 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/28 12:56:57 by younghoc         ###   ########.fr       */
+/*   Created: 2024/01/28 16:04:37 by younghoc          #+#    #+#             */
+/*   Updated: 2024/01/28 16:04:38 by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <tokenize.h>
 
-t_list	*tokenize(const char *line)
+int	ft_is_space(char c)
 {
-	const size_t	line_len = ft_strlen(line);
-	t_list			*tokens;
-	t_token			*token;
-	t_list			*token_element;
-	size_t			i;
+	if (c == ' ')
+		return (1);
+	if (c == '\t')
+		return (1);
+	if (c == '\n')
+		return (1);
+	return (0);
+}
 
-	i = 0;
-	while (i < line_len)
-	{
-		if (ft_is_space(line[i]))
-		{
-			i++;
-			continue ;
-		}
-		token = categorize_token(line, &i);
-		token_element = ft_lstnew(token);
-		ft_lstadd_back(&tokens, token_element);
-	}
-	return (tokens);
+int	ft_is_metacharacter(char c)
+{
+	if (c == '|')
+		return (1);
+	if (c == '&')
+		return (1);
+	if (c == '(')
+		return (1);
+	if (c == ')')
+		return (1);
+	if (c == '<')
+		return (1);
+	if (c == '>')
+		return (1);
+	if (ft_is_space(c))
+		return (1);
+	return (0);
 }

@@ -54,4 +54,7 @@ t_token	*create_error_token(void);
 
 void	print_token(void *content);
 
+int		ft_is_space(char c);
+int		ft_is_metacharacter(char c);
+
 #endif
