@@ -42,7 +42,6 @@ t_list	*tokenize(const char *line)
 		token = categorize_token(line, &i);
 		token_element = ft_lstnew(token);
 		ft_lstadd_back(&tokens, token_element);
-		i++;
 	}
 	return (tokens);
 }
