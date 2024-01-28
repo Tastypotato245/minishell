@@ -12,7 +12,18 @@
 
 #include <tokenize.h>
 
-void	tokenize(char *line)
+t_list	*tokenize(char *line)
 {
-	(void)line;
+	const size_t	line_len = ft_strlen(line);
+	t_list			*tokens;
+	size_t			i;
+
+	i = 0;
+	while (i < line_len)
+	{
+		printf("%c\n", line[i]);
+		i++;
+	}
+	tokens = NULL;
+	return (tokens);
 }

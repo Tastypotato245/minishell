@@ -13,6 +13,28 @@
 #ifndef TOKENIZE_H
 # define TOKENIZE_H
 
-void	tokenize(char *line);
+# include <minishell.h>
+
+typedef enum e_token_category
+{
+	T_OR,
+	T_AND,
+	T_PIPE,
+	T_L_PAREN,
+	T_R_PAREN,
+	T_IN_REDIRECT,
+	T_OUT_REDIRECT,
+	T_APPEND_REDIRECT,
+	T_HERE_DOC,
+	T_WORD,
+}	t_token_category;
+
+typedef struct s_token
+{
+	t_token_category	category;
+	char				*content;
+}	t_token;
+
+t_list	*tokenize(char *line);
 
 #endif
