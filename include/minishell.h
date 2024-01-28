@@ -16,6 +16,7 @@
 # include "../kyusulib/kyusulib.h"
 # include <stdio.h>
 # include <stdlib.h>
+# include <readline/readline.h>
 
 typedef enum e_rd_type
 {
@@ -64,5 +65,8 @@ typedef	struct s_cmd_lst
 	struct s_cmd_node	*tail;
 	int					size;
 }				t_cmd_lst;
+
+// print_frankshell_image.c
+void	print_frankshell_image(void);
 
 #endif
