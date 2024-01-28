@@ -12,6 +12,17 @@
 
 #include <tokenize.h>
 
+static int	ft_is_space(char c)
+{
+	if (c == ' ')
+		return (1);
+	if (c == '\t')
+		return (1);
+	if (c == '\n')
+		return (1);
+	return (0);
+}
+
 t_list	*tokenize(char *line)
 {
 	const size_t	line_len = ft_strlen(line);
