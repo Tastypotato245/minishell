@@ -20,7 +20,7 @@ int	main(void)
 
 	while (1)
 	{
-		line = readline("minishell > ");
+		line = readline("🍔 $ ");
 		tokens = tokenize(line);
 		ft_lstiter(tokens, print_token);
 		free(line);
