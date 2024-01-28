@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/26 19:58:31 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/01/28 12:56:55 by younghoc          #+#    #+#             */
+/*   Updated: 2024/01/28 12:56:57 by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
 #include <tokenize.h>
 
-int	main(void)
+void	tokenize(char *line)
 {
-	char	*line;
-
-	while (1)
-	{
-		line = readline("minishell > ");
-		printf("%s\n", line);
-		tokenize(line);
-		free(line);
-	}
-	return (0);
+	(void)line;
 }

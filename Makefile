@@ -16,8 +16,10 @@ HEAD		=	$(INCL_DIR)minishell.h
 HEAD_B		=	$(INCL_DIR)minishell_bonus.h
 
 SRCS		=	$(SRCS_DIR)main.c		\
+				$(SRCS_DIR)tokenize.c	\
 
 SRCS_B		=	$(SRCS_B_DIR)main.c		\
+				$(SRCS_DIR)tokenize.c	\
 
 OBJS		=	$(SRCS:.c=.o)
 OBJS_B		=	$(SRCS_B:.c=.o)
