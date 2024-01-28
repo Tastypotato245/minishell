@@ -6,7 +6,7 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/10 16:41:52 by kyusulee          #+#    #+#              #
-#    Updated: 2024/01/15 12:36:52 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/01/28 18:12:59 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,9 @@ CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror
 
 HEAD	=	./libft.h
-SRCS	=	ft_atoi.c		\
-			ft_bzero.c		\
-			ft_calloc.c		\
+SRCS	=	ft_atoi.c	\
+			ft_bzero.c	\
+			ft_calloc.c	\
 			ft_isalnum.c	\
 			ft_isalpha.c	\
 			ft_isascii.c	\
@@ -50,11 +50,17 @@ SRCS	=	ft_atoi.c		\
 			ft_strtrim.c	\
 			ft_substr.c		\
 			ft_tolower.c	\
-			ft_toupper.c
+			ft_toupper.c	\
+			ft_lstadd_back_bonus.c	\
+			ft_lstadd_front_bonus.c	\
+			ft_lstclear_bonus.c		\
+			ft_lstdelone_bonus.c	\
+			ft_lstiter_bonus.c		\
+			ft_lstlast_bonus.c		\
+			ft_lstmap_bonus.c		\
+			ft_lstnew_bonus.c		\
+			ft_lstsize_bonus.c
 OBJS	=	$(SRCS:.c=.o)
-
-SRCS_BO	=	ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c ft_lstdelone_bonus.c ft_lstiter_bonus.c ft_lstlast_bonus.c ft_lstmap_bonus.c ft_lstnew_bonus.c ft_lstsize_bonus.c
-OBJS_BO	=	$(SRCS_BO:.c=.o)
 
 RM		=	rm -f
 ECHO	=	echo
@@ -65,19 +71,12 @@ $(NAME)	:	$(OBJS)
 	@$(AR) $(NAME) $^
 	@$(ECHO) "*** Make <libft.a>."
 
-bonus	:	$(OBJS_BO)
-	@$(AR) $(NAME) $^
-	@touch $@
-	@$(ECHO) "*** Make <libft.a> bonus version."
-
 clean	:
-	@$(RM) $(OBJS) $(OBJS_BO)
-	@$(RM) bonus 
+	@$(RM) $(OBJS)
 	@$(ECHO) "*** Clean <libft>."
 
 fclean	:
-	@$(RM) $(OBJS) $(OBJS_BO)
-	@$(RM) bonus 
+	@$(RM) $(OBJS)
 	@$(RM) $(NAME)
 	@$(ECHO) "*** Fclean <libft>."
 
