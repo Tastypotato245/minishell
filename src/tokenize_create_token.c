@@ -66,7 +66,7 @@ t_token	*create_rparen_token(size_t *i)
 	return (token);
 }
 
-t_token	*create_in_redirect_token(size_t *i)
+t_token	*create_in_redirect_token()
 {
 	t_token	*token;
 
@@ -76,7 +76,7 @@ t_token	*create_in_redirect_token(size_t *i)
 	return (token);
 }
 
-t_token	*create_out_redirect_token(size_t *i)
+t_token	*create_out_redirect_token()
 {
 	t_token	*token;
 
@@ -93,6 +93,7 @@ t_token	*create_append_redirect_token(size_t *i)
 	token = malloc(sizeof(t_token));
 	token->category = T_APPEND_REDIRECT;
 	token->content = NULL;
+	i++;
 	return (token);
 }
 
@@ -103,6 +104,7 @@ t_token	*create_here_doc_token(size_t *i)
 	token = malloc(sizeof(t_token));
 	token->category = T_HERE_DOC;
 	token->content = NULL;
+	i++;
 	return (token);
 }
 
