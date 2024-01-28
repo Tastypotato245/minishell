@@ -23,23 +23,6 @@ static int	ft_is_space(char c)
 	return (0);
 }
 
-static t_list	*categorize_token(const char *line, size_t *index)
-{
-	if (line[*index] == '|')
-		return (categorize_pipe(line, index));
-	if (line[*index] == '&')
-		return (create_and_token(line, index));
-	if (line[*index] == '(')
-		return (create_lparen_token(line, index));
-	if (line[*index] == ')')
-		return (create_rparen_token(line, index));
-	if (line[*index] == '<')
-		return (categorize_less_than(line, index));
-	if (line[*index] == '>')
-		return (categorize_greater_than(line, index));
-	return (create_word_token(line, index));
-}
-
 t_list	*tokenize(const char *line)
 {
 	const size_t	line_len = ft_strlen(line);
