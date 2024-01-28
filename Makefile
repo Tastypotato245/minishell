@@ -35,7 +35,7 @@ SRCS_B_DIR	=	./src_bonus/
 INCL_DIR	=	./include/
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
 RM			=	rm -f
 ECHO		=	echo
 
