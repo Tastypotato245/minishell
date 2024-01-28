@@ -12,7 +12,7 @@
 
 #include <tokenize.h>
 
-static t_token *categorize_pipe(const char *line, size_t *i)
+static t_token	*categorize_pipe(const char *line, size_t *i)
 {
 	(*i)++;
 	if (line[*i] == '|')
@@ -20,7 +20,7 @@ static t_token *categorize_pipe(const char *line, size_t *i)
 	return (create_pipe_token());
 }
 
-static t_token *categorize_ampersand(const char *line, size_t *i)
+static t_token	*categorize_ampersand(const char *line, size_t *i)
 {
 	(*i)++;
 	if (line[*i] == '&')
@@ -28,7 +28,7 @@ static t_token *categorize_ampersand(const char *line, size_t *i)
 	return (create_error_token());
 }
 
-static t_token *categorize_less_than(const char *line, size_t *i)
+static t_token	*categorize_less_than(const char *line, size_t *i)
 {
 	(*i)++;
 	if (line[*i] == '<')
@@ -36,7 +36,7 @@ static t_token *categorize_less_than(const char *line, size_t *i)
 	return (create_in_redirect_token());
 }
 
-static t_token *categorize_greater_than(const char *line, size_t *i)
+static t_token	*categorize_greater_than(const char *line, size_t *i)
 {
 	(*i)++;
 	if (line[*i] == '>')

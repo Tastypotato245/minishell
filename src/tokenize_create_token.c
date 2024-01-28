@@ -34,7 +34,7 @@ t_token	*create_and_token(size_t *i)
 	return (token);
 }
 
-t_token	*create_pipe_token()
+t_token	*create_pipe_token(void)
 {
 	t_token	*token;
 
@@ -66,7 +66,7 @@ t_token	*create_rparen_token(size_t *i)
 	return (token);
 }
 
-t_token	*create_in_redirect_token()
+t_token	*create_in_redirect_token(void)
 {
 	t_token	*token;
 
@@ -76,7 +76,7 @@ t_token	*create_in_redirect_token()
 	return (token);
 }
 
-t_token	*create_out_redirect_token()
+t_token	*create_out_redirect_token(void)
 {
 	t_token	*token;
 
@@ -115,7 +115,7 @@ t_token	*create_word_token(const char *line, size_t *i)
 	return (create_error_token());
 }
 
-t_token	*create_error_token()
+t_token	*create_error_token(void)
 {
 	t_token	*token;
 
