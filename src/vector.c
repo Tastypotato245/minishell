@@ -81,7 +81,7 @@ char	*push_back(t_vector *vector, char c)
 		vector->data = (char *)ft_realloc(vector->data,
 				vector->cap, vector->cap * 2);
 		if (vector->data == NULL)
-			return (NULL);
+			exit(1);
 		vector->cap *= 2;
 	}
 	vector->data[vector->len++] = c;
