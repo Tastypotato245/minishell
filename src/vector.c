@@ -26,6 +26,7 @@ void	destroy_vector(t_vector *vector)
 	vector->cap = 0;
 	vector->len = 0;
 	free(vector->data);
+	vector->data = NULL;
 }
 
 static void	*ft_memcpy(void *new_addr, const void *addr, size_t copy_size)
