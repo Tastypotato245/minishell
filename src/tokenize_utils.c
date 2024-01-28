@@ -41,3 +41,8 @@ int	ft_is_metacharacter(char c)
 		return (1);
 	return (0);
 }
+
+void	destroy_token(t_token *token)
+{
+	free(token->content);
+}
