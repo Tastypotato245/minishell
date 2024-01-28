@@ -19,6 +19,7 @@ t_token	*create_or_token(size_t *i)
 	token = malloc(sizeof(t_token));
 	token->category = T_OR;
 	token->content = NULL;
+	i++;
 	return (token);
 }
 
@@ -29,10 +30,11 @@ t_token	*create_and_token(size_t *i)
 	token = malloc(sizeof(t_token));
 	token->category = T_AND;
 	token->content = NULL;
+	i++;
 	return (token);
 }
 
-t_token	*create_pipe_token(size_t *i)
+t_token	*create_pipe_token()
 {
 	t_token	*token;
 
@@ -106,4 +108,14 @@ t_token	*create_here_doc_token(size_t *i)
 
 t_token	*create_word_token(const char *line, size_t *i)
 {
+}
+
+t_token	*create_error()
+{
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	token->category = T_ERROR;
+	token->content = NULL;
+	return (token);
 }
