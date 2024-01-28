@@ -54,6 +54,7 @@ dkms.conf
 # for minishell
 kyusulib/__.SYMDEF SORTED
 minishell
+kyusulib/libft/bonus
 
 # for younghoc
 compile_flags.txt
