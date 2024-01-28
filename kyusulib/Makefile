@@ -35,7 +35,6 @@ $(NAME)		:	$(LIBFT_A) $(EXCEPT_A)
 
 $(LIBFT_A)	:
 				@$(MAKE) -C $(LIBFT)
-				@$(MAKE) -C $(LIBFT) bonus
 
 $(EXCEPT_A)	:
 				@$(MAKE) -C $(EXCEPT)
