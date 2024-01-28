@@ -112,6 +112,7 @@ t_token	*create_word_token(const char *line, size_t *i)
 {
 	(void)line;
 	(void)i;
+	(*i)++;
 	return (create_error_token());
 }
 
