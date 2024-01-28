@@ -35,7 +35,7 @@ void	print_token(void *content)
 	else if (token->category == T_HERE_DOC)
 		printf("T_HERE_DOC\n");
 	else if (token->category == T_WORD)
-		printf("T_WORD\n");
+		printf("T_WORD(%s)\n", token->content);
 	else if (token->category == T_ERROR)
 		printf("T_ERROR\n");
 	else
