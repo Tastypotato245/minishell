@@ -14,7 +14,7 @@
 
 static t_token *categorize_pipe(const char *line, size_t *i)
 {
-	i++;
+	(*i)++;
 	if (line[*i] == '|')
 		return (create_or_token(i));
 	return (create_pipe_token());
@@ -22,7 +22,7 @@ static t_token *categorize_pipe(const char *line, size_t *i)
 
 static t_token *categorize_ampersand(const char *line, size_t *i)
 {
-	i++;
+	(*i)++;
 	if (line[*i] == '&')
 		return (create_and_token(i));
 	return (create_error_token());
@@ -30,7 +30,7 @@ static t_token *categorize_ampersand(const char *line, size_t *i)
 
 static t_token *categorize_less_than(const char *line, size_t *i)
 {
-	i++;
+	(*i)++;
 	if (line[*i] == '<')
 		return (create_here_doc_token(i));
 	return (create_in_redirect_token());
@@ -38,7 +38,7 @@ static t_token *categorize_less_than(const char *line, size_t *i)
 
 static t_token *categorize_greater_than(const char *line, size_t *i)
 {
-	i++;
+	(*i)++;
 	if (line[*i] == '>')
 		return (create_append_redirect_token(i));
 	return (create_out_redirect_token());

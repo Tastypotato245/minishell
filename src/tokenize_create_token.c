@@ -19,7 +19,7 @@ t_token	*create_or_token(size_t *i)
 	token = malloc(sizeof(t_token));
 	token->category = T_OR;
 	token->content = NULL;
-	i++;
+	(*i)++;
 	return (token);
 }
 
@@ -30,7 +30,7 @@ t_token	*create_and_token(size_t *i)
 	token = malloc(sizeof(t_token));
 	token->category = T_AND;
 	token->content = NULL;
-	i++;
+	(*i)++;
 	return (token);
 }
 
@@ -51,7 +51,7 @@ t_token	*create_lparen_token(size_t *i)
 	token = malloc(sizeof(t_token));
 	token->category = T_L_PAREN;
 	token->content = NULL;
-	i++;
+	(*i)++;
 	return (token);
 }
 
@@ -62,7 +62,7 @@ t_token	*create_rparen_token(size_t *i)
 	token = malloc(sizeof(t_token));
 	token->category = T_R_PAREN;
 	token->content = NULL;
-	i++;
+	(*i)++;
 	return (token);
 }
 
@@ -93,7 +93,7 @@ t_token	*create_append_redirect_token(size_t *i)
 	token = malloc(sizeof(t_token));
 	token->category = T_APPEND_REDIRECT;
 	token->content = NULL;
-	i++;
+	(*i)++;
 	return (token);
 }
 
@@ -104,7 +104,7 @@ t_token	*create_here_doc_token(size_t *i)
 	token = malloc(sizeof(t_token));
 	token->category = T_HERE_DOC;
 	token->content = NULL;
-	i++;
+	(*i)++;
 	return (token);
 }
 
