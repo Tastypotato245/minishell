@@ -12,16 +12,13 @@
 
 #include <vector.h>
 
-t_vector	init_vector(void)
+void	init_vector(t_vector *vector)
 {
-	t_vector	vector;
-
-	vector.data = malloc(16);
-	if (vector.data == NULL)
+	vector->data = malloc(16);
+	if (vector->data == NULL)
 		exit(1);
-	vector.len = 0;
-	vector.cap = 16;
-	return (vector);
+	vector->len = 0;
+	vector->cap = 16;
 }
 
 void	destroy_vector(t_vector *vector)

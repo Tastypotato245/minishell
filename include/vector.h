@@ -26,7 +26,8 @@ typedef struct s_vector
 	int		cap;
 }	t_vector;
 
-t_vector	init_vector(void);
+void		init_vector(t_vector *vector);
 char		*push_back(t_vector *vector, char c);
+void		destroy_vector(t_vector *vector);
 
 #endif
