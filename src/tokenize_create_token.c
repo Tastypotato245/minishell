@@ -12,40 +12,96 @@
 
 #include <tokenize.h>
 
-t_token	*create_or_token(const char *line, size_t *i)
+t_token	*create_or_token(size_t *i)
 {
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	token->category = T_OR;
+	token->content = NULL;
+	return (token);
 }
 
-t_token	*create_and_token(const char *line, size_t *i)
+t_token	*create_and_token(size_t *i)
 {
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	token->category = T_AND;
+	token->content = NULL;
+	return (token);
 }
 
-t_token	*create_pipe_token(const char *line, size_t *i)
+t_token	*create_pipe_token(size_t *i)
 {
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	token->category = T_PIPE;
+	token->content = NULL;
+	return (token);
 }
 
-t_token	*create_lparen_token(const char *line, size_t *i)
+t_token	*create_lparen_token(size_t *i)
 {
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	token->category = T_L_PAREN;
+	token->content = NULL;
+	i++;
+	return (token);
 }
 
-t_token	*create_rparen_token(const char *line, size_t *i)
+t_token	*create_rparen_token(size_t *i)
 {
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	token->category = T_R_PAREN;
+	token->content = NULL;
+	i++;
+	return (token);
 }
 
-t_token	*create_in_redirect_token(const char *line, size_t *i)
+t_token	*create_in_redirect_token(size_t *i)
 {
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	token->category = T_IN_REDIRECT;
+	token->content = NULL;
+	return (token);
 }
 
-t_token	*create_out_redirect_token(const char *line, size_t *i)
+t_token	*create_out_redirect_token(size_t *i)
 {
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	token->category = T_OUT_REDIRECT;
+	token->content = NULL;
+	return (token);
 }
 
-t_token	*create_append_redirect_token(const char *line, size_t *i)
+t_token	*create_append_redirect_token(size_t *i)
 {
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	token->category = T_APPEND_REDIRECT;
+	token->content = NULL;
+	return (token);
 }
 
-t_token	*create_here_doc_token(const char *line, size_t *i)
+t_token	*create_here_doc_token(size_t *i)
 {
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	token->category = T_HERE_DOC;
+	token->content = NULL;
+	return (token);
 }
 
 t_token	*create_word_token(const char *line, size_t *i)

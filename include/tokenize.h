@@ -37,21 +37,17 @@ typedef struct s_token
 
 t_list	*tokenize(const char *line);
 
-
-t_token	*categorize_pipe(const char *line, size_t *i);
-t_token	*categorize_less_than(const char *line, size_t *i);
-t_token	*categorize_greater_than(const char *line, size_t *i);
 t_token	*categorize_token(const char *line, size_t *i);
 
-t_token	*create_or_token(const char *line, size_t *i);
-t_token	*create_and_token(const char *line, size_t *i);
-t_token	*create_pipe_token(const char *line, size_t *i);
-t_token	*create_lparen_token(const char *line, size_t *i);
-t_token	*create_rparen_token(const char *line, size_t *i);
-t_token	*create_in_redirect_token(const char *line, size_t *i);
-t_token	*create_out_redirect_token(const char *line, size_t *i);
-t_token	*create_append_redirect_token(const char *line, size_t *i);
-t_token	*create_here_doc_token(const char *line, size_t *i);
+t_token	*create_or_token(size_t *i);
+t_token	*create_and_token(size_t *i);
+t_token	*create_pipe_token(size_t *i);
+t_token	*create_lparen_token(size_t *i);
+t_token	*create_rparen_token(size_t *i);
+t_token	*create_in_redirect_token(size_t *i);
+t_token	*create_out_redirect_token(size_t *i);
+t_token	*create_append_redirect_token(size_t *i);
+t_token	*create_here_doc_token(size_t *i);
 t_token	*create_word_token(const char *line, size_t *i);
 
 #endif
