@@ -40,7 +40,7 @@ $(NAME)		:	$(LIBFT_A) $(GNL_A) $(PRINTF_A) $(EXCEPT_A)
 				@$(RM) *.o
 
 $(LIBFT_A)	:
-				@$(MAKE) -C $(LIBFT)
+				@$(MAKE) -C $(LIBFT) bonus
 
 $(GNL_A)	:
 				@$(MAKE) -C $(GNL)
