@@ -51,7 +51,7 @@ bonus		:
 
 $(NAME)		:	$(OBJS_SWITCH) $(HEAD_SWITCH)
 				@$(MAKE) -C $(KYUSULIB)
-				@$(CC) $(CFLAGS) -I$(INCL_DIR) $(OBJS_SWITCH) -L$(KYUSULIB) -lkyusulib -o $(NAME)
+				@$(CC) $(CFLAGS) -I$(INCL_DIR) $(OBJS_SWITCH) -L$(KYUSULIB) -lkyusulib -lreadline -o $(NAME)
 				@$(ECHO) "*** Linking complete."
 
 clean		:

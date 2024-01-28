@@ -15,5 +15,6 @@
 
 # include "../kyusulib/kyusulib.h"
 # include <stdio.h>
+# include <readline/readline.h>
 
 #endif

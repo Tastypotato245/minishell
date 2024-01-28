@@ -14,6 +14,13 @@
 
 int	main(void)
 {
-	printf("Hello World!!\n");
+	char	*line;
+
+	while (1)
+	{
+		line = readline("minishell > ");
+		printf("%s\n", line);
+		free(line);
+	}
 	return (0);
 }
