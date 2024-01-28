@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <tokenize.h>
+#include <vector.h>
 
 t_token	*create_or_token(size_t *i)
 {
@@ -110,10 +111,20 @@ t_token	*create_here_doc_token(size_t *i)
 
 t_token	*create_word_token(const char *line, size_t *i)
 {
-	(void)line;
-	(void)i;
-	(*i)++;
-	return (create_error_token());
+	t_token		*token;
+	t_vector	vector;
+
+	token = malloc(sizeof(t_token));
+	token->category = T_WORD;
+	init_vector(&vector);
+	while (line[*i] != '\0' && ft_is_metacharacter(line[*i]) == 0)
+	{
+		push_back(&vector, line[*i]);
+		(*i)++;
+	}
+	push_back(&vector, '\0');
+	token->content = vector.data;
+	return (token);
 }
 
 t_token	*create_error_token(void)
