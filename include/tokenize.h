@@ -52,4 +52,6 @@ t_token	*create_here_doc_token(size_t *i);
 t_token	*create_word_token(const char *line, size_t *i);
 t_token	*create_error_token();
 
+void	print_token(void *content);
+
 #endif

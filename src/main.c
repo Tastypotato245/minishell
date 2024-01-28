@@ -16,11 +16,14 @@
 int	main(void)
 {
 	char	*line;
+	t_list	*tokens;
 
 	while (1)
 	{
 		line = readline("minishell > ");
-		tokenize(line); free(line);
+		tokens = tokenize(line);
+		ft_lstiter(tokens, print_token);
+		free(line);
 	}
 	return (0);
 }

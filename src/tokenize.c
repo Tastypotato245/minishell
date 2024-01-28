@@ -44,6 +44,5 @@ t_list	*tokenize(const char *line)
 		ft_lstadd_back(&tokens, token_element);
 		i++;
 	}
-	tokens = NULL;
 	return (tokens);
 }
