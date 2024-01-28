@@ -20,9 +20,7 @@ int	main(void)
 	while (1)
 	{
 		line = readline("minishell > ");
-		printf("%s\n", line);
-		tokenize(line);
-		free(line);
+		tokenize(line); free(line);
 	}
 	return (0);
 }

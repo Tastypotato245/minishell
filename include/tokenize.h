@@ -35,6 +35,6 @@ typedef struct s_token
 	char				*content;
 }	t_token;
 
-t_list	*tokenize(char *line);
+t_list	*tokenize(const char *line);
 
 #endif
