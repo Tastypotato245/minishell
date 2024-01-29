@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_frankshell_image.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/29 14:08:31 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/01/29 14:38:00 by kyusulee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 static void	print_frankshell_burger_top(void)
@@ -45,25 +57,25 @@ static void	print_frankshell_burger_bottom(void)
 	printf("                                                               \n");
 }
 
-static void print_frankshell_logo(void)
+static void	print_frankshell_logo(void)
 {
 	printf("             ███████╗██████╗  █████╗ ███╗ ██╗██╗  ██╗          \n");
 	printf("             ██╔════╝██╔══██╗██╔══██╗████╗██║██║ ██╔╝          \n");
 	printf("             █████╗  ██████╔╝███████║██╔████║█████╔╝           \n");
 	printf("             ██╔══╝  ██╔══██╗██╔══██║██║╚███║██╔═██╗           \n");
-	printf("             ██║     ██║  ██║██║  ██║██║ ╚██║██║  ██╗          \n");   
+	printf("             ██║     ██║  ██║██║  ██║██║ ╚██║██║  ██╗          \n");
 	printf("             ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝          \n");
-	printf("             ███████╗██╗  ██╗███████╗██╗     ██╗               \n");   
+	printf("             ███████╗██╗  ██╗███████╗██╗     ██╗               \n");
 	printf("             ██╔════╝██║  ██║██╔════╝██║     ██║               \n");
-	printf("             ███████╗███████║█████╗  ██║     ██║               \n");   
+	printf("             ███████╗███████║█████╗  ██║     ██║               \n");
 	printf("             ╚════██║██╔══██║██╔══╝  ██║     ██║               \n");
 	printf("             ███████║██║  ██║███████╗███████╗███████╗          \n");
 	printf("             ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝          \n");
 	printf("                                                               \n");
-	printf("                   version: 1.0 (2024.01.28)                   \n");
+	printf("                   version: 1.0 (2024.01.29)                   \n");
 	printf("                                                               \n");
-	printf("                 younghoc: github.com/Tastypotato245           \n");
-	printf("                 kyusulee: github.com/cho0h5                   \n");
+	printf("                 younghoc: github.com/cho0h5                   \n");
+	printf("                 kyusulee: github.com/Tastypotato245           \n");
 	printf("                                                               \n");
 	printf("                          in 42Seoul                           \n");
 	printf("                                                               \n");
