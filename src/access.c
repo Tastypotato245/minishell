@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:56:28 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 20:06:44 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 21:06:32 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ static char	*get_paths(char **env)
 	return (DEFAULT_PATH);
 }
 
-void	exec(char *cmd, char **env)
+void	exec(t_exe_lst *exes, char **env)
 {
 	char	**s_cmd;
 	char	*path;
 	char	*exist_path;
 
-	s_cmd = ft_split(cmd, ' ');
+	s_cmd = lst_to_2darr(exes);
 	if (s_cmd[0][0] == '/' || ft_strncmp(s_cmd[0], "./", 2) == 0)
 	{
 		if (access(s_cmd[0], F_OK) == -1)

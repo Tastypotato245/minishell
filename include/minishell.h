@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:14 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 20:07:45 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 21:07:31 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define TRUE (1)
 # define FALSE (0)
 # define INFILE_O (0)
-# define OUTFILE_O (1)
-# define W_MOD_BS (0)
+# define OUTFILE_T_O (1)
+# define OUTFILE_A_O (2)
 # define DEFAULT_PATH "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:."
 
 # define PROGRAM_NAME "minishell"
@@ -112,21 +112,22 @@ void		free_cmd_lst(t_cmd_lst *cmds);
 void		print_cmd_lst(t_cmd_lst *cmds);
 
 // execute_test.c
-void		execute_test(void);
+void		execute_test(char **env);
 /***** MINISHELL *****/
 
 
 /***** PIPEX *****/
 // pipex.c
-void	pipex(int argc, char **argv, char **env);
-int		open_guard(int mod, char *file);
+void		pipex(t_cmd_lst *cmds, char **env);
+int			open_guard(int mod, char *file);
+char		**lst_to_2darr(t_exe_lst *exes);
 
 // process.c
-void	children_switch(t_info *info, int *fd, char **argv, char **env);
+void		children_switch(t_info *info, int *fd, t_cmd_node *cmd, char **env);
 
 // access.c
-void	exec(char *cmd, char **env);
-char	*get_cmd(char *cmd, char **env, int flag);
+void		exec(t_exe_lst *exes, char **env);
+char		*get_cmd(char *cmd, char **env, int flag);
 /***** PIPEx *****/
 
 #endif

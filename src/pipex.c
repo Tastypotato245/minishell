@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:56:13 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 20:07:47 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 21:12:46 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void	parent_wait(t_info *info, pid_t last_pid, int mod)
 		if (wait(&status) == last_pid)
 			exit_save = WEXITSTATUS(status);
 	}
+	printf("end in parent_wait?\n");
+	fflush(stdout);
 	exit(exit_save);
 }
 
@@ -48,16 +50,37 @@ int	open_guard(int mod, char *file)
 	return (fd);
 }
 
-void	pipex(int argc, char **argv, char **env)
-{
-	int		fd[2];
-	pid_t	pid;
-	t_info	info;
+char	**lst_to_2darr(t_exe_lst *exes)
+{	
+	char		**s_cmd;
+	t_exe_node	*exe;
+	int			i;
 
-	info.pnum = argc - 3;
-	fd[0] = 0;
-	fd[1] = 0;
+	s_cmd = null_guard(malloc(sizeof(char *) * (exes->size + 1)), \
+			PROGRAM_NAME, "lst_to_2darr().");
+	i = 0;
+	exe = exes->head;
+	while (exe)
+	{
+		s_cmd[i] = ft_strdup(exe->word);
+		exe = exe->next;
+		++i;
+	}
+	s_cmd[i] = NULL;
+	return (s_cmd);
+}
+
+void	pipex(t_cmd_lst *cmds, char **env)
+{
+	int			fd[2];
+	pid_t		pid;
+	t_info		info;
+	t_cmd_node	*cmd;
+
+	info.pnum = cmds->size - 1;
+	ft_bzero(fd, sizeof(int) * 2);
 	info.pidx = 0;
+	cmd = cmds->head;
 	while (info.pidx < info.pnum)
 	{
 		info.ex_fd = fd[0];
@@ -65,12 +88,13 @@ void	pipex(int argc, char **argv, char **env)
 			exit_handler(1, PROGRAM_NAME, "pipex().");
 		pid = func_guard(fork(), PROGRAM_NAME, "pipex().");
 		if (pid == 0)
-			children_switch(&info, fd, argv, env);
+			children_switch(&info, fd, cmd, env);
 		if (pid > 0 && info.pidx != 0)
 			func_guard(close(info.ex_fd), PROGRAM_NAME, "pipex().");
 		if (pid > 0 && info.pidx != info.pnum - 1)
 			func_guard(close(fd[1]), PROGRAM_NAME, "pipex().");
 		++(info.pidx);
+		cmd = cmd->next;
 	}
-	parent_wait(&info, pid, W_MOD_BS);
+	parent_wait(&info, pid, 0);
 }
