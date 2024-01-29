@@ -194,7 +194,12 @@ t_tree	*parse_list(t_list **tokens)
 
 t_tree	*parse(t_list *tokens)
 {
+	t_tree	*tree;
+
 	if (tokens == NULL)
 		return (NULL);
-	return (parse_list(&tokens));
+	tree = parse_list(&tokens);
+	if (tokens != NULL)
+		panic("parse(): left token");
+	return (tree);
 }
