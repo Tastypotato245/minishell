@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parser.h>
+#include <parse.h>
 #include <tokenize.h>
 #include <panic.h>
 

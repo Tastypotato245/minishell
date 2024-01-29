@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 #include <tokenize.h>
-#include <parser.h>
+#include <parse.h>
 
 int	main(void)
 {
