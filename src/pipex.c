@@ -14,13 +14,12 @@
 
 // func_guard(unlink(HD_FILE));
 // sequencial unlink 
-static void	parent_wait(t_info *info, pid_t last_pid, int mod)
+static void	parent_wait(t_info *info, pid_t last_pid)
 {
 	int	i;
 	int	exit_save;
 	int	status;
 
-	mod = 0;
 	i = -1;
 	while (++i < info->pnum)
 	{
@@ -32,45 +31,7 @@ static void	parent_wait(t_info *info, pid_t last_pid, int mod)
 	exit(exit_save);
 }
 
-// 0 : <
-// 1 : >
-// 2 : >>
-int	open_guard(int mod, char *file)
-{
-	int	fd;
-
-	if (mod == 0)
-		fd = open(file, O_RDONLY);
-	if (mod == 1)
-		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (mod == 2)
-		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (fd == -1)
-		exit_handler(1, PROGRAM_NAME, file);
-	return (fd);
-}
-
-char	**lst_to_2darr(t_exe_lst *exes)
-{	
-	char		**s_cmd;
-	t_exe_node	*exe;
-	int			i;
-
-	s_cmd = null_guard(malloc(sizeof(char *) * (exes->size + 1)), \
-			PROGRAM_NAME, "lst_to_2darr().");
-	i = 0;
-	exe = exes->head;
-	while (exe)
-	{
-		s_cmd[i] = ft_strdup(exe->word);
-		exe = exe->next;
-		++i;
-	}
-	s_cmd[i] = NULL;
-	return (s_cmd);
-}
-
-void	pipex(t_cmd_lst *cmds, char **env)
+void	multiple_proccess(t_cmd_lst *cmds, char **env)
 {
 	int			fd[2];
 	pid_t		pid;
@@ -96,5 +57,25 @@ void	pipex(t_cmd_lst *cmds, char **env)
 		++(info.pidx);
 		cmd = cmd->next;
 	}
-	parent_wait(&info, pid, 0);
+	parent_wait(&info, pid);
+}
+
+void	single_proccess(t_cmd_node *cmd, char **env)
+{
+	pid_t		pid;
+	pid = func_guard(fork(), PROGRAM_NAME, "pipex().");
+	if (pid == 0)
+		single_child(&info, fd, cmd, env);
+	if (pid > 0)
+		func_guard(close(info.ex_fd), PROGRAM_NAME, "pipex().");
+	parent_wait(&info, pid);
+}
+
+void	pipex(t_cmd_lst *cmds, char **env)
+{
+	if (cmds->size == 1)
+		single_proccess(cmds, env);
+	else if (cmds->size > 1)
+		multiple_proccess(cmds, env);
+	printf("There is no cmd");
 }

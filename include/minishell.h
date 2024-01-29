@@ -119,6 +119,9 @@ void		execute_test(char **env);
 /***** PIPEX *****/
 // pipex.c
 void		pipex(t_cmd_lst *cmds, char **env);
+
+// pipex_utils.c
+void		repeat_redirection(t_rd_lst *rds);
 int			open_guard(int mod, char *file);
 char		**lst_to_2darr(t_exe_lst *exes);
 

@@ -12,24 +12,10 @@
 
 #include <minishell.h>
 
-void	repeat_redirection(t_rd_lst *rds)
+void	single_child(t_cmd_node *cmd, char **env)
 {
-	int			rd_fd;
-	t_rd_node	*rd;
-
-	rd = rds->head;
-	while (rd)
-	{
-		rd_fd = open_guard(rd->rd_type, rd->file);
-		if (rd->rd_type == IN_RD)
-			func_guard(dup2(rd_fd, STDIN_FILENO), \
-					PROGRAM_NAME, "first_child().");
-		else
-			func_guard(dup2(rd_fd, STDOUT_FILENO), \
-					PROGRAM_NAME, "first_child().");
-		func_guard(close(rd_fd), PROGRAM_NAME, "first_child().");
-		rd = rd->next;
-	}
+	repeat_redirection(cmd->rds);
+	exec(cmd->exes, env);
 }
 
 void	first_child(int *fd, t_cmd_node *cmd, char **env)
@@ -53,6 +39,14 @@ void	middle_child(t_info *info, int *fd, t_cmd_node *cmd, char **env)
 }
 
 void	last_child(t_info *info, t_cmd_node *cmd, char **env)
+{
+	func_guard(dup2(info->ex_fd, STDIN_FILENO), PROGRAM_NAME, "last_child().");
+	func_guard(close(info->ex_fd), PROGRAM_NAME, "last_child().");
+	repeat_redirection(cmd->rds);
+	exec(cmd->exes, env);
+}
+
+void	first_n_last_child(t_cmd_node *cmd, char **env)
 {
 	func_guard(dup2(info->ex_fd, STDIN_FILENO), PROGRAM_NAME, "last_child().");
 	func_guard(close(info->ex_fd), PROGRAM_NAME, "last_child().");
