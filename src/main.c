@@ -12,17 +12,20 @@
 
 #include <minishell.h>
 #include <tokenize.h>
+#include <parser.h>
 
 int	main(void)
 {
 	char	*line;
 	t_list	*tokens;
+	t_tree	*tree;
 
 	while (1)
 	{
 		line = readline("🍔 $ ");
 		tokens = tokenize(line);
 		ft_lstiter(tokens, print_token);
+		tree = parse(tokens);
 		free(line);
 	}
 	return (0);

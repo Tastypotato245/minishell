@@ -11,24 +11,166 @@
 /* ************************************************************************** */
 
 #include <parser.h>
+#include <tokenize.h>
+#include <panic.h>
 
-t_tree	*parse_list(t_list *tokens)
+t_tree	*parse_word(t_list **tokens)
 {
+	t_tree	*tree;
+	t_token	*token;
+
+	tree = malloc(sizeof(t_tree));
+	if (*tokens == NULL)
+		panic("parse_word()");
+	token = (*tokens)->content;
+	tree->category = TR_WORD;
+	tree->left = token->content;
+	*tokens = (*tokens)->next;
+	return (tree);
 }
 
-t_tree	*parse_pipeline(t_list *tokens)
+t_tree	*parse_redirection(t_list **tokens)
 {
+	t_tree	*tree;
+	t_token	*token;
+
+	tree = malloc(sizeof(t_tree));
+	if (*tokens == NULL)
+		panic("parse_redirection()");
+	token = (*tokens)->content;
+	if (token->category == T_IN_REDIRECT)
+	{
+		tree->category = TR_REDIRECT_IN;
+		*tokens = (*tokens)->next;
+		tree->left = parse_word(tokens);
+	}
+	else if (token->category == T_OUT_REDIRECT)
+	{
+		tree->category = TR_REDIRECT_OUT;
+		*tokens = (*tokens)->next;
+		tree->left = parse_word(tokens);
+	}
+	else if (token->category == T_APPEND_REDIRECT)
+	{
+		tree->category = TR_REDIRECT_APPEND;
+		*tokens = (*tokens)->next;
+		tree->left = parse_word(tokens);
+	}
+	else if (token->category == T_HERE_DOC)
+	{
+		tree->category = TR_REDIRECT_HERE_DOC;
+		*tokens = (*tokens)->next;
+		tree->left = parse_word(tokens);
+	}
+	else
+		panic("parse_redirection()");
+	return (tree);
 }
 
-t_tree	*parse_simple_command(t_list *tokens)
+t_tree	*parse_simple_command(t_list **tokens)
 {
+	t_tree	*tree;
+	t_token	*token;
+
+	tree = malloc(sizeof(t_tree));
+	if (*tokens == NULL)
+		panic("parse_pipeline()");
+	token = (*tokens)->content;
+	if (token->category == T_IN_REDIRECT
+		|| token->category == T_OUT_REDIRECT
+		|| token->category == T_APPEND_REDIRECT
+		|| token->category == T_HERE_DOC)
+		tree->left = parse_redirection(tokens);
+	else
+		tree->left = parse_word(tokens);
+	if (*tokens == NULL)
+	{
+		tree->category = TR_SMPL_CMD_END;
+		return (tree);
+	}
+	token = (*tokens)->content;
+	if (token->category == T_AND
+		|| token->category == T_OR
+		|| token->category == T_PIPE
+		|| token->category == T_L_PAREN
+		|| token->category == T_R_PAREN){
+		tree->category = TR_SMPL_CMD_END;
+		return (tree);
+	}
+	else
+	{
+		tree->category = TR_SMPL_CMD_CONTINUE;
+		tree->right = parse_simple_command(tokens);
+		return (tree);
+	}
 }
 
-t_tree	*parse_redirection(t_list *tokens)
+t_tree	*parse_pipeline(t_list **tokens)
 {
+	t_tree	*tree;
+	t_token	*token;
+
+	tree = malloc(sizeof(t_tree));
+	if (*tokens == NULL)
+		panic("parse_pipeline()");
+	token = (*tokens)->content;
+	if (token->category == T_L_PAREN)
+	{
+		*tokens = (*tokens)->next;
+		tree->left = parse_list(tokens);
+	}
+	else
+		tree->right = parse_simple_command(tokens);
+	if (*tokens == NULL)
+	{
+		tree->category = TR_PIPE_END;
+		return (tree);
+	}
+	token = (*tokens)->content;
+	if (token->category == T_PIPE)
+	{
+		tree->category = TR_PIPE_CONTINUE;
+		tree->right = parse_pipeline(tokens);
+		*tokens = (*tokens)->next;
+		return (tree);
+	}
+	panic("parse_pipeline()");
+	return (tree);
+}
+
+t_tree	*parse_list(t_list **tokens)
+{
+	t_tree	*tree;
+	t_token	*token;
+	
+	tree = malloc(sizeof(t_tree));
+	tree->left = parse_pipeline(tokens);
+	tree->right = NULL;
+	if (*tokens == NULL)
+	{
+		tree->category = TR_LIST_END;
+		return (tree);
+	}
+	token = (*tokens)->content;
+	if (token->category == T_AND)
+	{
+		tree->category = TR_LIST_AND;
+		tree->right = parse_list(tokens);
+		*tokens = (*tokens)->next;
+		return (tree);
+	}
+	else if (token->category == T_OR)
+	{
+		tree->category = TR_LIST_OR;
+		tree->right = parse_list(tokens);
+		*tokens = (*tokens)->next;
+		return (tree);
+	}
+	panic("parse_list()");
+	return (tree);
 }
 
 t_tree	*parse(t_list *tokens)
 {
-	return (parse_list(tokens));
+	return (parse_list(&tokens));
 }
