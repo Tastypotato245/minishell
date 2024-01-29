@@ -15,9 +15,10 @@ NAME		=	minishell
 HEAD		=	$(INCL_DIR)minishell.h
 HEAD_B		=	$(INCL_DIR)minishell_bonus.h
 
-SRCS		=	$(SRCS_DIR)main.c		\
+SRCS		=	$(SRCS_DIR)main.c	\
+				$(SRCS_DIR)print_frankshell_image.c
 
-SRCS_B		=	$(SRCS_B_DIR)main.c		\
+SRCS_B		=	$(SRCS_B_DIR)main.c
 
 OBJS		=	$(SRCS:.c=.o)
 OBJS_B		=	$(SRCS_B:.c=.o)
@@ -51,7 +52,7 @@ bonus		:
 
 $(NAME)		:	$(OBJS_SWITCH) $(HEAD_SWITCH)
 				@$(MAKE) -C $(KYUSULIB)
-				@$(CC) $(CFLAGS) -I$(INCL_DIR) $(OBJS_SWITCH) -L$(KYUSULIB) -lkyusulib -o $(NAME)
+				@$(CC) $(CFLAGS) -I$(INCL_DIR) $(OBJS_SWITCH) -L$(KYUSULIB) -lkyusulib -lreadline -o $(NAME)
 				@$(ECHO) "*** Linking complete."
 
 clean		:

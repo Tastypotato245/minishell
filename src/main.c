@@ -14,6 +14,13 @@
 
 int	main(void)
 {
-	printf("Hello World!!\n");
+	char	*line;
+
+	print_frankshell_image();
+	while (1)
+	{
+		line = readline("🍔 $ ");
+		free(line);
+	}
 	return (0);
 }
