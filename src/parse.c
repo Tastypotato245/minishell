@@ -182,6 +182,12 @@ t_tree	*parse_list(t_list **tokens)
 		tree->right = parse_list(tokens);
 		return (tree);
 	}
+	else if (token->category == T_R_PAREN)
+	{
+		tree->category = TR_LIST_END;
+		tree->right = NULL;
+		return (tree);
+	}
 	panic("parse_list()");
 	return (tree);
 }
