@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 15:40:26 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 16:23:56 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:05:35 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,20 @@ void	free_exe_lst(t_exe_lst *exes)
 		free(tmp);
 	}
 	free(exes);
+}
+
+void	print_exe_lst(t_exe_lst *exes)
+{
+	t_exe_node	*tmp;	
+
+	if (!exes)
+		exit_handler(1, PROGRAM_NAME, "exe_lst is NULL: print_exe_lst().");
+	tmp = exes->head;
+	printf("exes: ");
+	while (tmp)
+	{
+		printf("( %s ) ", tmp->word);
+		tmp = tmp->next;
+	}
+	return ;
 }

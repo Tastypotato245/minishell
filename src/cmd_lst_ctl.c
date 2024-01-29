@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 21:56:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 16:23:06 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:05:10 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,11 @@ void	cmd_lst_new_back(t_cmd_lst *cmds, t_exe_lst *exes, t_rd_lst *rds)
 void	free_cmd_lst(t_cmd_lst *cmds)
 {
 	t_cmd_node	*tmp;	
+	int			cnt;
 
 	if (!cmds)
 		exit_handler(1, PROGRAM_NAME, "cmd_lst is NULL: free_cmd_lst().");
+	cnt = 0;
 	cmd_lst_size_check(cmds);
 	while (cmds->head)
 	{
@@ -92,4 +94,25 @@ void	free_cmd_lst(t_cmd_lst *cmds)
 		free(tmp);
 	}
 	free(cmds);
+}
+
+void	print_cmd_lst(t_cmd_lst *cmds)
+{
+	t_cmd_node	*tmp;	
+	int			cnt;
+
+	if (!cmds)
+		exit_handler(1, PROGRAM_NAME, "cmd_lst is NULL: print_cmd_lst().");
+	cnt = 0;
+	tmp = cmds->head;
+	while (tmp)
+	{
+		printf(" 🍔 cmd[%d]: ", cnt);
+		print_exe_lst(tmp->exes);
+		print_rd_lst(tmp->rds);
+		printf("| 🍔\n");
+		tmp = tmp->next;
+		++cnt;
+	}
+	return ;
 }

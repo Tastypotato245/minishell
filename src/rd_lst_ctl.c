@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:00:40 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 16:23:05 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:05:47 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,20 @@ void	free_rd_lst(t_rd_lst *rds)
 		free(tmp);
 	}
 	free(rds);
+}
+
+void	print_rd_lst(t_rd_lst *rds)
+{
+	t_rd_node	*tmp;	
+
+	if (!rds)
+		exit_handler(1, PROGRAM_NAME, "rd_lst is NULL: print_rd_lst().");
+	tmp = rds->head;
+	printf("rds: ");
+	while (tmp)
+	{
+		printf("[ rd_type: %d ] { file: %s } ", tmp->rd_type, tmp->file);
+		tmp = tmp->next;
+	}
+	return ;
 }

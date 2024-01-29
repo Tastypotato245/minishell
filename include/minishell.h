@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:14 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 16:23:38 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:57:30 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,21 @@ void	print_frankshell_image(void);
 t_exe_lst	*new_exe_lst(void);
 void		exe_lst_new_back(t_exe_lst *exes, char *word);
 void		free_exe_lst(t_exe_lst *exes);
+void		print_exe_lst(t_exe_lst *exes);
 
 // rd_lst_ctl.c
 t_rd_lst	*new_rd_lst(void);
 void		rd_lst_new_back(t_rd_lst *rds, t_rd_type rd_type, char *file);
 void		free_rd_lst(t_rd_lst *rds);
+void		print_rd_lst(t_rd_lst *rds);
 
 // cmd_lst_ctl.c
 t_cmd_lst	*new_cmd_lst(void);
 void		cmd_lst_new_back(t_cmd_lst *cmds, t_exe_lst *exes, t_rd_lst *rds);
 void		free_cmd_lst(t_cmd_lst *cmds);
+void		print_cmd_lst(t_cmd_lst *cmds);
+
+// execute_test.c
+void		execute_test(void);
 
 #endif
