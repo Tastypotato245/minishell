@@ -127,6 +127,13 @@ t_tree	*parse_pipeline(t_list **tokens)
 	{
 		*tokens = (*tokens)->next;
 		tree->left = parse_list(tokens);
+		if (*tokens == NULL)
+			panic("parse_pipeline(): rparen not found");
+		token = (*tokens)->content;
+		if (token->category != T_R_PAREN)
+			panic("parse_pipeline(): rparen not found");
+
+		*tokens = (*tokens)->next;
 	}
 	else
 		tree->left = parse_simple_command(tokens);
