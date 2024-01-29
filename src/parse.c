@@ -140,11 +140,16 @@ t_tree	*parse_pipeline(t_list **tokens)
 	if (token->category == T_PIPE)
 	{
 		tree->category = TR_PIPE_CONTINUE;
-		tree->right = parse_pipeline(tokens);
 		*tokens = (*tokens)->next;
+		tree->right = parse_pipeline(tokens);
 		return (tree);
 	}
-	panic("parse_pipeline()");
+	else
+	{
+		tree->category = TR_PIPE_END;
+		tree->right = NULL;
+		return (tree);
+	}
 	return (tree);
 }
 
@@ -166,15 +171,15 @@ t_tree	*parse_list(t_list **tokens)
 	if (token->category == T_AND)
 	{
 		tree->category = TR_LIST_AND;
-		tree->right = parse_list(tokens);
 		*tokens = (*tokens)->next;
+		tree->right = parse_list(tokens);
 		return (tree);
 	}
 	else if (token->category == T_OR)
 	{
 		tree->category = TR_LIST_OR;
-		tree->right = parse_list(tokens);
 		*tokens = (*tokens)->next;
+		tree->right = parse_list(tokens);
 		return (tree);
 	}
 	panic("parse_list()");
