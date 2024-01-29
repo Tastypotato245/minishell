@@ -28,7 +28,7 @@ int	main(void)
 		tokens = tokenize(line);
 		ft_lstiter(tokens, print_token);
 		tree = parse(tokens);
-		print_tree(tree);
+		print_tree(tree, 0);
 		free(line);
 	}
 	return (0);

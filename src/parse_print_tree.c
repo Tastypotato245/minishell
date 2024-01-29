@@ -12,10 +12,15 @@
 
 #include <parse.h>
 
-void	print_tree(t_tree *tree)
+void	print_tree(t_tree *tree, int step)
 {
+	int	i;
+
 	if (tree == NULL)
 		return ;
+	i = 0;
+	while (i++ < step)
+		printf("    ");
 	if (tree->category == TR_LIST_AND)
 		printf("TR_LIST_AND\n");
 	if (tree->category == TR_LIST_OR)
@@ -37,24 +42,24 @@ void	print_tree(t_tree *tree)
 	}
 	if (tree->category == TR_REDIRECT_IN)
 	{
-		printf("TR_REDIRECT_IN\n");
+		printf("TR_REDIRECT_IN(%s)\n", (char *)tree->left);
 		return ;
 	}
 	if (tree->category == TR_REDIRECT_OUT)
 	{
-		printf("TR_REDIRECT_OUT\n");
+		printf("TR_REDIRECT_OUT(%s)\n", (char *)tree->left);
 		return ;
 	}
 	if (tree->category == TR_REDIRECT_APPEND)
 	{
-		printf("TR_REDIRECT_APPEND\n");
+		printf("TR_REDIRECT_APPEND(%s)\n", (char *)tree->left);
 		return ;
 	}
 	if (tree->category == TR_REDIRECT_HERE_DOC)
 	{
-		printf("TR_REDIRECT_HERE_DOC\n");
+		printf("TR_REDIRECT_HERE_DOC(%s)\n", (char *)tree->left);
 		return ;
 	}
-	print_tree(tree->left);
-	print_tree(tree->right);
+	print_tree(tree->left, step + 1);
+	print_tree(tree->right, step + 1);
 }
