@@ -61,5 +61,5 @@ void	print_tree(t_tree *tree, int step)
 		return ;
 	}
 	print_tree(tree->left, step + 1);
-	print_tree(tree->right, step + 1);
+	print_tree(tree->right, step);
 }
