@@ -23,6 +23,8 @@ int	main(void)
 	while (1)
 	{
 		line = readline("🍔 $ ");
+		if (line == NULL)
+			break ;
 		tokens = tokenize(line);
 		ft_lstiter(tokens, print_token);
 		tree = parse(tokens);
