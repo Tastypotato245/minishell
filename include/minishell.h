@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:14 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 14:42:48 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:23:38 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ typedef struct s_rd_lst
 
 typedef struct s_cmd_node
 {
-	t_exe_lst			*exes;
-	t_rd_lst			*rds;
-	struct s_node_cmd	*next;
+	struct s_exe_lst	*exes;
+	struct s_rd_lst		*rds;
+	struct s_cmd_node	*next;
 }				t_cmd_node;
 
 typedef struct s_cmd_lst
@@ -70,5 +70,20 @@ typedef struct s_cmd_lst
 
 // print_frankshell_image.c
 void	print_frankshell_image(void);
+
+// exe_lst_ctl.c
+t_exe_lst	*new_exe_lst(void);
+void		exe_lst_new_back(t_exe_lst *exes, char *word);
+void		free_exe_lst(t_exe_lst *exes);
+
+// rd_lst_ctl.c
+t_rd_lst	*new_rd_lst(void);
+void		rd_lst_new_back(t_rd_lst *rds, t_rd_type rd_type, char *file);
+void		free_rd_lst(t_rd_lst *rds);
+
+// cmd_lst_ctl.c
+t_cmd_lst	*new_cmd_lst(void);
+void		cmd_lst_new_back(t_cmd_lst *cmds, t_exe_lst *exes, t_rd_lst *rds);
+void		free_cmd_lst(t_cmd_lst *cmds);
 
 #endif

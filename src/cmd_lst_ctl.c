@@ -6,14 +6,14 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 21:56:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 15:33:21 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:23:06 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 // for debug
-void	cmd_lst_size_check(t_cmd_lst *cmds)
+static void	cmd_lst_size_check(t_cmd_lst *cmds)
 {
 	t_cmd_node	*tmp;	
 	int			cnt;
@@ -36,7 +36,7 @@ t_cmd_lst	*new_cmd_lst(void)
 {
 	t_cmd_lst	*cmds;
 
-	cmds = nullguard(malloc(sizeof(*cmds)), PROGRAM_NAME, "new_cmd_lst().");
+	cmds = null_guard(malloc(sizeof(*cmds)), PROGRAM_NAME, "new_cmd_lst().");
 	cmds->head = NULL;
 	cmds->tail = NULL;
 	cmds->size = 0;
@@ -49,7 +49,7 @@ void	cmd_lst_new_back(t_cmd_lst *cmds, t_exe_lst *exes, t_rd_lst *rds)
 
 	if (!cmds)
 		exit_handler(1, PROGRAM_NAME, "cmd_lst is NULL: cmd_lst_new_back().");
-	new = nullguard(malloc(sizeof(*new), PROGRAM_NAME, "cmd_lst_new_back()."));
+	new = null_guard(malloc(sizeof(*new)), PROGRAM_NAME, "cmd_lst_new_back().");
 	new->exes = exes;
 	new->rds = rds;
 	new->next = NULL;
@@ -67,7 +67,7 @@ void	cmd_lst_new_back(t_cmd_lst *cmds, t_exe_lst *exes, t_rd_lst *rds)
 	}
 	return ;
 }
-/* 36 ~ 47 lines maybe same with
+/* 
 	if (!cmds->head)
 		cmds->head = new;
 	else
@@ -82,10 +82,14 @@ void	free_cmd_lst(t_cmd_lst *cmds)
 
 	if (!cmds)
 		exit_handler(1, PROGRAM_NAME, "cmd_lst is NULL: free_cmd_lst().");
+	cmd_lst_size_check(cmds);
 	while (cmds->head)
 	{
 		tmp = cmds->head;
 		cmds->head = cmds->head->next;
-		free_cmd_node(tmp);
+		free_exe_lst(tmp->exes);
+		free_rd_lst(tmp->rds);
+		free(tmp);
 	}
+	free(cmds);
 }
