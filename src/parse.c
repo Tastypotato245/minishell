@@ -127,7 +127,7 @@ t_tree	*parse_pipeline(t_list **tokens)
 		tree->left = parse_list(tokens);
 	}
 	else
-		tree->right = parse_simple_command(tokens);
+		tree->left = parse_simple_command(tokens);
 	if (*tokens == NULL)
 	{
 		tree->category = TR_PIPE_END;
