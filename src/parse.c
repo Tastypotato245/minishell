@@ -194,5 +194,7 @@ t_tree	*parse_list(t_list **tokens)
 
 t_tree	*parse(t_list *tokens)
 {
+	if (tokens == NULL)
+		return (NULL);
 	return (parse_list(&tokens));
 }
