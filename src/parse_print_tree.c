@@ -42,22 +42,22 @@ void	print_tree(t_tree *tree, int step)
 	}
 	if (tree->category == TR_REDIRECT_IN)
 	{
-		printf("TR_REDIRECT_IN(%s)\n", (char *)tree->left);
+		printf("TR_REDIRECT_IN(%s)\n", (char *)((t_tree *)tree->left)->left);
 		return ;
 	}
 	if (tree->category == TR_REDIRECT_OUT)
 	{
-		printf("TR_REDIRECT_OUT(%s)\n", (char *)tree->left);
+		printf("TR_REDIRECT_OUT(%s)\n", (char *)((t_tree *)tree->left)->left);
 		return ;
 	}
 	if (tree->category == TR_REDIRECT_APPEND)
 	{
-		printf("TR_REDIRECT_APPEND(%s)\n", (char *)tree->left);
+		printf("TR_REDIRECT_APPEND(%s)\n", (char *)((t_tree *)tree->left)->left);
 		return ;
 	}
 	if (tree->category == TR_REDIRECT_HERE_DOC)
 	{
-		printf("TR_REDIRECT_HERE_DOC(%s)\n", (char *)tree->left);
+		printf("TR_REDIRECT_HERE_DOC(%s)\n", (char *)((t_tree *)tree->left)->left);
 		return ;
 	}
 	print_tree(tree->left, step + 1);
