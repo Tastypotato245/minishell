@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:14 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 14:32:14 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:42:48 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_exe_node
 	struct s_exe_node	*next;
 }				t_exe_node;
 
-typedef	struct s_exe_lst
+typedef struct s_exe_lst
 {
 	struct s_exe_node	*head;
 	struct s_exe_node	*tail;
@@ -47,7 +47,7 @@ typedef struct s_rd_node
 	struct s_rd_node	*next;
 }				t_rd_node;
 
-typedef	struct s_rd_lst
+typedef struct s_rd_lst
 {
 	struct s_rd_node	*head;
 	struct s_rd_node	*tail;
@@ -61,7 +61,7 @@ typedef struct s_cmd_node
 	struct s_node_cmd	*next;
 }				t_cmd_node;
 
-typedef	struct s_cmd_lst
+typedef struct s_cmd_lst
 {
 	struct s_cmd_node	*head;
 	struct s_cmd_node	*tail;
