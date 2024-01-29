@@ -25,6 +25,7 @@ t_tree	*parse_word(t_list **tokens)
 	token = (*tokens)->content;
 	tree->category = TR_WORD;
 	tree->left = token->content;
+	tree->right = NULL;
 	*tokens = (*tokens)->next;
 	return (tree);
 }
@@ -43,24 +44,28 @@ t_tree	*parse_redirection(t_list **tokens)
 		tree->category = TR_REDIRECT_IN;
 		*tokens = (*tokens)->next;
 		tree->left = parse_word(tokens);
+		tree->right = NULL;
 	}
 	else if (token->category == T_OUT_REDIRECT)
 	{
 		tree->category = TR_REDIRECT_OUT;
 		*tokens = (*tokens)->next;
 		tree->left = parse_word(tokens);
+		tree->right = NULL;
 	}
 	else if (token->category == T_APPEND_REDIRECT)
 	{
 		tree->category = TR_REDIRECT_APPEND;
 		*tokens = (*tokens)->next;
 		tree->left = parse_word(tokens);
+		tree->right = NULL;
 	}
 	else if (token->category == T_HERE_DOC)
 	{
 		tree->category = TR_REDIRECT_HERE_DOC;
 		*tokens = (*tokens)->next;
 		tree->left = parse_word(tokens);
+		tree->right = NULL;
 	}
 	else
 		panic("parse_redirection()");
@@ -86,6 +91,7 @@ t_tree	*parse_simple_command(t_list **tokens)
 	if (*tokens == NULL)
 	{
 		tree->category = TR_SMPL_CMD_END;
+		tree->right = NULL;
 		return (tree);
 	}
 	token = (*tokens)->content;
@@ -95,6 +101,7 @@ t_tree	*parse_simple_command(t_list **tokens)
 		|| token->category == T_L_PAREN
 		|| token->category == T_R_PAREN){
 		tree->category = TR_SMPL_CMD_END;
+		tree->right = NULL;
 		return (tree);
 	}
 	else
@@ -124,6 +131,7 @@ t_tree	*parse_pipeline(t_list **tokens)
 	if (*tokens == NULL)
 	{
 		tree->category = TR_PIPE_END;
+		tree->right = NULL;
 		return (tree);
 	}
 	token = (*tokens)->content;
@@ -149,6 +157,7 @@ t_tree	*parse_list(t_list **tokens)
 	if (*tokens == NULL)
 	{
 		tree->category = TR_LIST_END;
+		tree->right = NULL;
 		return (tree);
 	}
 	token = (*tokens)->content;
