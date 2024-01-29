@@ -23,6 +23,8 @@ t_tree	*parse_word(t_list **tokens)
 	if (*tokens == NULL)
 		panic("parse_word()");
 	token = (*tokens)->content;
+	if (token->category != T_WORD)
+		panic("parse_word()");
 	tree->category = TR_WORD;
 	tree->left = token->content;
 	tree->right = NULL;
