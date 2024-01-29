@@ -6,33 +6,86 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 21:56:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 14:45:09 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 15:33:21 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_cmd_lst	*new_cmd_lst(void)
+// for debug
+void	cmd_lst_size_check(t_cmd_lst *cmds)
 {
-	t_cmd_lst	*lst;
+	t_cmd_node	*tmp;	
+	int			cnt;
 
-	lst = nullguard(malloc(sizeof(*lst)), PROGRAM_NAME, \
-			"in new_cmd_lst");
-	lst->head = NULL;
-	lst->tail = NULL;
-	lst->size = 0;
-	return (lst);
+	if (!cmds)
+		exit_handler(1, PROGRAM_NAME, "cmd_lst is NULL: cmd_lst_size_check().");
+	cnt = 0;
+	tmp = cmds->head;
+	while (tmp)
+	{
+		++cnt;
+		tmp = tmp->next;
+	}
+	if (cnt != cmds->size)
+		exit_handler(1, PROGRAM_NAME, "size not match: cmd_lst_size_check().");
+	return ;
 }
 
-void	cmd_lst_new_node_back(t_cmd_lst *cmds, t_exe_lst *exes, t_rd_lst *rds)
+t_cmd_lst	*new_cmd_lst(void)
+{
+	t_cmd_lst	*cmds;
+
+	cmds = nullguard(malloc(sizeof(*cmds)), PROGRAM_NAME, "new_cmd_lst().");
+	cmds->head = NULL;
+	cmds->tail = NULL;
+	cmds->size = 0;
+	return (cmds);
+}
+
+void	cmd_lst_new_back(t_cmd_lst *cmds, t_exe_lst *exes, t_rd_lst *rds)
 {
 	t_cmd_node	*new;
 
-	new = nullguard(malloc(sizeof(*new), PROGRAM_NAME, \
-				"in cmd_lst_new_node_back"));
+	if (!cmds)
+		exit_handler(1, PROGRAM_NAME, "cmd_lst is NULL: cmd_lst_new_back().");
+	new = nullguard(malloc(sizeof(*new), PROGRAM_NAME, "cmd_lst_new_back()."));
+	new->exes = exes;
+	new->rds = rds;
+	new->next = NULL;
+	if (!cmds->head)
+	{
+		cmds->head = new;
+		cmds->tail = new;
+		cmds->size = 1;
+	}
+	else
+	{
+		cmds->tail->next = new;
+		cmds->tail = new;
+		cmds->size += 1;
+	}
+	return ;
 }
+/* 36 ~ 47 lines maybe same with
+	if (!cmds->head)
+		cmds->head = new;
+	else
+		cmds->tail->next = new;
+	cmds->tail = new;
+	cmds->size += 1;
+*/
 
-void	free_cmd_lst(t_cmd)
+void	free_cmd_lst(t_cmd_lst *cmds)
 {
+	t_cmd_node	*tmp;	
 
+	if (!cmds)
+		exit_handler(1, PROGRAM_NAME, "cmd_lst is NULL: free_cmd_lst().");
+	while (cmds->head)
+	{
+		tmp = cmds->head;
+		cmds->head = cmds->head->next;
+		free_cmd_node(tmp);
+	}
 }
