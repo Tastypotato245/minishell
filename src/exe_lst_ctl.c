@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 15:40:26 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 18:05:35 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:14:04 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	exe_lst_new_back(t_exe_lst *exes, char *word)
 
 	if (!exes)
 		exit_handler(1, PROGRAM_NAME, "exe_lst is NULL: exe_lst_new_back().");
+	if (!word)
+		exit_handler(1, PROGRAM_NAME, "word is NULL: exe_lst_new_back().");
 	new = null_guard(malloc(sizeof(*new)), PROGRAM_NAME, "exe_lst_new_back().");
 	new->word = word;
 	new->next = NULL;
@@ -87,9 +89,11 @@ void	free_exe_lst(t_exe_lst *exes)
 		tmp = exes->head;
 		exes->head = exes->head->next;
 		free(tmp->word);
+		tmp->word = NULL;
 		free(tmp);
 	}
 	free(exes);
+	exes = NULL;
 }
 
 void	print_exe_lst(t_exe_lst *exes)

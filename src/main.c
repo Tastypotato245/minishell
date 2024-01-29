@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 17:57:01 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:20:51 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(void)
 	while (1)
 	{
 		line = readline("🍔 $ ");
-		if (strncmp(line, "test\n", 5))
+		if (strncmp(line, "test", 4) == 0)
 			execute_test();
 		free(line);
 	}

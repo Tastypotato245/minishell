@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 21:56:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 18:05:10 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:13:05 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ void	cmd_lst_new_back(t_cmd_lst *cmds, t_exe_lst *exes, t_rd_lst *rds)
 
 	if (!cmds)
 		exit_handler(1, PROGRAM_NAME, "cmd_lst is NULL: cmd_lst_new_back().");
+	if (!exes)
+		exit_handler(1, PROGRAM_NAME, "exe_lst is NULL: cmd_lst_new_back().");
+	if (!rds)
+		exit_handler(1, PROGRAM_NAME, "rd_lst is NULL: cmd_lst_new_back().");
 	new = null_guard(malloc(sizeof(*new)), PROGRAM_NAME, "cmd_lst_new_back().");
 	new->exes = exes;
 	new->rds = rds;
@@ -90,10 +94,13 @@ void	free_cmd_lst(t_cmd_lst *cmds)
 		tmp = cmds->head;
 		cmds->head = cmds->head->next;
 		free_exe_lst(tmp->exes);
+		tmp->exes = NULL;
 		free_rd_lst(tmp->rds);
+		tmp->rds = NULL;
 		free(tmp);
 	}
 	free(cmds);
+	cmds = NULL;
 }
 
 void	print_cmd_lst(t_cmd_lst *cmds)

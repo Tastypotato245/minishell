@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:00:40 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 18:05:47 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:14:30 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	rd_lst_new_back(t_rd_lst *rds, t_rd_type rd_type, char *file)
 
 	if (!rds)
 		exit_handler(1, PROGRAM_NAME, "rd_lst is NULL: rd_lst_new_back().");
+	if (!file)
+		exit_handler(1, PROGRAM_NAME, "file is NULL: rd_lst_new_back().");
 	new = null_guard(malloc(sizeof(*new)), PROGRAM_NAME, "rd_lst_new_back().");
 	new->rd_type = rd_type;
 	new->file = file;
@@ -88,9 +90,11 @@ void	free_rd_lst(t_rd_lst *rds)
 		tmp = rds->head;
 		rds->head = rds->head->next;
 		free(tmp->file);
+		tmp->file = NULL;
 		free(tmp);
 	}
 	free(rds);
+	rds = NULL;
 }
 
 void	print_rd_lst(t_rd_lst *rds)
