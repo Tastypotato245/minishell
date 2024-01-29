@@ -45,4 +45,6 @@ t_tree	*parse_simple_command(t_list **tokens);
 t_tree	*parse_redirection(t_list **tokens);
 t_tree	*parse_word(t_list **tokens);
 
+void	print_tree(t_tree *tree);
+
 #endif

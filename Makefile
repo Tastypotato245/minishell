@@ -22,6 +22,7 @@ SRCS		=	$(SRCS_DIR)main.c		\
 				$(SRCS_DIR)tokenize_print_token.c	\
 				$(SRCS_DIR)tokenize_utils.c	\
 				$(SRCS_DIR)parse.c	\
+				$(SRCS_DIR)parse_print_tree.c	\
 				$(SRCS_DIR)vector.c	\
 				$(SRCS_DIR)panic.c	\
 
@@ -32,6 +33,7 @@ SRCS_B		=	$(SRCS_B_DIR)main.c		\
 				$(SRCS_DIR)tokenize_print_token.c	\
 				$(SRCS_DIR)tokenize_utils.c	\
 				$(SRCS_DIR)parse.c	\
+				$(SRCS_DIR)parse_print_tree.c	\
 				$(SRCS_DIR)vector.c	\
 				$(SRCS_DIR)panic.c	\
 
