@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:14 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 17:57:30 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 20:07:45 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,34 @@
 # define MINISHELL_H
 
 # include "../kyusulib/kyusulib.h"
+# include <unistd.h>
+# include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <errno.h>
+# include <string.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
+
+# define TRUE (1)
+# define FALSE (0)
+# define INFILE_O (0)
+# define OUTFILE_O (1)
+# define W_MOD_BS (0)
+# define DEFAULT_PATH "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:."
 
 # define PROGRAM_NAME "minishell"
 
+/***** PIPEX *****/
+typedef struct s_info
+{
+	int		ex_fd;
+	pid_t	pnum;
+	pid_t	pidx;
+}				t_info;
+/***** PIPEX *****/
+
+/***** MINISHELL *****/
 typedef enum e_rd_type
 {
 	IN_RD = 0,
@@ -91,5 +113,20 @@ void		print_cmd_lst(t_cmd_lst *cmds);
 
 // execute_test.c
 void		execute_test(void);
+/***** MINISHELL *****/
+
+
+/***** PIPEX *****/
+// pipex.c
+void	pipex(int argc, char **argv, char **env);
+int		open_guard(int mod, char *file);
+
+// process.c
+void	children_switch(t_info *info, int *fd, char **argv, char **env);
+
+// access.c
+void	exec(char *cmd, char **env);
+char	*get_cmd(char *cmd, char **env, int flag);
+/***** PIPEx *****/
 
 #endif
