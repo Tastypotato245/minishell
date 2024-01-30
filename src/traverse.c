@@ -6,7 +6,7 @@
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:52:23 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/30 19:54:21 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/30 20:13:40 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@ static void	traverse_pipe(t_cmd_lst *cmds, t_tree *tree)
 	t_exe_lst	*exes;
 	t_rd_lst	*rds;
 
-	printf("----------\n");
-	print_tree(tree, 0);
-	printf("----------\n");
+	if (DEBUG)
+	{
+		printf("----------\n");
+		print_tree(tree, 0);
+		printf("----------\n");
+	}
 
 	if (tree->category != TR_PIPE_CONTINUE
 		&& tree->category != TR_PIPE_END)
@@ -69,7 +72,8 @@ void	traverse(t_tree *tree, char **envp)
 	{
 		cmds = new_cmd_lst();
 		traverse_pipe(cmds, tree);
-		print_cmd_lst(cmds);
+		if (DEBUG)
+			print_cmd_lst(cmds);
 		pipex(cmds, envp);
 	} else {
 		traverse(tree->left, envp);
