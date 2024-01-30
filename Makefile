@@ -23,6 +23,7 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)tokenize_utils.c	\
 				$(SRCS_DIR)parse.c	\
 				$(SRCS_DIR)parse_print_tree.c	\
+				$(SRCS_DIR)traverse.c	\
 				$(SRCS_DIR)vector.c	\
 				$(SRCS_DIR)panic.c	\
 				$(SRCS_DIR)print_frankshell_image.c	\
