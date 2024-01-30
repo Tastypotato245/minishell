@@ -16,6 +16,16 @@ HEAD		=	$(INCL_DIR)minishell.h
 HEAD_B		=	$(INCL_DIR)minishell_bonus.h
 
 SRCS		=	$(SRCS_DIR)main.c	\
+				$(SRCS_DIR)tokenize.c	\
+				$(SRCS_DIR)tokenize_categorize_token.c	\
+				$(SRCS_DIR)tokenize_create_token.c	\
+				$(SRCS_DIR)tokenize_print_token.c	\
+				$(SRCS_DIR)tokenize_utils.c	\
+				$(SRCS_DIR)parse.c	\
+				$(SRCS_DIR)parse_print_tree.c	\
+				$(SRCS_DIR)traverse.c	\
+				$(SRCS_DIR)vector.c	\
+				$(SRCS_DIR)panic.c	\
 				$(SRCS_DIR)print_frankshell_image.c	\
 				$(SRCS_DIR)cmd_lst_ctl.c	\
 				$(SRCS_DIR)exe_lst_ctl.c	\
@@ -38,7 +48,7 @@ SRCS_B_DIR	=	./src_bonus/
 INCL_DIR	=	./include/
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
 RM			=	rm -f
 ECHO		=	echo
 
@@ -85,4 +95,7 @@ re			:
 %.o			:	%.c
 				@$(CC) $(CFLAGS) -I$(INCL_DIR) -c $^ -o $@
 
-.PHONY		:	all clean fclean re bonus
+test: all
+	./$(NAME)
+
+.PHONY		:	all clean fclean re bonus test
