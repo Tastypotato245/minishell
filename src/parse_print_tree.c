@@ -10,7 +10,51 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "panic.h"
 #include <parse.h>
+
+static int	print_tree1(t_tree *tree)
+{
+	if (tree->category == TR_LIST_AND)
+		printf("TR_LIST_AND\n");
+	else if (tree->category == TR_LIST_OR)
+		printf("TR_LIST_OR\n");
+	else if (tree->category == TR_LIST_END)
+		printf("TR_LIST_END\n");
+	else if (tree->category == TR_PIPE_CONTINUE)
+		printf("TR_PIPE_CONTINUE\n");
+	else if (tree->category == TR_PIPE_END)
+		printf("TR_PIPE_END\n");
+	else if (tree->category == TR_SMPL_CMD_CONTINUE)
+		printf("TR_SMPL_CMD_CONTINUE\n");
+	else if (tree->category == TR_SMPL_CMD_END)
+		printf("TR_SMPL_CMD_END\n");
+	else
+		return (-1);
+	return (0);
+}
+
+static int	print_tree2(t_tree *tree)
+{
+	if (tree->category == TR_WORD)
+		printf("TR_WORD(%s)\n",
+			(char *)tree->left);
+	else if (tree->category == TR_REDIRECT_IN)
+		printf("TR_REDIRECT_IN(%s)\n",
+			(char *)((t_tree *)tree->left)->left);
+	else if (tree->category == TR_REDIRECT_OUT)
+		printf("TR_REDIRECT_OUT(%s)\n",
+			(char *)((t_tree *)tree->left)->left);
+	else if (tree->category == TR_REDIRECT_APPEND)
+		printf("TR_REDIRECT_APPEND(%s)\n",
+			(char *)((t_tree *)tree->left)->left);
+	else if (tree->category == TR_REDIRECT_HERE_DOC)
+		printf("TR_REDIRECT_HERE_DOC(%s)\n",
+			(char *)((t_tree *)tree->left)->left);
+	else
+		return (-1);
+	return (0);
+}
 
 void	print_tree(t_tree *tree, int step)
 {
@@ -21,43 +65,10 @@ void	print_tree(t_tree *tree, int step)
 	i = 0;
 	while (i++ < step)
 		printf("    ");
-	if (tree->category == TR_LIST_AND)
-		printf("TR_LIST_AND\n");
-	if (tree->category == TR_LIST_OR)
-		printf("TR_LIST_OR\n");
-	if (tree->category == TR_LIST_END)
-		printf("TR_LIST_END\n");
-	if (tree->category == TR_PIPE_CONTINUE)
-		printf("TR_PIPE_CONTINUE\n");
-	if (tree->category == TR_PIPE_END)
-		printf("TR_PIPE_END\n");
-	if (tree->category == TR_SMPL_CMD_CONTINUE)
-		printf("TR_SMPL_CMD_CONTINUE\n");
-	if (tree->category == TR_SMPL_CMD_END)
-		printf("TR_SMPL_CMD_END\n");
-	if (tree->category == TR_WORD)
+	if (print_tree1(tree) == -1)
 	{
-		printf("TR_WORD(%s)\n", (char *)tree->left);
-		return ;
-	}
-	if (tree->category == TR_REDIRECT_IN)
-	{
-		printf("TR_REDIRECT_IN(%s)\n", (char *)((t_tree *)tree->left)->left);
-		return ;
-	}
-	if (tree->category == TR_REDIRECT_OUT)
-	{
-		printf("TR_REDIRECT_OUT(%s)\n", (char *)((t_tree *)tree->left)->left);
-		return ;
-	}
-	if (tree->category == TR_REDIRECT_APPEND)
-	{
-		printf("TR_REDIRECT_APPEND(%s)\n", (char *)((t_tree *)tree->left)->left);
-		return ;
-	}
-	if (tree->category == TR_REDIRECT_HERE_DOC)
-	{
-		printf("TR_REDIRECT_HERE_DOC(%s)\n", (char *)((t_tree *)tree->left)->left);
+		if (print_tree2(tree) == -1)
+			panic("print_tree(): not handled case");
 		return ;
 	}
 	print_tree(tree->left, step + 1);
