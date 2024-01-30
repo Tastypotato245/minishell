@@ -13,4 +13,8 @@
 #ifndef TRAVERSE_H
 # define TRAVERSE_H
 
+# include <parse.h>
+
+void	traverse(t_tree *tree);
+
 #endif

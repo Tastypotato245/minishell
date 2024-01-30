@@ -13,6 +13,7 @@
 #include <minishell.h>
 #include <parse.h>
 #include <tokenize.h>
+#include <traverse.h>
 
 int main(int argc, char **argv, char **env) {
 	char *line;
@@ -33,6 +34,7 @@ int main(int argc, char **argv, char **env) {
 			ft_lstiter(tokens, print_token);
 			tree = parse(tokens);
 			print_tree(tree, 0);
+			traverse(tree);
 			free(line);
 		}
 	}
