@@ -18,7 +18,9 @@ HEAD_B		=	$(INCL_DIR)minishell_bonus.h
 SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)tokenize.c	\
 				$(SRCS_DIR)tokenize_categorize_token.c	\
-				$(SRCS_DIR)tokenize_create_token.c	\
+				$(SRCS_DIR)tokenize_create_token1.c	\
+				$(SRCS_DIR)tokenize_create_token2.c	\
+				$(SRCS_DIR)tokenize_create_token3.c	\
 				$(SRCS_DIR)tokenize_print_token.c	\
 				$(SRCS_DIR)tokenize_utils.c	\
 				$(SRCS_DIR)parse.c	\
