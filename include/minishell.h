@@ -100,7 +100,7 @@ void		free_exe_lst(t_exe_lst *exes);
 void		print_exe_lst(t_exe_lst *exes);
 
 // rd_lst_ctl.c
-t_rd_lst 	*new_rd_lst(void);
+t_rd_lst	*new_rd_lst(void);
 void		rd_lst_new_back(t_rd_lst *rds, t_rd_type rd_type, char *file);
 void		free_rd_lst(t_rd_lst *rds);
 void		print_rd_lst(t_rd_lst *rds);
