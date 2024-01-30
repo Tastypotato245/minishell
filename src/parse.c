@@ -19,7 +19,7 @@ t_tree	*parse_word(t_list **tokens)
 	t_tree	*tree;
 	t_token	*token;
 
-	tree = malloc(sizeof(t_tree));
+	tree = null_guard(malloc(sizeof(t_tree)), PROGRAM_NAME, "parse_word().");
 	if (*tokens == NULL)
 		panic("parse_word()");
 	token = (*tokens)->content;
@@ -37,7 +37,7 @@ t_tree	*parse_redirection(t_list **tokens)
 	t_tree	*tree;
 	t_token	*token;
 
-	tree = malloc(sizeof(t_tree));
+	tree = null_guard(malloc(sizeof(t_tree)), PROGRAM_NAME, "parse_redirection().");
 	if (*tokens == NULL)
 		panic("parse_redirection()");
 	token = (*tokens)->content;
@@ -79,7 +79,7 @@ t_tree	*parse_simple_command(t_list **tokens)
 	t_tree	*tree;
 	t_token	*token;
 
-	tree = malloc(sizeof(t_tree));
+	tree = null_guard(malloc(sizeof(t_tree)), PROGRAM_NAME, "parse_simple_command().");
 	if (*tokens == NULL)
 		panic("parse_pipeline()");
 	token = (*tokens)->content;
@@ -119,7 +119,7 @@ t_tree	*parse_pipeline(t_list **tokens)
 	t_tree	*tree;
 	t_token	*token;
 
-	tree = malloc(sizeof(t_tree));
+	tree = null_guard(malloc(sizeof(t_tree)), PROGRAM_NAME, "parse_pipeline().");
 	if (*tokens == NULL)
 		panic("parse_pipeline()");
 	token = (*tokens)->content;
@@ -165,7 +165,7 @@ t_tree	*parse_list(t_list **tokens)
 	t_tree	*tree;
 	t_token	*token;
 	
-	tree = malloc(sizeof(t_tree));
+	tree = null_guard(malloc(sizeof(t_tree)), PROGRAM_NAME, "parse_list().");
 	tree->left = parse_pipeline(tokens);
 	tree->right = NULL;
 	if (*tokens == NULL)

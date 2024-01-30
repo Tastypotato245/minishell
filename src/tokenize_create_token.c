@@ -17,7 +17,7 @@ t_token	*create_or_token(size_t *i)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
+	token = null_guard(malloc(sizeof(t_token)), PROGRAM_NAME, "create_or_token().");
 	token->category = T_OR;
 	token->content = NULL;
 	(*i)++;
@@ -28,7 +28,7 @@ t_token	*create_and_token(size_t *i)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
+	token = null_guard(malloc(sizeof(t_token)), PROGRAM_NAME, "create_and_token().");
 	token->category = T_AND;
 	token->content = NULL;
 	(*i)++;
@@ -39,7 +39,7 @@ t_token	*create_pipe_token(void)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
+	token = null_guard(malloc(sizeof(t_token)), PROGRAM_NAME, "create_pipe_token().");
 	token->category = T_PIPE;
 	token->content = NULL;
 	return (token);
@@ -49,7 +49,7 @@ t_token	*create_lparen_token(size_t *i)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
+	token = null_guard(malloc(sizeof(t_token)), PROGRAM_NAME, "create_lparen_token().");
 	token->category = T_L_PAREN;
 	token->content = NULL;
 	(*i)++;
@@ -60,7 +60,7 @@ t_token	*create_rparen_token(size_t *i)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
+	token = null_guard(malloc(sizeof(t_token)), PROGRAM_NAME, "create_rparen_token().");
 	token->category = T_R_PAREN;
 	token->content = NULL;
 	(*i)++;
@@ -71,7 +71,7 @@ t_token	*create_in_redirect_token(void)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
+	token = null_guard(malloc(sizeof(t_token)), PROGRAM_NAME, "create_in_redirect_token().");
 	token->category = T_IN_REDIRECT;
 	token->content = NULL;
 	return (token);
@@ -81,7 +81,7 @@ t_token	*create_out_redirect_token(void)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
+	token = null_guard(malloc(sizeof(t_token)), PROGRAM_NAME, "create_out_redirect_token().");
 	token->category = T_OUT_REDIRECT;
 	token->content = NULL;
 	return (token);
@@ -91,7 +91,7 @@ t_token	*create_append_redirect_token(size_t *i)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
+	token = null_guard(malloc(sizeof(t_token)), PROGRAM_NAME, "create_append_redirect_token().");
 	token->category = T_APPEND_REDIRECT;
 	token->content = NULL;
 	(*i)++;
@@ -102,7 +102,7 @@ t_token	*create_here_doc_token(size_t *i)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
+	token = null_guard(malloc(sizeof(t_token)), PROGRAM_NAME, "create_here_doc_token().");
 	token->category = T_HERE_DOC;
 	token->content = NULL;
 	(*i)++;
@@ -133,7 +133,7 @@ t_token	*create_word_token(const char *line, size_t *i)
 	t_vector	vector;
 	int			ret;
 
-	token = malloc(sizeof(t_token));
+	token = null_guard(malloc(sizeof(t_token)), PROGRAM_NAME, "create_word_token().");
 	token->category = T_WORD;
 	token->content = NULL;
 	init_vector(&vector);
@@ -164,7 +164,7 @@ t_token	*create_error_token(void)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
+	token = null_guard(malloc(sizeof(t_token)), PROGRAM_NAME, "create_error_token().");
 	token->category = T_ERROR;
 	token->content = NULL;
 	return (token);
