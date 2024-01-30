@@ -11,26 +11,26 @@
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
-#include "../kyusulib/kyusulib.h"
-#include <errno.h>
-#include <fcntl.h>
-#include <readline/readline.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <unistd.h>
+# include "../kyusulib/kyusulib.h"
+# include <errno.h>
+# include <fcntl.h>
+# include <readline/readline.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/wait.h>
+# include <unistd.h>
 
-#define TRUE (1)
-#define FALSE (0)
-#define INFILE_O (0)
-#define OUTFILE_T_O (1)
-#define OUTFILE_A_O (2)
-#define DEFAULT_PATH "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:."
+# define TRUE (1)
+# define FALSE (0)
+# define INFILE_O (0)
+# define OUTFILE_T_O (1)
+# define OUTFILE_A_O (2)
+# define DEFAULT_PATH "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:."
 
-#define PROGRAM_NAME "minishell"
+# define PROGRAM_NAME "minishell"
 
 /***** PIPEX *****/
 typedef struct s_info {
@@ -41,7 +41,12 @@ typedef struct s_info {
 /***** PIPEX *****/
 
 /***** MINISHELL *****/
-typedef enum e_rd_type { IN_RD = 0, OUT_RD = 1, APPEND_RD = 2 } t_rd_type;
+typedef enum e_rd_type
+{
+	IN_RD = 0,
+	OUT_RD = 1,
+	APPEND_RD = 2
+}	t_rd_type;
 
 typedef struct s_exe_node {
 	char *word;
