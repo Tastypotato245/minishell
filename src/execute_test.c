@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:36:10 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 11:30:43 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/30 12:48:04 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	make_cmd_test_2(t_cmd_lst *cmds)
 //	cmd_lst_new_back(cmds, exes, rds);
 //}
 
+//	make_cmd_test_3(cmds);
+//	error_test(cmds);
 void	execute_test(char **env)
 {
 	t_cmd_lst	*cmds;
@@ -81,8 +83,6 @@ void	execute_test(char **env)
 	make_cmd_test_0(cmds);
 	make_cmd_test_1(cmds);
 	make_cmd_test_2(cmds);
-//	make_cmd_test_3(cmds);
-//	error_test(cmds);
 	print_cmd_lst(cmds);
 	pipex(cmds, env);
 }

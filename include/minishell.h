@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:14 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 11:07:20 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/30 12:45:34 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_cmd_lst
 }				t_cmd_lst;
 
 // print_frankshell_image.c
-void	print_frankshell_image(void);
+void		print_frankshell_image(void);
 
 // exe_lst_ctl.c
 t_exe_lst	*new_exe_lst(void);
@@ -114,7 +114,6 @@ void		print_cmd_lst(t_cmd_lst *cmds);
 // execute_test.c
 void		execute_test(char **env);
 /***** MINISHELL *****/
-
 
 /***** PIPEX *****/
 // pipex.c

@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:56:13 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 11:32:27 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/30 12:48:37 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	multiple_proccess(t_cmd_lst *cmds, char **env)
 
 void	single_proccess(t_cmd_node *cmd, char **env)
 {
-	pid_t		pid;
+	pid_t	pid;
 	int		status;
 
 	pid = func_guard(fork(), PROGRAM_NAME, "pipex().");
