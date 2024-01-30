@@ -6,11 +6,12 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:36:10 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 12:48:04 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/30 17:40:35 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+#include <execute.h>
 
 void	make_cmd_test_0(t_cmd_lst *cmds)
 {

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
+/*   execute_pipex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/29 19:56:13 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 12:48:37 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/01/30 17:42:34 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/01/30 17:46:52 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <execute.h>
 
 // func_guard(unlink(HD_FILE));
 // sequencial unlink 
-static void	parent_wait(t_info *info, pid_t last_pid)
+static int	parent_wait(t_info *info, pid_t last_pid)
 {
 	int	i;
 	int	exit_save;
@@ -26,10 +26,10 @@ static void	parent_wait(t_info *info, pid_t last_pid)
 		if (wait(&status) == last_pid)
 			exit_save = WEXITSTATUS(status);
 	}
-	exit(exit_save);
+	return (exit_save);
 }
 
-void	multiple_proccess(t_cmd_lst *cmds, char **env)
+static int	multiple_proccess(t_cmd_lst *cmds, char **env)
 {
 	int			fd[2];
 	pid_t		pid;
@@ -55,10 +55,10 @@ void	multiple_proccess(t_cmd_lst *cmds, char **env)
 		++(info.pidx);
 		cmd = cmd->next;
 	}
-	parent_wait(&info, pid);
+	return (parent_wait(&info, pid));
 }
 
-void	single_proccess(t_cmd_node *cmd, char **env)
+static int	single_proccess(t_cmd_node *cmd, char **env)
 {
 	pid_t	pid;
 	int		status;
@@ -67,14 +67,17 @@ void	single_proccess(t_cmd_node *cmd, char **env)
 	if (pid == 0)
 		single_child(cmd, env);
 	wait(&status);
-	exit(WEXITSTATUS(status));
+	return (WEXITSTATUS(status));
 }
 
-void	pipex(t_cmd_lst *cmds, char **env)
+int			pipex(t_cmd_lst *cmds, char **env)
 {
+	int	exit_code;
+
+	exit_code = 0;
 	if (cmds->size == 1)
-		single_proccess(cmds->head, env);
+		exit_code = single_proccess(cmds->head, env);
 	else if (cmds->size > 1)
-		multiple_proccess(cmds, env);
-	printf("There is no cmd\n");
+		exit_code = multiple_proccess(cmds, env);
+	return (exit_code);
 }

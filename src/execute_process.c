@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process.c                                          :+:      :+:    :+:   */
+/*   execute_process.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 16:09:20 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 12:48:22 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/01/30 17:42:45 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/01/30 17:42:45 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <execute.h>
 
 void	single_child(t_cmd_node *cmd, char **env)
 {

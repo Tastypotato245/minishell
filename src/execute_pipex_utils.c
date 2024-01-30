@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   execute_pipex_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 12:48:44 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 12:48:46 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/01/30 17:42:38 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/01/30 17:42:40 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <execute.h>
 
 void	repeat_redirection(t_rd_lst *rds)
 {
