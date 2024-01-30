@@ -6,7 +6,7 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 19:56:05 by kyusulee          #+#    #+#              #
-#    Updated: 2024/01/30 19:55:38 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/01/30 20:31:23 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)list_cmd_ctl.c	\
 				$(SRCS_DIR)list_exe_ctl.c	\
 				$(SRCS_DIR)list_rd_ctl.c		\
-				$(SRCS_DIR)execute_test.c	\
 				$(SRCS_DIR)execute_pipex.c	\
 				$(SRCS_DIR)execute_pipex_utils.c	\
 				$(SRCS_DIR)execute_access.c	\
@@ -55,11 +54,17 @@ RM			=	rm -f
 ECHO		=	echo
 
 ifdef WITH_BONUS
-    OBJS_SWITCH = $(OBJS_B)
-	HEAD_SWITCH = $(HEAD_B)
+    OBJS_SWITCH		= $(OBJS_B)
+	HEAD_SWITCH		= $(HEAD_B)
 else
-    OBJS_SWITCH = $(OBJS)
-	HEAD_SWITCH = $(HEAD)
+    OBJS_SWITCH		= $(OBJS)
+	HEAD_SWITCH		= $(HEAD)
+endif
+
+ifdef WITH_DEBUG
+	DEBUG_SWITCH	= -D DEBUG=1
+else
+	DEBUG_SWITCH	= -D DEBUG=0
 endif
 
 all			:
@@ -69,6 +74,10 @@ all			:
 bonus		:	
 				@$(MAKE) WITH_BONUS=1 $(NAME)
 				@$(ECHO) "*** Make <Frankshell (minishell)> complete. (BONUS)"
+
+debug		:
+				@$(MAKE) WITH_DEBUG=1 $(NAME)
+				@$(ECHO) "*** Make <Frankshell (minishell)> complete. (DEBUG)"
 
 $(NAME)		:	$(OBJS_SWITCH) $(HEAD_SWITCH)
 				@$(MAKE) -C $(KYUSULIB)
@@ -95,9 +104,9 @@ re			:
 				@$(ECHO) "*** Re-make <Frankshell (minishell)> complete."
 
 %.o			:	%.c
-				@$(CC) $(CFLAGS) -I$(INCL_DIR) -c $^ -o $@
+				@$(CC) $(CFLAGS) -I$(INCL_DIR) -c $^ -o $@ $(DEBUG_SWITCH)
 
-test: all
-	./$(NAME)
+test		:	all
+				./$(NAME)
 
-.PHONY		:	all clean fclean re bonus test
+.PHONY		:	all clean fclean re bonus test debug
