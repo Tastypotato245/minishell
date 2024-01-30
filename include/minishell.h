@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:14 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 12:45:34 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/30 17:40:13 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,11 @@
 # define MINISHELL_H
 
 # include "../kyusulib/kyusulib.h"
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <errno.h>
-# include <string.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
 
-# define TRUE (1)
-# define FALSE (0)
-# define INFILE_O (0)
-# define OUTFILE_T_O (1)
-# define OUTFILE_A_O (2)
-# define DEFAULT_PATH "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:."
-
 # define PROGRAM_NAME "minishell"
 
-/***** PIPEX *****/
-typedef struct s_info
-{
-	int		ex_fd;
-	pid_t	pnum;
-	pid_t	pidx;
-}				t_info;
-/***** PIPEX *****/
-
-/***** MINISHELL *****/
 typedef enum e_rd_type
 {
 	IN_RD = 0,
@@ -113,24 +90,5 @@ void		print_cmd_lst(t_cmd_lst *cmds);
 
 // execute_test.c
 void		execute_test(char **env);
-/***** MINISHELL *****/
-
-/***** PIPEX *****/
-// pipex.c
-void		pipex(t_cmd_lst *cmds, char **env);
-
-// pipex_utils.c
-void		repeat_redirection(t_rd_lst *rds);
-int			open_guard(int mod, char *file);
-char		**lst_to_2darr(t_exe_lst *exes);
-
-// process.c
-void		single_child(t_cmd_node *cmd, char **env);
-void		children_switch(t_info *info, int *fd, t_cmd_node *cmd, char **env);
-
-// access.c
-void		exec(t_exe_lst *exes, char **env);
-char		*get_cmd(char *cmd, char **env, int flag);
-/***** PIPEx *****/
 
 #endif
