@@ -14,14 +14,14 @@
 # define MINISHELL_H
 
 # include "../kyusulib/kyusulib.h"
-# include <unistd.h>
+# include <errno.h>
 # include <fcntl.h>
+# include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <errno.h>
 # include <string.h>
 # include <sys/wait.h>
-# include <readline/readline.h>
+# include <unistd.h>
 
 # define TRUE (1)
 # define FALSE (0)
@@ -38,7 +38,7 @@ typedef struct s_info
 	int		ex_fd;
 	pid_t	pnum;
 	pid_t	pidx;
-}				t_info;
+}	t_info;
 /***** PIPEX *****/
 
 /***** MINISHELL *****/
@@ -47,48 +47,48 @@ typedef enum e_rd_type
 	IN_RD = 0,
 	OUT_RD = 1,
 	APPEND_RD = 2
-}			t_rd_type;
+}	t_rd_type;
 
 typedef struct s_exe_node
 {
 	char				*word;
 	struct s_exe_node	*next;
-}				t_exe_node;
+}	t_exe_node;
 
 typedef struct s_exe_lst
 {
 	struct s_exe_node	*head;
 	struct s_exe_node	*tail;
 	int					size;
-}				t_exe_lst;
+}	t_exe_lst;
 
 typedef struct s_rd_node
 {
 	t_rd_type			rd_type;
 	char				*file;
 	struct s_rd_node	*next;
-}				t_rd_node;
+}	t_rd_node;
 
 typedef struct s_rd_lst
 {
 	struct s_rd_node	*head;
 	struct s_rd_node	*tail;
 	int					size;
-}				t_rd_lst;
+}	t_rd_lst;
 
 typedef struct s_cmd_node
 {
 	struct s_exe_lst	*exes;
 	struct s_rd_lst		*rds;
 	struct s_cmd_node	*next;
-}				t_cmd_node;
+}	t_cmd_node;
 
 typedef struct s_cmd_lst
 {
 	struct s_cmd_node	*head;
 	struct s_cmd_node	*tail;
 	int					size;
-}				t_cmd_lst;
+}	t_cmd_lst;
 
 // print_frankshell_image.c
 void		print_frankshell_image(void);
