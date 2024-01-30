@@ -83,11 +83,9 @@ void	cmd_lst_new_back(t_cmd_lst *cmds, t_exe_lst *exes, t_rd_lst *rds)
 void	free_cmd_lst(t_cmd_lst *cmds)
 {
 	t_cmd_node	*tmp;	
-	int			cnt;
 
 	if (!cmds)
 		exit_handler(1, PROGRAM_NAME, "cmd_lst is NULL: free_cmd_lst().");
-	cnt = 0;
 	cmd_lst_size_check(cmds);
 	while (cmds->head)
 	{
