@@ -35,9 +35,9 @@
 /***** PIPEX *****/
 typedef struct s_info
 {
-	int ex_fd;
-	pid_t pnum;
-	pid_t pidx;
+	int		ex_fd;
+	pid_t	pnum;
+	pid_t	pidx;
 }	t_info;
 /***** PIPEX *****/
 
@@ -51,43 +51,43 @@ typedef enum e_rd_type
 
 typedef struct s_exe_node
 {
-	char *word;
-	struct s_exe_node *next;
+	char				*word;
+	struct s_exe_node	*next;
 }	t_exe_node;
 
 typedef struct s_exe_lst
 {
-	struct s_exe_node *head;
-	struct s_exe_node *tail;
-	int size;
+	struct s_exe_node	*head;
+	struct s_exe_node	*tail;
+	int					size;
 }	t_exe_lst;
 
 typedef struct s_rd_node
 {
-	t_rd_type rd_type;
-	char *file;
-	struct s_rd_node *next;
+	t_rd_type			rd_type;
+	char				*file;
+	struct s_rd_node	*next;
 }	t_rd_node;
 
 typedef struct s_rd_lst
 {
-	struct s_rd_node *head;
-	struct s_rd_node *tail;
-	int size;
+	struct s_rd_node	*head;
+	struct s_rd_node	*tail;
+	int					size;
 }	t_rd_lst;
 
 typedef struct s_cmd_node
 {
-	struct s_exe_lst *exes;
-	struct s_rd_lst *rds;
-	struct s_cmd_node *next;
+	struct s_exe_lst	*exes;
+	struct s_rd_lst		*rds;
+	struct s_cmd_node	*next;
 }	t_cmd_node;
 
 typedef struct s_cmd_lst
 {
-	struct s_cmd_node *head;
-	struct s_cmd_node *tail;
-	int size;
+	struct s_cmd_node	*head;
+	struct s_cmd_node	*tail;
+	int					size;
 }	t_cmd_lst;
 
 // print_frankshell_image.c
@@ -95,15 +95,15 @@ void		print_frankshell_image(void);
 
 // exe_lst_ctl.c
 t_exe_lst	*new_exe_lst(void);
-void 		exe_lst_new_back(t_exe_lst *exes, char *word);
-void 		free_exe_lst(t_exe_lst *exes);
-void 		print_exe_lst(t_exe_lst *exes);
+void		exe_lst_new_back(t_exe_lst *exes, char *word);
+void		free_exe_lst(t_exe_lst *exes);
+void		print_exe_lst(t_exe_lst *exes);
 
 // rd_lst_ctl.c
 t_rd_lst 	*new_rd_lst(void);
-void 		rd_lst_new_back(t_rd_lst *rds, t_rd_type rd_type, char *file);
-void 		free_rd_lst(t_rd_lst *rds);
-void 		print_rd_lst(t_rd_lst *rds);
+void		rd_lst_new_back(t_rd_lst *rds, t_rd_type rd_type, char *file);
+void		free_rd_lst(t_rd_lst *rds);
+void		print_rd_lst(t_rd_lst *rds);
 
 // cmd_lst_ctl.c
 t_cmd_lst	*new_cmd_lst(void);
