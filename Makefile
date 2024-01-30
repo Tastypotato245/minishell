@@ -6,7 +6,7 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 19:56:05 by kyusulee          #+#    #+#              #
-#    Updated: 2024/01/26 20:02:41 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/01/30 11:08:20 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME		=	minishell
 HEAD		=	$(INCL_DIR)minishell.h
 HEAD_B		=	$(INCL_DIR)minishell_bonus.h
 
-SRCS		=	$(SRCS_DIR)main.c		\
+SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)tokenize.c	\
 				$(SRCS_DIR)tokenize_categorize_token.c	\
 				$(SRCS_DIR)tokenize_create_token.c	\
@@ -25,17 +25,17 @@ SRCS		=	$(SRCS_DIR)main.c		\
 				$(SRCS_DIR)parse_print_tree.c	\
 				$(SRCS_DIR)vector.c	\
 				$(SRCS_DIR)panic.c	\
+				$(SRCS_DIR)print_frankshell_image.c	\
+				$(SRCS_DIR)cmd_lst_ctl.c	\
+				$(SRCS_DIR)exe_lst_ctl.c	\
+				$(SRCS_DIR)rd_lst_ctl.c		\
+				$(SRCS_DIR)execute_test.c	\
+				$(SRCS_DIR)pipex.c	\
+				$(SRCS_DIR)pipex_utils.c	\
+				$(SRCS_DIR)access.c	\
+				$(SRCS_DIR)process.c
 
-SRCS_B		=	$(SRCS_B_DIR)main.c		\
-				$(SRCS_DIR)tokenize.c	\
-				$(SRCS_DIR)tokenize_categorize_token.c	\
-				$(SRCS_DIR)tokenize_create_token.c	\
-				$(SRCS_DIR)tokenize_print_token.c	\
-				$(SRCS_DIR)tokenize_utils.c	\
-				$(SRCS_DIR)parse.c	\
-				$(SRCS_DIR)parse_print_tree.c	\
-				$(SRCS_DIR)vector.c	\
-				$(SRCS_DIR)panic.c	\
+SRCS_B		=	$(SRCS_B_DIR)main.c
 
 OBJS		=	$(SRCS:.c=.o)
 OBJS_B		=	$(SRCS_B:.c=.o)
