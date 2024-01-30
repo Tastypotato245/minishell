@@ -19,7 +19,8 @@ t_tree	*parse_word(t_list **tokens)
 	t_tree	*tree;
 	t_token	*token;
 
-	tree = null_guard(malloc(sizeof(t_tree)), PROGRAM_NAME, "parse_word().");
+	tree = null_guard(malloc(sizeof(t_tree)),
+			PROGRAM_NAME, "parse_word().");
 	if (*tokens == NULL)
 		panic("parse_word()");
 	token = (*tokens)->content;
@@ -37,7 +38,8 @@ t_tree	*parse_redirection(t_list **tokens)
 	t_tree	*tree;
 	t_token	*token;
 
-	tree = null_guard(malloc(sizeof(t_tree)), PROGRAM_NAME, "parse_redirection().");
+	tree = null_guard(malloc(sizeof(t_tree)),
+			PROGRAM_NAME, "parse_redirection().");
 	if (*tokens == NULL)
 		panic("parse_redirection()");
 	token = (*tokens)->content;
@@ -79,7 +81,8 @@ t_tree	*parse_simple_command(t_list **tokens)
 	t_tree	*tree;
 	t_token	*token;
 
-	tree = null_guard(malloc(sizeof(t_tree)), PROGRAM_NAME, "parse_simple_command().");
+	tree = null_guard(malloc(sizeof(t_tree)),
+			PROGRAM_NAME, "parse_simple_command().");
 	if (*tokens == NULL)
 		panic("parse_pipeline()");
 	token = (*tokens)->content;
@@ -101,7 +104,8 @@ t_tree	*parse_simple_command(t_list **tokens)
 		|| token->category == T_OR
 		|| token->category == T_PIPE
 		|| token->category == T_L_PAREN
-		|| token->category == T_R_PAREN){
+		|| token->category == T_R_PAREN)
+	{
 		tree->category = TR_SMPL_CMD_END;
 		tree->right = NULL;
 		return (tree);
@@ -119,7 +123,8 @@ t_tree	*parse_pipeline(t_list **tokens)
 	t_tree	*tree;
 	t_token	*token;
 
-	tree = null_guard(malloc(sizeof(t_tree)), PROGRAM_NAME, "parse_pipeline().");
+	tree = null_guard(malloc(sizeof(t_tree)),
+			PROGRAM_NAME, "parse_pipeline().");
 	if (*tokens == NULL)
 		panic("parse_pipeline()");
 	token = (*tokens)->content;
@@ -132,7 +137,6 @@ t_tree	*parse_pipeline(t_list **tokens)
 		token = (*tokens)->content;
 		if (token->category != T_R_PAREN)
 			panic("parse_pipeline(): rparen not found");
-
 		*tokens = (*tokens)->next;
 	}
 	else
@@ -164,8 +168,9 @@ t_tree	*parse_list(t_list **tokens)
 {
 	t_tree	*tree;
 	t_token	*token;
-	
-	tree = null_guard(malloc(sizeof(t_tree)), PROGRAM_NAME, "parse_list().");
+
+	tree = null_guard(malloc(sizeof(t_tree)),
+			PROGRAM_NAME, "parse_list().");
 	tree->left = parse_pipeline(tokens);
 	tree->right = NULL;
 	if (*tokens == NULL)
