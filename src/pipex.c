@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:56:13 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 21:12:46 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/30 11:32:27 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static void	parent_wait(t_info *info, pid_t last_pid)
 		if (wait(&status) == last_pid)
 			exit_save = WEXITSTATUS(status);
 	}
-	printf("end in parent_wait?\n");
-	fflush(stdout);
 	exit(exit_save);
 }
 
@@ -38,7 +36,7 @@ void	multiple_proccess(t_cmd_lst *cmds, char **env)
 	t_info		info;
 	t_cmd_node	*cmd;
 
-	info.pnum = cmds->size - 1;
+	info.pnum = cmds->size;
 	ft_bzero(fd, sizeof(int) * 2);
 	info.pidx = 0;
 	cmd = cmds->head;
@@ -63,19 +61,20 @@ void	multiple_proccess(t_cmd_lst *cmds, char **env)
 void	single_proccess(t_cmd_node *cmd, char **env)
 {
 	pid_t		pid;
+	int		status;
+
 	pid = func_guard(fork(), PROGRAM_NAME, "pipex().");
 	if (pid == 0)
-		single_child(&info, fd, cmd, env);
-	if (pid > 0)
-		func_guard(close(info.ex_fd), PROGRAM_NAME, "pipex().");
-	parent_wait(&info, pid);
+		single_child(cmd, env);
+	wait(&status);
+	exit(WEXITSTATUS(status));
 }
 
 void	pipex(t_cmd_lst *cmds, char **env)
 {
 	if (cmds->size == 1)
-		single_proccess(cmds, env);
+		single_proccess(cmds->head, env);
 	else if (cmds->size > 1)
 		multiple_proccess(cmds, env);
-	printf("There is no cmd");
+	printf("There is no cmd\n");
 }

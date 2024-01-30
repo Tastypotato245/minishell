@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:14 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 21:07:31 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/30 11:07:20 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int			open_guard(int mod, char *file);
 char		**lst_to_2darr(t_exe_lst *exes);
 
 // process.c
+void		single_child(t_cmd_node *cmd, char **env);
 void		children_switch(t_info *info, int *fd, t_cmd_node *cmd, char **env);
 
 // access.c
