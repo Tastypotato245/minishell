@@ -6,14 +6,15 @@
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:52:23 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/30 15:52:24 by younghoc         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:54:21 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse.h"
+#include <parse.h>
 #include <minishell.h>
 #include <traverse.h>
 #include <panic.h>
+#include <execute.h>
 
 static void	traverse_smpl_cmd(t_exe_lst *exes, t_rd_lst *rds, t_tree *tree)
 {

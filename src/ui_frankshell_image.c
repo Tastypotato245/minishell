@@ -6,11 +6,11 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 14:08:31 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 14:38:00 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:23:10 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <ui.h>
 
 static void	print_frankshell_burger_top(void)
 {
