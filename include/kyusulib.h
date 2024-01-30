@@ -1,20 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   traverse.h                                         :+:      :+:    :+:   */
+/*   kyusulib.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 15:52:31 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/30 19:48:54 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/01/15 11:52:50 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/01/30 19:47:05 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TRAVERSE_H
-# define TRAVERSE_H
-
-# include <parse.h>
-
-void	traverse(t_tree *tree, char **envp);
-
+#ifndef KYUSULIB_H
+# define KYUSULIB_H
+# include "../kyusulib/libft/libft.h"
+# include "../kyusulib/ft_except/ft_except.h"
 #endif

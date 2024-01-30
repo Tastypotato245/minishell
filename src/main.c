@@ -6,14 +6,18 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 18:55:17 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:50:46 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <kyusulib.h>
+#include <readline/readline.h>
+#include <execute.h>
+#include <list.h>
 #include <parse.h>
 #include <tokenize.h>
 #include <traverse.h>
+#include <ui.h>
 
 int main(int argc, char **argv, char **envp) {
 	char *line;

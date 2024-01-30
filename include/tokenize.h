@@ -6,14 +6,14 @@
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 12:57:58 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/28 12:58:00 by younghoc         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:48:55 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZE_H
 # define TOKENIZE_H
 
-# include <minishell.h>
+# include <kyusulib.h>
 
 typedef enum e_token_category
 {

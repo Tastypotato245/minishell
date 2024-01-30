@@ -6,14 +6,14 @@
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:39:28 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/29 13:39:29 by younghoc         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:50:47 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-# include <minishell.h>
+# include <list.h>
 
 typedef enum e_tree_category
 {

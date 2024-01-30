@@ -6,11 +6,11 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 15:40:26 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 20:50:42 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:23:46 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <list.h>
 
 // for debug
 static void	exe_lst_size_check(t_exe_lst *exes)
