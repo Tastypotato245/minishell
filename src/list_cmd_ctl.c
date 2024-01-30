@@ -6,11 +6,11 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 21:56:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 18:35:01 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:23:28 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <list.h>
 
 // for debug
 static void	cmd_lst_size_check(t_cmd_lst *cmds)

@@ -6,11 +6,11 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:00:40 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/29 18:14:30 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:23:39 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <list.h>
 
 // for debug
 static void	rd_lst_size_check(t_rd_lst *rds)

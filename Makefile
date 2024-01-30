@@ -6,7 +6,7 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 19:56:05 by kyusulee          #+#    #+#              #
-#    Updated: 2024/01/30 17:43:21 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/01/30 19:55:38 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,10 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)traverse.c	\
 				$(SRCS_DIR)vector.c	\
 				$(SRCS_DIR)panic.c	\
-				$(SRCS_DIR)print_frankshell_image.c	\
-				$(SRCS_DIR)cmd_lst_ctl.c	\
-				$(SRCS_DIR)exe_lst_ctl.c	\
-				$(SRCS_DIR)rd_lst_ctl.c		\
+				$(SRCS_DIR)ui_frankshell_image.c	\
+				$(SRCS_DIR)list_cmd_ctl.c	\
+				$(SRCS_DIR)list_exe_ctl.c	\
+				$(SRCS_DIR)list_rd_ctl.c		\
 				$(SRCS_DIR)execute_test.c	\
 				$(SRCS_DIR)execute_pipex.c	\
 				$(SRCS_DIR)execute_pipex_utils.c	\
