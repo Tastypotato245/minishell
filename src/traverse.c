@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse.h"
 #include <minishell.h>
 #include <traverse.h>
 #include <panic.h>
+#include <execute.h>
 
 static void	traverse_smpl_cmd(t_exe_lst *exes, t_rd_lst *rds, t_tree *tree)
 {

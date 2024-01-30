@@ -14,6 +14,8 @@
 #include <parse.h>
 #include <tokenize.h>
 #include <traverse.h>
+#include <readline/readline.h>
+#include <execute.h>
 
 int main(int argc, char **argv, char **envp) {
 	char *line;
