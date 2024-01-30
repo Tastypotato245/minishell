@@ -46,7 +46,7 @@
              ███████║██║  ██║███████╗███████╗███████╗
              ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
 
-                   version: 1.0 (2024.01.28)
+                   version: 0.1 (2024.01.30)
 
                  younghoc: github.com/cho0h5
                  kyusulee: github.com/Tastypotato245
@@ -78,6 +78,7 @@
 |fix: | `fix: execute bug (1)` |
 |comment: | `comment: about tokenizer` |
 |norm: | `norm: about header files` |
+|refact: | `refact: header files` |
 
 # Terminology Organization
 
