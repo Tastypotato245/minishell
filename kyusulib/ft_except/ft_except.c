@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 13:38:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/15 14:36:35 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:19:02 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ void	exit_handler(int case_num, char *program_name, char *object)
 	exit(case_num);
 }
 
-int	func_guard(int result)
+int	func_guard(int result, char *program_name, char *object)
 {
 	if (result == -1)
-		exit_handler(1, NULL, NULL);
+		exit_handler(1, program_name, object);
 	return (result);
 }
 
-void	*null_guard(void *pointer)
+void	*null_guard(void *pointer, char *program_name, char *object)
 {
 	if (pointer == NULL)
-		exit_handler(1, NULL, NULL);
+		exit_handler(1, program_name, object);
 	return (pointer);
 }

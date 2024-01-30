@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   panic.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/26 19:57:14 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 20:25:27 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/01/29 14:56:33 by younghoc          #+#    #+#             */
+/*   Updated: 2024/01/29 14:56:35 by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef PANIC_H
+# define PANIC_H
 
-# ifndef DEBUG
-#  define DEBUG (0)
-# endif
+# include <stdio.h>
+# include <stdlib.h>
 
-# define PROGRAM_NAME "minishell"
+void	panic(char *error_message);
 
 #endif
