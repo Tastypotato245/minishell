@@ -57,7 +57,7 @@ static void	traverse_pipe(t_cmd_lst *cmds, t_tree *tree)
 		traverse_pipe(cmds, tree->right);
 }
 
-void	traverse(t_tree *tree)
+void	traverse(t_tree *tree, char **envp)
 {
 	t_cmd_lst	*cmds;
 
@@ -69,8 +69,9 @@ void	traverse(t_tree *tree)
 		cmds = new_cmd_lst();
 		traverse_pipe(cmds, tree);
 		print_cmd_lst(cmds);
+		pipex(cmds, envp);
 	} else {
-		traverse(tree->left);
-		traverse(tree->right);
+		traverse(tree->left, envp);
+		traverse(tree->right, envp);
 	}
 }

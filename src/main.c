@@ -15,7 +15,7 @@
 #include <tokenize.h>
 #include <traverse.h>
 
-int main(int argc, char **argv, char **env) {
+int main(int argc, char **argv, char **envp) {
 	char *line;
 	t_list *tokens;
 	t_tree *tree;
@@ -28,13 +28,13 @@ int main(int argc, char **argv, char **env) {
 		if (line == NULL)
 			break;
 		if (ft_strncmp(line, "test", 4) == 0)
-			execute_test(env);
+			execute_test(envp);
 		else {
 			tokens = tokenize(line);
 			ft_lstiter(tokens, print_token);
 			tree = parse(tokens);
 			print_tree(tree, 0);
-			traverse(tree);
+			traverse(tree, envp);
 			free(line);
 		}
 	}

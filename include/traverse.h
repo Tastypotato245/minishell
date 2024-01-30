@@ -15,6 +15,6 @@
 
 # include <parse.h>
 
-void	traverse(t_tree *tree);
+void	traverse(t_tree *tree, char **envp);
 
 #endif
