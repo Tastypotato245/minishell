@@ -63,7 +63,7 @@ void	print_error_token(t_token *token)
 		ft_putstr_fd("newline", STDERR_FILENO);
 }
 
-static void	print_syntax_error(t_list *tokens)
+static void	print_tokenize_error(t_list *tokens)
 {
 	t_token	*token;
 
@@ -80,7 +80,7 @@ int	is_valid_tokens(t_list *tokens)
 	{
 		if (is_error_token(tokens->content))
 		{
-			print_syntax_error(tokens);
+			print_tokenize_error(tokens);
 			return (-1);
 		}
 		tokens = tokens->next;
