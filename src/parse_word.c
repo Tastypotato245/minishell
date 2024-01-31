@@ -22,10 +22,10 @@ t_tree	*parse_word(t_list **tokens)
 	tree = null_guard(malloc(sizeof(t_tree)),
 			PROGRAM_NAME, "parse_word().");
 	if (*tokens == NULL)
-		panic("parse_word()");
+		return (print_parse_error(*tokens, tree));
 	token = (*tokens)->content;
 	if (token->category != T_WORD)
-		panic("parse_word()");
+		return (print_parse_error(*tokens, tree));
 	tree->category = TR_WORD;
 	tree->left = token->content;
 	tree->right = NULL;
