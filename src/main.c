@@ -41,6 +41,11 @@ int	main(int argc, char **argv, char **envp)
 			tokens = tokenize(line);
 			if (DEBUG)
 				ft_lstiter(tokens, print_token);
+			if (is_valid_tokens(tokens))
+			{
+				ft_lstclear(&tokens, destroy_token);
+				continue;
+			}
 			tree = parse(tokens);
 			if (DEBUG)
 				print_tree(tree, 0);
