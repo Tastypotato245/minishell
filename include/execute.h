@@ -6,16 +6,16 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:36:52 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 19:40:17 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:23:59 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTE_H
 # define EXECUTE_H
 
-# include "../kyusulib/kyusulib.h"
-# include "minishell.h"
-# include "list.h"
+# include <kyusulib.h>
+# include <minishell.h>
+# include <list.h>
 # include <fcntl.h>
 # include <sys/wait.h>
 

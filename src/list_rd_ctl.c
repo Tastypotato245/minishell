@@ -6,13 +6,12 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:00:40 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 19:23:39 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:19:50 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <list.h>
 
-// for debug
 static void	rd_lst_size_check(t_rd_lst *rds)
 {
 	t_rd_node	*tmp;	
@@ -69,14 +68,6 @@ void	rd_lst_new_back(t_rd_lst *rds, t_rd_type rd_type, char *file)
 	}
 	return ;
 }
-/*
-	if (!rds->head)
-		rds->head = new;
-	else
-		rds->tail->next = new;
-	rds->tail = new;
-	rds->size += 1;
-*/
 
 void	free_rd_lst(t_rd_lst *rds)
 {
