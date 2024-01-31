@@ -121,6 +121,29 @@ t_tree	*parse_pipeline(t_list **tokens)
 	return (tree);
 }
 
+t_tree	*parse_list_end(t_tree *tree)
+{
+	tree->category = TR_LIST_END;
+	tree->right = NULL;
+	return (tree);
+}
+
+t_tree	*parse_list_and(t_list **tokens, t_tree *tree)
+{
+	tree->category = TR_LIST_AND;
+	*tokens = (*tokens)->next;
+	tree->right = parse_list(tokens);
+	return (tree);
+}
+
+t_tree	*parse_list_or(t_list **tokens, t_tree *tree)
+{
+	tree->category = TR_LIST_OR;
+	*tokens = (*tokens)->next;
+	tree->right = parse_list(tokens);
+	return (tree);
+}
+
 t_tree	*parse_list(t_list **tokens)
 {
 	t_tree	*tree;
@@ -131,32 +154,14 @@ t_tree	*parse_list(t_list **tokens)
 	tree->left = parse_pipeline(tokens);
 	tree->right = NULL;
 	if (*tokens == NULL)
-	{
-		tree->category = TR_LIST_END;
-		tree->right = NULL;
-		return (tree);
-	}
+		return (parse_list_end(tree));
 	token = (*tokens)->content;
 	if (token->category == T_AND)
-	{
-		tree->category = TR_LIST_AND;
-		*tokens = (*tokens)->next;
-		tree->right = parse_list(tokens);
-		return (tree);
-	}
+		return (parse_list_and(tokens, tree));
 	else if (token->category == T_OR)
-	{
-		tree->category = TR_LIST_OR;
-		*tokens = (*tokens)->next;
-		tree->right = parse_list(tokens);
-		return (tree);
-	}
+		return (parse_list_or(tokens, tree));
 	else if (token->category == T_R_PAREN)
-	{
-		tree->category = TR_LIST_END;
-		tree->right = NULL;
-		return (tree);
-	}
+		return (parse_list_end(tree));
 	panic("parse_list()");
 	return (NULL);
 }
