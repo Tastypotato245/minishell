@@ -6,7 +6,7 @@
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:52:23 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/30 20:13:40 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 19:39:56 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	traverse_pipe(t_cmd_lst *cmds, t_tree *tree)
 		traverse_pipe(cmds, tree->right);
 }
 
-void	traverse(t_tree *tree, char **envp)
+void	traverse(t_tree *tree, t_dict *env_dict)
 {
 	t_cmd_lst	*cmds;
 
@@ -72,11 +72,11 @@ void	traverse(t_tree *tree, char **envp)
 		traverse_pipe(cmds, tree);
 		if (DEBUG)
 			print_cmd_lst(cmds);
-		pipex(cmds, envp);
+		pipex(cmds, env_dict);
 	}
 	else
 	{
-		traverse(tree->left, envp);
-		traverse(tree->right, envp);
+		traverse(tree->left, env_dict);
+		traverse(tree->right, env_dict);
 	}
 }

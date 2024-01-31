@@ -6,37 +6,21 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:53 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 17:42:54 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:51:29 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <execute.h>
 
-static char	*get_paths(char **env)
+static char	*get_paths(t_dict *env)
 {
-	int		i;
-	int		j;
-	char	*sub;
-
-	i = 0;
-	while (env && env[i])
-	{
-		j = 0;
-		while (env[i][j] && env[i][j] != '=')
-			j++;
-		sub = ft_substr(env[i], 0, j);
-		if (ft_strncmp(sub, "PATH", 4) == 0)
-		{
-			free(sub);
-			return (env[i] + j + 1);
-		}
-		free(sub);
-		i++;
-	}
-	return (DEFAULT_PATH);
+	return (find_val_in_dict(env, "PATH"));
 }
 
-void	exec(t_exe_lst *exes, char **env)
+//printf("*** path: %s\n", path);
+//printf("*** s_cmd0: %s\n", s_cmd[0]);
+//printf("*** s_cmd1: %s\n", s_cmd[1]);
+void	exec(t_exe_lst *exes, t_dict *env)
 {
 	char	**s_cmd;
 	char	*path;
@@ -47,7 +31,7 @@ void	exec(t_exe_lst *exes, char **env)
 	{
 		if (access(s_cmd[0], F_OK) == -1)
 			exit_handler(127, PROGRAM_NAME, s_cmd[0]);
-		if (execve(s_cmd[0], s_cmd, env) == -1)
+		if (execve(s_cmd[0], s_cmd, to_2darr(env)) == -1)
 			exit_handler(126, PROGRAM_NAME, s_cmd[0]);
 	}
 	else
@@ -59,12 +43,12 @@ void	exec(t_exe_lst *exes, char **env)
 		if (ft_strncmp(path, s_cmd[0], ft_strlen(path)) == 0 && \
 				ft_strchr(path, '/') == NULL)
 			exit_handler(127, PROGRAM_NAME, s_cmd[0]);
-		if (execve(path, s_cmd, env) == -1)
-			exit_handler(126, PROGRAM_NAME, s_cmd[0]);
+		if (execve(path, s_cmd, to_2darr(env)) == -1)
+			exit_handler(126, PROGRAM_NAME, path);
 	}
 }
 
-char	*get_cmd(char *cmd, char **env, int flag)
+char	*get_cmd(char *cmd, t_dict *env, int flag)
 {
 	int		i;
 	char	*exec;

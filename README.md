@@ -46,7 +46,7 @@
              ███████║██║  ██║███████╗███████╗███████╗
              ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
 
-                   version: 0.1 (2024.01.30)
+                   version: 0.1 (2024.01.31)
 
                  younghoc: github.com/cho0h5
                  kyusulee: github.com/Tastypotato245

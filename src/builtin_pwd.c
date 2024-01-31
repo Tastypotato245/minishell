@@ -1,17 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   kyusulib.h                                         :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 11:52:50 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/15 14:07:31 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/01/31 18:50:42 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/01/31 18:50:43 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KYUSULIB_H
-# define KYUSULIB_H
-# include "./libft/libft.h"
-# include "./ft_except/ft_except.h"
-#endif
+

@@ -6,7 +6,7 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 18:55:32 by kyusulee          #+#    #+#              #
-#    Updated: 2024/01/28 18:28:16 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/01/31 15:23:34 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,6 @@ EXCEPT_A	=	$(addprefix $(EXCEPT), libftexcept.a)
 
 ARX			=	ar x
 AR			=	ar rc
-CC			=	cc
-CFLAGS		=	-Werror -Wall -Wextra
 RM			=	rm -f
 ECHO		=	echo
 
