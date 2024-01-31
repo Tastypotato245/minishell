@@ -50,6 +50,7 @@ int	main(int argc, char **argv, char **envp)
 			if (DEBUG)
 				print_tree(tree, 0);
 			traverse(tree, envp);
+			destroy_tree(tree);
 			free(line);
 		}
 	}

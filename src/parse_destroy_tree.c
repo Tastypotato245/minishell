@@ -16,6 +16,15 @@ t_tree	*destroy_tree(t_tree *tree)
 {
 	if (tree != NULL)
 		return (NULL);
+	if (tree->category == TR_WORD
+		|| tree->category == TR_REDIRECT_IN
+		|| tree->category == TR_REDIRECT_OUT
+		|| tree->category == TR_REDIRECT_APPEND
+		|| tree->category == TR_REDIRECT_HERE_DOC)
+	{
+		free(tree->left);
+		return (NULL);
+	}
 	destroy_tree(tree->left);
 	destroy_tree(tree->right);
 	free(tree);
