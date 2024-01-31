@@ -26,6 +26,8 @@ static t_tree	*parse_list_and(t_list **tokens, t_tree *tree)
 	tree->category = TR_LIST_AND;
 	*tokens = (*tokens)->next;
 	tree->right = parse_list(tokens);
+	if (tree->right == NULL)
+		return (destroy_tree(tree));
 	return (tree);
 }
 
@@ -34,6 +36,8 @@ static t_tree	*parse_list_or(t_list **tokens, t_tree *tree)
 	tree->category = TR_LIST_OR;
 	*tokens = (*tokens)->next;
 	tree->right = parse_list(tokens);
+	if (tree->right == NULL)
+		return (destroy_tree(tree));
 	return (tree);
 }
 
