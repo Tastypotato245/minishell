@@ -18,11 +18,22 @@ static void	parse_paren(t_list **tokens, t_tree *tree, t_token *token)
 {
 	*tokens = (*tokens)->next;
 	tree->left = parse_list(tokens);
+	if (tree->left)
+	{
+		tree->left = destroy_tree(tree);
+		return ;
+	}
 	if (*tokens == NULL)
-		panic("parse_pipeline(): rparen not found");
+	{
+		tree->left = destroy_tree(tree);
+		return ;
+	}
 	token = (*tokens)->content;
 	if (token->category != T_R_PAREN)
-		panic("parse_pipeline(): rparen not found");
+	{
+		tree->left = destroy_tree(tree);
+		return ;
+	}
 	*tokens = (*tokens)->next;
 }
 
