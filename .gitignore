@@ -60,3 +60,4 @@ outfile*
 
 # for younghoc
 compile_flags.txt
+.venv
