@@ -21,6 +21,27 @@ static t_tree	*parse_smpl_cmd_end(t_tree *tree)
 	return (tree);
 }
 
+static int	is_redirect_or_here_doc(t_token_category category)
+{
+	if (category == T_IN_REDIRECT
+		|| category == T_OUT_REDIRECT
+		|| category == T_APPEND_REDIRECT
+		|| category == T_HERE_DOC)
+		return (1);
+	return (0);
+}
+
+static int	is_control_operator(t_token_category category)
+{
+	if (category == T_AND
+		|| category == T_OR
+		|| category == T_PIPE
+		|| category == T_L_PAREN
+		|| category == T_R_PAREN)
+		return (1);
+	return (0);
+}
+
 t_tree	*parse_simple_command(t_list **tokens)
 {
 	t_tree	*tree;
@@ -31,21 +52,14 @@ t_tree	*parse_simple_command(t_list **tokens)
 	if (*tokens == NULL)
 		panic("parse_pipeline()");
 	token = (*tokens)->content;
-	if (token->category == T_IN_REDIRECT
-		|| token->category == T_OUT_REDIRECT
-		|| token->category == T_APPEND_REDIRECT
-		|| token->category == T_HERE_DOC)
+	if (is_redirect_or_here_doc(token->category))
 		tree->left = parse_redirection(tokens);
 	else
 		tree->left = parse_word(tokens);
 	if (*tokens == NULL)
 		return (parse_smpl_cmd_end(tree));
 	token = (*tokens)->content;
-	if (token->category == T_AND
-		|| token->category == T_OR
-		|| token->category == T_PIPE
-		|| token->category == T_L_PAREN
-		|| token->category == T_R_PAREN)
+	if (is_control_operator(token->category))
 		return (parse_smpl_cmd_end(tree));
 	else
 	{
