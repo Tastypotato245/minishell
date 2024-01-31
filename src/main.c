@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 20:30:22 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:07:52 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main(int argc, char **argv, char **envp) {
 
 	if (argc != 1 || argv == NULL)
 		exit_handler(0, PROGRAM_NAME, "enter ./minishell");
-	print_frankshell_image();
+	print_symbol();
 	if (DEBUG)
 		printf(" *** DEBUG_MODE *** \t *** DEBUG_MODE *** \n");
 	while (1) {

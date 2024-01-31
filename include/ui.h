@@ -6,16 +6,17 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:20:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 19:43:25 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:13:49 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UI_H
 # define UI_H
 
-# include <stdio.h>
+# define SYMBOL_FILE "./asset/.symbol.fk"
+# define BUFFER_SIZE 8192
 
-// ui_frankshell_image.c
-void		print_frankshell_image(void);
+// ui_symbol.c
+void		print_symbol(void);
 
 #endif
