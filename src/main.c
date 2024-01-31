@@ -20,8 +20,9 @@
 #include <parse.h>
 #include <traverse.h>
 
-int main(int argc, char **argv, char **envp) {
-	char 	*line;
+int	main(int argc, char **argv, char **envp)
+{
+	char	*line;
 	t_list	*tokens;
 	t_tree	*tree;
 
@@ -30,11 +31,13 @@ int main(int argc, char **argv, char **envp) {
 	print_frankshell_image();
 	if (DEBUG)
 		printf(" *** DEBUG_MODE *** \t *** DEBUG_MODE *** \n");
-	while (1) {
+	while (1)
+	{
 		line = readline("🍔 $ ");
 		if (line == NULL)
-			break;
-		else {
+			break ;
+		else
+		{
 			tokens = tokenize(line);
 			if (DEBUG)
 				ft_lstiter(tokens, print_token);
