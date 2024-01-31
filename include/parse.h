@@ -48,4 +48,6 @@ t_tree	*parse_word(t_list **tokens);
 void	print_tree(t_tree *tree, int step);
 t_tree	*destroy_tree(t_tree *tree);
 
+t_tree	*print_parse_error(t_list *tokens, t_tree *tree);
+
 #endif

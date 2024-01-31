@@ -47,6 +47,11 @@ int	main(int argc, char **argv, char **envp)
 				continue;
 			}
 			tree = parse(tokens);
+			if (tree == NULL)
+			{
+				ft_lstclear(&tokens, destroy_token);
+				continue;
+			}
 			if (DEBUG)
 				print_tree(tree, 0);
 			traverse(tree, envp);
