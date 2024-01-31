@@ -66,8 +66,6 @@ t_tree	*parse_simple_command(t_list **tokens)
 	{
 		tree->category = TR_SMPL_CMD_CONTINUE;
 		tree->right = parse_simple_command(tokens);
-		if (*tokens == NULL)
-			return (parse_smpl_cmd_end(tree));
 		return (tree);
 	}
 }
