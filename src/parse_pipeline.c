@@ -18,20 +18,20 @@ static void	parse_paren(t_list **tokens, t_tree *tree, t_token *token)
 {
 	*tokens = (*tokens)->next;
 	tree->left = parse_list(tokens);
-	if (tree->left)
+	if (tree->left == NULL)
 	{
 		tree->left = destroy_tree(tree);
 		return ;
 	}
 	if (*tokens == NULL)
 	{
-		tree->left = destroy_tree(tree);
+		tree->left = print_parse_error(*tokens, tree);
 		return ;
 	}
 	token = (*tokens)->content;
 	if (token->category != T_R_PAREN)
 	{
-		tree->left = destroy_tree(tree);
+		panic("parse_paren()");
 		return ;
 	}
 	*tokens = (*tokens)->next;

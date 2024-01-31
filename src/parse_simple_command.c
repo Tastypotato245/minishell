@@ -17,7 +17,6 @@
 static t_tree	*parse_smpl_cmd_end(t_tree *tree)
 {
 	tree->category = TR_SMPL_CMD_END;
-	tree->right = NULL;
 	return (tree);
 }
 
