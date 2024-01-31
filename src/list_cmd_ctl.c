@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 21:56:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 15:19:43 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:59:29 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,10 @@ void	print_cmd_lst(t_cmd_lst *cmds)
 	tmp = cmds->head;
 	while (tmp)
 	{
-		printf(" 🍔 cmd[%d]: ", cnt);
+		printf(" - cmd[%d]: ", cnt);
 		print_exe_lst(tmp->exes);
 		print_rd_lst(tmp->rds);
-		printf("| 🍔\n");
+		printf("\n");
 		tmp = tmp->next;
 		++cnt;
 	}
