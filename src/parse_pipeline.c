@@ -49,6 +49,8 @@ static t_tree	*parse_pipe_continue(t_tree *tree, t_list **tokens)
 	tree->category = TR_PIPE_CONTINUE;
 	*tokens = (*tokens)->next;
 	tree->right = parse_pipeline(tokens);
+	if (tree->right == NULL)
+		return (destroy_tree(tree));
 	return (tree);
 }
 
