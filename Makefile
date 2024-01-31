@@ -19,10 +19,17 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)ui_symbol.c	\
 				$(SRCS_DIR)tokenize.c	\
 				$(SRCS_DIR)tokenize_categorize_token.c	\
-				$(SRCS_DIR)tokenize_create_token.c	\
+				$(SRCS_DIR)tokenize_create_token1.c	\
+				$(SRCS_DIR)tokenize_create_token2.c	\
+				$(SRCS_DIR)tokenize_create_token3.c	\
 				$(SRCS_DIR)tokenize_print_token.c	\
 				$(SRCS_DIR)tokenize_utils.c	\
 				$(SRCS_DIR)parse.c	\
+				$(SRCS_DIR)parse_list.c	\
+				$(SRCS_DIR)parse_pipeline.c	\
+				$(SRCS_DIR)parse_simple_command.c	\
+				$(SRCS_DIR)parse_word.c	\
+				$(SRCS_DIR)parse_redirection.c	\
 				$(SRCS_DIR)parse_print_tree.c	\
 				$(SRCS_DIR)traverse.c	\
 				$(SRCS_DIR)vector.c	\
