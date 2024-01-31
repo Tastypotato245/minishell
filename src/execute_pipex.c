@@ -70,7 +70,7 @@ static int	single_proccess(t_cmd_node *cmd, char **env)
 	return (WEXITSTATUS(status));
 }
 
-int			pipex(t_cmd_lst *cmds, char **env)
+int	pipex(t_cmd_lst *cmds, char **env)
 {
 	int	exit_code;
 
