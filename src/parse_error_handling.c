@@ -18,6 +18,8 @@ t_tree	*print_parse_error(t_list *tokens, t_tree *tree)
 {
 	t_token	*token;
 
+	if (tree == NULL)
+		return (NULL);
 	ft_putstr_fd(PROGRAM_NAME, STDERR_FILENO);
 	ft_putstr_fd(": syntax error near unexpected token `", STDERR_FILENO);
 	token = get_first_token(tokens);

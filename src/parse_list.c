@@ -55,6 +55,5 @@ t_tree	*parse_list(t_list **tokens)
 		return (parse_list_or(tokens, tree));
 	else if (token->category == T_R_PAREN)
 		return (parse_list_end(tree));
-	panic("parse_list(): unexpected case");
-	return (NULL);
+	return (print_parse_error(*tokens, tree));
 }
