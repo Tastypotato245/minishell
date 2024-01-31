@@ -6,7 +6,7 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 19:56:05 by kyusulee          #+#    #+#              #
-#    Updated: 2024/01/31 19:07:40 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/01/31 21:09:54 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,14 @@ HEAD_B		=	$(INCL_DIR)minishell_bonus.h
 
 SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)ui_symbol.c	\
-				$(SRCS_DIR)tokenize.c					\
-				$(SRCS_DIR)tokenize_categorize_token.c	\
-				$(SRCS_DIR)tokenize_create_token1.c		\
-				$(SRCS_DIR)tokenize_create_token2.c		\
-				$(SRCS_DIR)tokenize_create_token3.c		\
-				$(SRCS_DIR)tokenize_print_token.c		\
-				$(SRCS_DIR)tokenize_utils.c				\
+				$(SRCS_DIR)tokenize.c							\
+				$(SRCS_DIR)tokenize_categorize_token.c			\
+				$(SRCS_DIR)tokenize_create_token1.c				\
+				$(SRCS_DIR)tokenize_create_token2.c				\
+				$(SRCS_DIR)tokenize_create_token3.c				\
+				$(SRCS_DIR)tokenize_check_validity_of_tokens.c	\
+				$(SRCS_DIR)tokenize_print_token.c				\
+				$(SRCS_DIR)tokenize_utils.c						\
 				$(SRCS_DIR)parse.c					\
 				$(SRCS_DIR)parse_list.c				\
 				$(SRCS_DIR)parse_pipeline.c			\

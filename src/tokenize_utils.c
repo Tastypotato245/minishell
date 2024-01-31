@@ -42,7 +42,9 @@ int	ft_is_metacharacter(char c)
 	return (0);
 }
 
-void	destroy_token(t_token *token)
+void	destroy_token(void *content)
 {
+	const t_token	*token = content;
+
 	free(token->content);
 }

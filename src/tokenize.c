@@ -21,6 +21,7 @@ t_list	*tokenize(const char *line)
 	size_t			i;
 
 	i = 0;
+	tokens = NULL;
 	while (i < line_len)
 	{
 		if (ft_is_space(line[i]))
