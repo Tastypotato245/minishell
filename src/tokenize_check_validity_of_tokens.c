@@ -21,14 +21,14 @@ static int	is_error_token(t_token *token)
 	return (0);
 }
 
-static t_token	*get_first_token(t_list *tokens)
+t_token	*get_first_token(t_list *tokens)
 {
 	t_token	*token;
 
 	while (tokens)
 	{
 		token = tokens->content;
-		if (token->category != T_ERROR)
+		if (!is_error_token(token))
 			return (token);
 		tokens = tokens->next;
 	}
