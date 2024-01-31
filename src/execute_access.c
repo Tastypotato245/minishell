@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:53 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 20:51:29 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 23:30:28 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 static char	*get_paths(t_dict *env)
 {
 	return (find_val_in_dict(env, "PATH"));
+}
+
+void	absolute_or_relative_path(char **s_cmd)
+{
+	if (access(s_cmd[0], F_OK) == -1)
+		exit_handler(127, PROGRAM_NAME, s_cmd[0]);
+	if (execve(s_cmd[0], s_cmd, to_2darr(env)) == -1)
+		exit_handler(126, PROGRAM_NAME, s_cmd[0]);
 }
 
 //printf("*** path: %s\n", path);
@@ -26,22 +34,18 @@ void	exec(t_exe_lst *exes, t_dict *env)
 	char	*path;
 	char	*exist_path;
 
+	if (exes->size == 0)
+		exit (0);
 	s_cmd = lst_to_2darr(exes);
-	if (s_cmd[0][0] == '/' || ft_strncmp(s_cmd[0], "./", 2) == 0)
-	{
-		if (access(s_cmd[0], F_OK) == -1)
-			exit_handler(127, PROGRAM_NAME, s_cmd[0]);
-		if (execve(s_cmd[0], s_cmd, to_2darr(env)) == -1)
-			exit_handler(126, PROGRAM_NAME, s_cmd[0]);
-	}
+	if (ft_strchr(s_cmd[0], '/') != NULL)
+		absolute_or_relative_path(s_cmd);
 	else
 	{
 		path = get_cmd(s_cmd[0], env, F_OK | X_OK);
 		exist_path = get_cmd(s_cmd[0], env, F_OK);
-		if (access(path, F_OK) == -1 && access(exist_path, F_OK) == -1)
+		if (path == NULL)
 			exit_handler(127, PROGRAM_NAME, s_cmd[0]);
-		if (ft_strncmp(path, s_cmd[0], ft_strlen(path)) == 0 && \
-				ft_strchr(path, '/') == NULL)
+		if (access(path, F_OK) == -1 && access(exist_path, F_OK) == -1)
 			exit_handler(127, PROGRAM_NAME, s_cmd[0]);
 		if (execve(path, s_cmd, to_2darr(env)) == -1)
 			exit_handler(126, PROGRAM_NAME, path);
@@ -74,5 +78,5 @@ char	*get_cmd(char *cmd, t_dict *env, int flag)
 	}
 	free_strarr(allpath);
 	free_strarr(s_cmd);
-	return (cmd);
+	return (NULL);
 }
