@@ -73,7 +73,7 @@ t_tree	*parse_redirection(t_list **tokens)
 	}
 	else
 		panic("parse_redirection()");
-	return (NULL);
+	return (tree);
 }
 
 t_tree	*parse_simple_command(t_list **tokens)
