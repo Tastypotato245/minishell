@@ -14,6 +14,13 @@
 #include <tokenize.h>
 #include <panic.h>
 
+static t_tree	*parse_smpl_cmd_end(t_tree *tree)
+{
+	tree->category = TR_SMPL_CMD_END;
+	tree->right = NULL;
+	return (tree);
+}
+
 t_tree	*parse_simple_command(t_list **tokens)
 {
 	t_tree	*tree;
@@ -32,22 +39,14 @@ t_tree	*parse_simple_command(t_list **tokens)
 	else
 		tree->left = parse_word(tokens);
 	if (*tokens == NULL)
-	{
-		tree->category = TR_SMPL_CMD_END;
-		tree->right = NULL;
-		return (tree);
-	}
+		return (parse_smpl_cmd_end(tree));
 	token = (*tokens)->content;
 	if (token->category == T_AND
 		|| token->category == T_OR
 		|| token->category == T_PIPE
 		|| token->category == T_L_PAREN
 		|| token->category == T_R_PAREN)
-	{
-		tree->category = TR_SMPL_CMD_END;
-		tree->right = NULL;
-		return (tree);
-	}
+		return (parse_smpl_cmd_end(tree));
 	else
 	{
 		tree->category = TR_SMPL_CMD_CONTINUE;
