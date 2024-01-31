@@ -33,6 +33,38 @@ t_tree	*parse_word(t_list **tokens)
 	return (tree);
 }
 
+static void	set_tree_to_redirect_in(t_tree *tree, t_list **tokens)
+{
+	tree->category = TR_REDIRECT_IN;
+	*tokens = (*tokens)->next;
+	tree->left = parse_word(tokens);
+	tree->right = NULL;
+}
+
+static void	set_tree_to_redirect_out(t_tree *tree, t_list **tokens)
+{
+	tree->category = TR_REDIRECT_OUT;
+	*tokens = (*tokens)->next;
+	tree->left = parse_word(tokens);
+	tree->right = NULL;
+}
+
+static void	set_tree_to_redirect_append(t_tree *tree, t_list **tokens)
+{
+	tree->category = TR_REDIRECT_APPEND;
+	*tokens = (*tokens)->next;
+	tree->left = parse_word(tokens);
+	tree->right = NULL;
+}
+
+static void	set_tree_to_here_doc(t_tree *tree, t_list **tokens)
+{
+	tree->category = TR_REDIRECT_HERE_DOC;
+	*tokens = (*tokens)->next;
+	tree->left = parse_word(tokens);
+	tree->right = NULL;
+}
+
 t_tree	*parse_redirection(t_list **tokens)
 {
 	t_tree	*tree;
@@ -44,33 +76,13 @@ t_tree	*parse_redirection(t_list **tokens)
 		panic("parse_redirection()");
 	token = (*tokens)->content;
 	if (token->category == T_IN_REDIRECT)
-	{
-		tree->category = TR_REDIRECT_IN;
-		*tokens = (*tokens)->next;
-		tree->left = parse_word(tokens);
-		tree->right = NULL;
-	}
+		set_tree_to_redirect_in(tree, tokens);
 	else if (token->category == T_OUT_REDIRECT)
-	{
-		tree->category = TR_REDIRECT_OUT;
-		*tokens = (*tokens)->next;
-		tree->left = parse_word(tokens);
-		tree->right = NULL;
-	}
+		set_tree_to_redirect_out(tree, tokens);
 	else if (token->category == T_APPEND_REDIRECT)
-	{
-		tree->category = TR_REDIRECT_APPEND;
-		*tokens = (*tokens)->next;
-		tree->left = parse_word(tokens);
-		tree->right = NULL;
-	}
+		set_tree_to_redirect_append(tree, tokens);
 	else if (token->category == T_HERE_DOC)
-	{
-		tree->category = TR_REDIRECT_HERE_DOC;
-		*tokens = (*tokens)->next;
-		tree->left = parse_word(tokens);
-		tree->right = NULL;
-	}
+		set_tree_to_here_doc(tree, tokens);
 	else
 		panic("parse_redirection()");
 	return (tree);
