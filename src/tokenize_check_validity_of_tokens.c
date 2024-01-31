@@ -35,7 +35,7 @@ static t_token	*get_first_token(t_list *tokens)
 	return (NULL);
 }
 
-static void	print_error_token(t_token *token)
+void	print_error_token(t_token *token)
 {
 	if (token == NULL)
 		ft_putstr_fd("newline", STDERR_FILENO);
