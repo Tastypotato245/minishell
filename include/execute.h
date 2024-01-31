@@ -26,7 +26,6 @@
 # define OUTFILE_A_O (2)
 # define DEFAULT_PATH "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:."
 
-
 typedef struct s_info
 {
 	int		ex_fd;

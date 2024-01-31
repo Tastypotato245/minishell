@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parse.h>
 #include <minishell.h>
 #include <traverse.h>
 #include <panic.h>
@@ -49,7 +48,6 @@ static void	traverse_pipe(t_cmd_lst *cmds, t_tree *tree)
 		print_tree(tree, 0);
 		printf("----------\n");
 	}
-
 	if (tree->category != TR_PIPE_CONTINUE
 		&& tree->category != TR_PIPE_END)
 		panic("traverse_pipe()");
@@ -75,7 +73,9 @@ void	traverse(t_tree *tree, char **envp)
 		if (DEBUG)
 			print_cmd_lst(cmds);
 		pipex(cmds, envp);
-	} else {
+	}
+	else
+	{
 		traverse(tree->left, envp);
 		traverse(tree->right, envp);
 	}
