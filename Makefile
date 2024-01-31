@@ -21,6 +21,7 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)tokenize_create_token1.c	\
 				$(SRCS_DIR)tokenize_create_token2.c	\
 				$(SRCS_DIR)tokenize_create_token3.c	\
+				$(SRCS_DIR)tokenize_check_validity_of_tokens.c	\
 				$(SRCS_DIR)tokenize_print_token.c	\
 				$(SRCS_DIR)tokenize_utils.c	\
 				$(SRCS_DIR)parse.c	\
