@@ -66,5 +66,7 @@ t_tree	*parse_redirection(t_list **tokens)
 		set_tree_to_here_doc(tokens, tree);
 	else
 		panic("parse_redirection()");
+	if (tree->left == NULL)
+		return (destroy_tree(tree));
 	return (tree);
 }

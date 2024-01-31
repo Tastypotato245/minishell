@@ -45,6 +45,8 @@ t_tree	*parse_list(t_list **tokens)
 	tree = null_guard(malloc(sizeof(t_tree)),
 			PROGRAM_NAME, "parse_list().");
 	tree->left = parse_pipeline(tokens);
+	if (tree->left == NULL)
+		return (destroy_tree(tree));
 	tree->right = NULL;
 	if (*tokens == NULL)
 		return (parse_list_end(tree));

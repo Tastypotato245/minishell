@@ -47,7 +47,7 @@ t_tree	*parse_simple_command(t_list **tokens)
 	t_tree	*tree;
 	t_token	*token;
 
-	tree = null_guard(malloc(sizeof(t_tree)),
+	tree = null_guard(ft_calloc(1, sizeof(t_tree)),
 			PROGRAM_NAME, "parse_simple_command().");
 	if (*tokens == NULL)
 		panic("parse_pipeline()");
@@ -56,6 +56,8 @@ t_tree	*parse_simple_command(t_list **tokens)
 		tree->left = parse_redirection(tokens);
 	else
 		tree->left = parse_word(tokens);
+	if (tree->left == NULL)
+		return (destroy_tree(tree));
 	if (*tokens == NULL)
 		return (parse_smpl_cmd_end(tree));
 	token = (*tokens)->content;
@@ -65,6 +67,8 @@ t_tree	*parse_simple_command(t_list **tokens)
 	{
 		tree->category = TR_SMPL_CMD_CONTINUE;
 		tree->right = parse_simple_command(tokens);
+		if (*tokens == NULL)
+			return (parse_smpl_cmd_end(tree));
 		return (tree);
 	}
 }
