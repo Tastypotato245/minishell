@@ -75,6 +75,33 @@ t_tree	*parse_simple_command(t_list **tokens)
 	}
 }
 
+static void	parse_paren(t_list **tokens, t_tree *tree, t_token *token)
+{
+	*tokens = (*tokens)->next;
+	tree->left = parse_list(tokens);
+	if (*tokens == NULL)
+		panic("parse_pipeline(): rparen not found");
+	token = (*tokens)->content;
+	if (token->category != T_R_PAREN)
+		panic("parse_pipeline(): rparen not found");
+	*tokens = (*tokens)->next;
+}
+
+static t_tree	*set_tree_to_pipe_end(t_tree *tree)
+{
+	tree->category = TR_PIPE_END;
+	tree->right = NULL;
+	return (tree);
+}
+
+static t_tree	*parse_pipe_continue(t_tree *tree, t_list **tokens)
+{
+	tree->category = TR_PIPE_CONTINUE;
+	*tokens = (*tokens)->next;
+	tree->right = parse_pipeline(tokens);
+	return (tree);
+}
+
 t_tree	*parse_pipeline(t_list **tokens)
 {
 	t_tree	*tree;
@@ -86,39 +113,15 @@ t_tree	*parse_pipeline(t_list **tokens)
 		panic("parse_pipeline()");
 	token = (*tokens)->content;
 	if (token->category == T_L_PAREN)
-	{
-		*tokens = (*tokens)->next;
-		tree->left = parse_list(tokens);
-		if (*tokens == NULL)
-			panic("parse_pipeline(): rparen not found");
-		token = (*tokens)->content;
-		if (token->category != T_R_PAREN)
-			panic("parse_pipeline(): rparen not found");
-		*tokens = (*tokens)->next;
-	}
+		parse_paren(tokens, tree, token);
 	else
 		tree->left = parse_simple_command(tokens);
 	if (*tokens == NULL)
-	{
-		tree->category = TR_PIPE_END;
-		tree->right = NULL;
-		return (tree);
-	}
+		return (set_tree_to_pipe_end(tree));
 	token = (*tokens)->content;
 	if (token->category == T_PIPE)
-	{
-		tree->category = TR_PIPE_CONTINUE;
-		*tokens = (*tokens)->next;
-		tree->right = parse_pipeline(tokens);
-		return (tree);
-	}
-	else
-	{
-		tree->category = TR_PIPE_END;
-		tree->right = NULL;
-		return (tree);
-	}
-	return (tree);
+		return (parse_pipe_continue(tree, tokens));
+	return (set_tree_to_pipe_end(tree));
 }
 
 t_tree	*parse(t_list *tokens)
