@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dict_env_ctl.c                                     :+:      :+:    :+:   */
+/*   dict_ctl1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 15:40:42 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 16:48:37 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/01/31 16:53:55 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/01/31 17:44:00 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,13 @@ void	free_dict(t_dict *dict)
 
 	if (!dict)
 		exit_handler(1, PROGRAM_NAME, "dict is NULL: free_dict().");
-	dict_size_check(dict);
+	dictionary_size_check(dict);
 	while (dict->head)
 	{
 		tmp = dict->head;
 		dict->head = dict->head->next;
-		free(tmp->key);
-		tmp->key = NULL;
-		free(tmp->val);
-		tmp->val = NULL;
-		free(tmp);
+		free_pair(tmp);
+		tmp = NULL;
 	}
 	free(dict);
 	dict = NULL;
@@ -104,7 +101,7 @@ void	print_dict(t_dict *dict)
 	printf("\t-------\n");
 	while (tmp)
 	{
-		printf("\t%s=%s", tmp->key, tmp->val);
+		printf("\t%s=%s\n", tmp->key, tmp->val);
 		tmp = tmp->next;
 	}
 	return ;

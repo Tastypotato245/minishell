@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dict_env_ctl2.c                                    :+:      :+:    :+:   */
+/*   dict_ctl2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 16:00:38 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 16:49:02 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/01/31 16:54:05 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/01/31 17:30:29 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_pair	*find_pre_pair_in_dict(t_dict *dict, char *key)
 {
 	t_pair	*tmp;
 
+	tmp = dict->head;
 	while (tmp->next)
 	{
 		if (ft_strncmp(tmp->next->key, key, ft_strlen(tmp->next->key)) == 0)

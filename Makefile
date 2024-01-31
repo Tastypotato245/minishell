@@ -6,7 +6,7 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 19:56:05 by kyusulee          #+#    #+#              #
-#    Updated: 2024/01/31 15:11:38 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/01/31 17:35:24 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,9 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)list_cmd_ctl.c	\
 				$(SRCS_DIR)list_exe_ctl.c	\
 				$(SRCS_DIR)list_rd_ctl.c		\
+				$(SRCS_DIR)dict_ctl1.c		\
+				$(SRCS_DIR)dict_ctl2.c		\
+				$(SRCS_DIR)dict_env.c		\
 				$(SRCS_DIR)execute_pipex.c	\
 				$(SRCS_DIR)execute_pipex_utils.c	\
 				$(SRCS_DIR)execute_access.c	\

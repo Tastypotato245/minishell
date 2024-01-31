@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 15:17:18 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:46:58 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,31 @@
 #include <readline/readline.h>
 #include <ui.h>
 #include <list.h>
+#include <dict.h>
 #include <execute.h>
 #include <tokenize.h>
 #include <parse.h>
 #include <traverse.h>
+
+void	leak_checker(void)
+{
+	system("leaks minishell");
+}
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_list	*tokens;
 	t_tree	*tree;
+	t_dict	*env_dict;
 
+	atexit(leak_checker);
 	if (argc != 1 || argv == NULL)
 		exit_handler(0, PROGRAM_NAME, "enter ./minishell");
 	print_symbol();
-	if (DEBUG)
-		printf(" *** DEBUG_MODE *** \t *** DEBUG_MODE *** \n");
+	env_dict = to_dict(envp);
+	//builtin_env(env_dict);
+	print_dict(env_dict);
 	while (1)
 	{
 		line = readline("🍔 $ ");
@@ -48,5 +57,6 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 		}
 	}
+	free_dict(env_dict);
 	return (0);
 }

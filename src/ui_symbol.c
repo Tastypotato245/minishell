@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:48:01 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 15:17:43 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:35:25 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,6 @@ void	print_symbol(void)
 	printf("%s", symbol);
 	free(symbol);
 	close(fd);
+	if (DEBUG)
+		printf(" *** DEBUG_MODE *** \t *** DEBUG_MODE *** \n");
 }
