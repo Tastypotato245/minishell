@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:36:52 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 15:23:59 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:12:50 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 # include <kyusulib.h>
 # include <minishell.h>
+# include <builtin.h>
 # include <list.h>
+# include <dict.h>
 # include <fcntl.h>
 # include <sys/wait.h>
 
@@ -34,22 +36,19 @@ typedef struct s_info
 }				t_info;
 
 // pipex.c
-int			pipex(t_cmd_lst *cmds, char **env);
+int		pipex(t_cmd_lst *cmds, t_dict *env);
 
 // pipex_utils.c
-void		repeat_redirection(t_rd_lst *rds);
-int			open_guard(int mod, char *file);
-char		**lst_to_2darr(t_exe_lst *exes);
+void	repeat_redirection(t_rd_lst *rds);
+int		open_guard(int mod, char *file);
+char	**lst_to_2darr(t_exe_lst *exes);
 
 // process.c
-void		single_child(t_cmd_node *cmd, char **env);
-void		children_switch(t_info *info, int *fd, t_cmd_node *cmd, char **env);
+void	single_child(t_cmd_node *cmd, t_dict *env);
+void	children_switch(t_info *info, int *fd, t_cmd_node *cmd, t_dict *env);
 
 // access.c
-void		exec(t_exe_lst *exes, char **env);
-char		*get_cmd(char *cmd, char **env, int flag);
-
-// execute_test.c
-void		execute_test(char **env);
+void	exec(t_exe_lst *exes, t_dict *env);
+char	*get_cmd(char *cmd, t_dict *env, int flag);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 19:56:05 by kyusulee          #+#    #+#              #
-#    Updated: 2024/01/31 17:35:24 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/01/31 19:07:40 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,32 +17,38 @@ HEAD_B		=	$(INCL_DIR)minishell_bonus.h
 
 SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)ui_symbol.c	\
-				$(SRCS_DIR)tokenize.c	\
+				$(SRCS_DIR)tokenize.c					\
 				$(SRCS_DIR)tokenize_categorize_token.c	\
-				$(SRCS_DIR)tokenize_create_token1.c	\
-				$(SRCS_DIR)tokenize_create_token2.c	\
-				$(SRCS_DIR)tokenize_create_token3.c	\
-				$(SRCS_DIR)tokenize_print_token.c	\
-				$(SRCS_DIR)tokenize_utils.c	\
-				$(SRCS_DIR)parse.c	\
-				$(SRCS_DIR)parse_list.c	\
-				$(SRCS_DIR)parse_pipeline.c	\
+				$(SRCS_DIR)tokenize_create_token1.c		\
+				$(SRCS_DIR)tokenize_create_token2.c		\
+				$(SRCS_DIR)tokenize_create_token3.c		\
+				$(SRCS_DIR)tokenize_print_token.c		\
+				$(SRCS_DIR)tokenize_utils.c				\
+				$(SRCS_DIR)parse.c					\
+				$(SRCS_DIR)parse_list.c				\
+				$(SRCS_DIR)parse_pipeline.c			\
 				$(SRCS_DIR)parse_simple_command.c	\
-				$(SRCS_DIR)parse_word.c	\
-				$(SRCS_DIR)parse_redirection.c	\
-				$(SRCS_DIR)parse_print_tree.c	\
+				$(SRCS_DIR)parse_word.c				\
+				$(SRCS_DIR)parse_redirection.c		\
+				$(SRCS_DIR)parse_print_tree.c		\
 				$(SRCS_DIR)traverse.c	\
-				$(SRCS_DIR)vector.c	\
-				$(SRCS_DIR)panic.c	\
+				$(SRCS_DIR)vector.c		\
+				$(SRCS_DIR)panic.c		\
 				$(SRCS_DIR)list_cmd_ctl.c	\
 				$(SRCS_DIR)list_exe_ctl.c	\
-				$(SRCS_DIR)list_rd_ctl.c		\
-				$(SRCS_DIR)dict_ctl1.c		\
-				$(SRCS_DIR)dict_ctl2.c		\
-				$(SRCS_DIR)dict_env.c		\
-				$(SRCS_DIR)execute_pipex.c	\
+				$(SRCS_DIR)list_rd_ctl.c	\
+				$(SRCS_DIR)dict_ctl1.c	\
+				$(SRCS_DIR)dict_ctl2.c	\
+				$(SRCS_DIR)dict_env.c	\
+				$(SRCS_DIR)builtin_ctl.c	\
+				$(SRCS_DIR)builtin_echo.c	\
+				$(SRCS_DIR)builtin_cd.c		\
+				$(SRCS_DIR)builtin_pwd.c	\
+				$(SRCS_DIR)builtin_env.c	\
+				$(SRCS_DIR)builtin_exit.c	\
+				$(SRCS_DIR)execute_pipex.c			\
 				$(SRCS_DIR)execute_pipex_utils.c	\
-				$(SRCS_DIR)execute_access.c	\
+				$(SRCS_DIR)execute_access.c			\
 				$(SRCS_DIR)execute_process.c
 
 SRCS_B		=	$(SRCS_B_DIR)main.c

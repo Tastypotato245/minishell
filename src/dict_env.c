@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:56:18 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 18:47:29 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:51:51 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_dict	*to_dict(char **envp)
 	char	*key;
 	char	*val;
 
-	env_dict = new_dictionary();	
+	env_dict = new_dictionary();
 	i = 0;
 	while (envp && envp[i])
 	{
@@ -36,26 +36,31 @@ t_dict	*to_dict(char **envp)
 	return (env_dict);
 }
 
-void	builtin_env(t_dict *env_dict)
+//printf("\tenvp[%d]: %s\n", i, envp[i]);
+char	**to_2darr(t_dict *env_dict)
 {
+	char	**envp;
 	t_pair	*tmp;
+	int		i;
+	int		len;
 
-	if (!dict)
-		exit_handler(1, PROGRAM_NAME, "dict is NULL: print_dict().");
-	tmp = dict->head;
+	if (!env_dict)
+		exit_handler(1, PROGRAM_NAME, "dict is NULL: to_2darr().");
+	envp = null_guard(malloc(sizeof(char *) * (env_dict->size + 1)), \
+			PROGRAM_NAME, "to_2darr().");
+	envp[env_dict->size] = NULL;
+	tmp = env_dict->head;
+	i = 0;
+	len = 0;
 	while (tmp)
 	{
-		printf("%s=%s\n", tmp->key, tmp->val);
+		len = ft_strlen(tmp->key) + 1 + ft_strlen(tmp->val);
+		envp[i] = null_guard(malloc(len + 1), PROGRAM_NAME, "to_2darr().");
+		ft_strlcpy(envp[i], tmp->key, len);
+		ft_strlcat(envp[i], "=", len + 1);
+		ft_strlcat(envp[i], tmp->val, len + 1);
 		tmp = tmp->next;
+		++i;
 	}
-}
-
-void		builtin_export(t_dict *env_dict, t_exe_lst *exes)
-{
-
-}
-
-void		builtin_unset(t_dict *env_dict, t_exe_lst *exes)
-{
-	del_pair_in_dict(env_dict, key);
+	return (envp);
 }

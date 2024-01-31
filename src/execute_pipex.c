@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 18:47:58 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:52:16 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	parent_wait(t_info *info, pid_t last_pid)
 	return (exit_save);
 }
 
-static int	multiple_proccess(t_cmd_lst *cmds, char **env)
+static int	multiple_proccess(t_cmd_lst *cmds, t_dict *env)
 {
 	int			fd[2];
 	pid_t		pid;
@@ -58,11 +58,13 @@ static int	multiple_proccess(t_cmd_lst *cmds, char **env)
 	return (parent_wait(&info, pid));
 }
 
-static int	single_proccess(t_cmd_node *cmd, char **env)
+static int	single_proccess(t_cmd_node *cmd, t_dict *env)
 {
 	pid_t	pid;
 	int		status;
 
+//	if (builtin_checker(cmd, env))
+//		builtin_switcher(cmd, env);
 	pid = func_guard(fork(), PROGRAM_NAME, "pipex().");
 	if (pid == 0)
 		single_child(cmd, env);
@@ -70,7 +72,7 @@ static int	single_proccess(t_cmd_node *cmd, char **env)
 	return (WEXITSTATUS(status));
 }
 
-int	pipex(t_cmd_lst *cmds, char **env)
+int	pipex(t_cmd_lst *cmds, t_dict *env)
 {
 	int	exit_code;
 

@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:54:05 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 17:30:29 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 19:19:37 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_pair	*find_pre_pair_in_dict(t_dict *dict, char *key)
 	return (NULL);
 }
 
-char	*get_val_in_dict(t_dict *dict, char *key)
+char	*find_val_in_dict(t_dict *dict, char *key)
 {
 	t_pair	*tmp;
 

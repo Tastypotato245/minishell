@@ -6,19 +6,19 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:45 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 17:42:45 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:13:51 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <execute.h>
 
-void	single_child(t_cmd_node *cmd, char **env)
+void	single_child(t_cmd_node *cmd, t_dict *env)
 {
 	repeat_redirection(cmd->rds);
 	exec(cmd->exes, env);
 }
 
-void	first_child(int *fd, t_cmd_node *cmd, char **env)
+void	first_child(int *fd, t_cmd_node *cmd, t_dict *env)
 {
 	func_guard(close(fd[0]), PROGRAM_NAME, "close(fd[0]): first_child().");
 	repeat_redirection(cmd->rds);
@@ -28,7 +28,7 @@ void	first_child(int *fd, t_cmd_node *cmd, char **env)
 	exec(cmd->exes, env);
 }
 
-void	middle_child(t_info *info, int *fd, t_cmd_node *cmd, char **env)
+void	middle_child(t_info *info, int *fd, t_cmd_node *cmd, t_dict *env)
 {
 	func_guard(close(fd[0]), PROGRAM_NAME, \
 			"close(fd[0]): middle_child().");
@@ -44,7 +44,7 @@ void	middle_child(t_info *info, int *fd, t_cmd_node *cmd, char **env)
 	exec(cmd->exes, env);
 }
 
-void	last_child(t_info *info, t_cmd_node *cmd, char **env)
+void	last_child(t_info *info, t_cmd_node *cmd, t_dict *env)
 {
 	func_guard(dup2(info->ex_fd, STDIN_FILENO), PROGRAM_NAME, \
 			"dup2(info->ex_fd, STDIN_FILENO): last_child().");
@@ -54,7 +54,7 @@ void	last_child(t_info *info, t_cmd_node *cmd, char **env)
 	exec(cmd->exes, env);
 }
 
-void	children_switch(t_info *info, int *fd, t_cmd_node *cmd, char **env)
+void	children_switch(t_info *info, int *fd, t_cmd_node *cmd, t_dict *env)
 {
 	if (info->pidx == 0)
 		first_child(fd, cmd, env);
