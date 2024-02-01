@@ -19,7 +19,7 @@ t_tree	*parse_word(t_list **tokens)
 	t_tree	*tree;
 	t_token	*token;
 
-	tree = null_guard(malloc(sizeof(t_tree)),
+	tree = null_guard(ft_calloc(1, sizeof(t_tree)),
 			PROGRAM_NAME, "parse_word().");
 	if (*tokens == NULL)
 		return (print_parse_error(*tokens, tree));
@@ -28,7 +28,6 @@ t_tree	*parse_word(t_list **tokens)
 		return (print_parse_error(*tokens, tree));
 	tree->category = TR_WORD;
 	tree->left = ft_strdup(token->content);
-	tree->right = NULL;
 	*tokens = (*tokens)->next;
 	return (tree);
 }
