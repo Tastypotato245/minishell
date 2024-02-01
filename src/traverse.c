@@ -15,7 +15,8 @@
 #include <panic.h>
 #include <execute.h>
 
-static void	traverse_word_and_redirect(t_exe_lst *exes, t_rd_lst *rds, t_tree *tree)
+static void	traverse_word_and_redirect(t_exe_lst *exes,
+		t_rd_lst *rds, t_tree *tree)
 {
 	t_tree	*tree_left;
 
@@ -66,25 +67,28 @@ int	traverse_pipe(t_tree *tree, t_dict *env_dict)
 {
 	t_cmd_lst	*cmds;
 	int			exit_status;
+	t_tree		*tree_left;
 
 	if (tree == NULL)
 		panic("traverse_pipe()");
-//	if (tree->category == TR_PIPE_CONTINUE
-//		|| tree->category == TR_PIPE_END)
-//	{
+	tree_left = tree->left;
+	if (tree_left->category == TR_LIST_AND
+		|| tree_left->category == TR_LIST_OR
+		|| tree_left->category == TR_LIST_END)
+		return (traverse(tree_left, env_dict));
+	else if (tree_left->category == TR_SMPL_CMD_CONTINUE
+		|| tree_left->category == TR_SMPL_CMD_END)
+	{
 		cmds = new_cmd_lst();
 		traverse_smpl_cmd(cmds, tree);
 		if (DEBUG)
 			print_cmd_lst(cmds);
 		exit_status = pipex(cmds, env_dict);
 		free_cmd_lst(cmds);
-//	}
-//	else
-//	{
-//		traverse(tree->left, env_dict);
-//		traverse(tree->right, env_dict);
-//	}
-	return (exit_status);
+		return (exit_status);
+	}
+	panic("traverse_pipe()");
+	return (-1);
 }
 
 int	traverse(t_tree *tree, t_dict *env_dict)
