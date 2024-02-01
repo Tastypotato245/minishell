@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 18:49:49 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 18:26:49 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/02/01 18:14:33 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/02/01 18:33:26 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtin.h>
-#include <stdio.h>
 
-int	builtin_env(t_dict *env, t_exe_lst *exes)
+int	builtin_unset(t_dict *env, t_exe_lst *exes)
 {
-	t_pair	*tmp;
+	t_exe_node	*tmp;
 
-	if (exes->size != 1)
-		return (return_handler(1, BTIN_ENV, NULL, "Invalid arguments."));
-	if (!env)
-		exit_handler(1, PROGRAM_NAME, "dict is NULL: builtin_env().");
-	tmp = env->head;
+	tmp = exes->head->next;
 	while (tmp)
 	{
-		if (tmp->val != NULL)
-			printf("%s=%s\n", tmp->key, tmp->val);
+		del_pair_in_dict(env, tmp->word);
 		tmp = tmp->next;
 	}
 	return (0);

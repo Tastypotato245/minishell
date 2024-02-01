@@ -6,7 +6,7 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 19:56:05 by kyusulee          #+#    #+#              #
-#    Updated: 2024/01/31 21:09:54 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/02/01 18:31:16 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,8 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)builtin_echo.c	\
 				$(SRCS_DIR)builtin_cd.c		\
 				$(SRCS_DIR)builtin_pwd.c	\
+				$(SRCS_DIR)builtin_export.c	\
+				$(SRCS_DIR)builtin_unset.c	\
 				$(SRCS_DIR)builtin_env.c	\
 				$(SRCS_DIR)builtin_exit.c	\
 				$(SRCS_DIR)execute_pipex.c			\

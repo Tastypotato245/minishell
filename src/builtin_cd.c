@@ -6,8 +6,13 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:50:26 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 18:50:27 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:28:24 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <builtin.h>
 
+int	builtin_cd(void)
+{
+	return (0);
+}

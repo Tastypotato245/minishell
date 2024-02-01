@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:54:05 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 19:19:37 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:17:41 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	del_pair_in_dict(t_dict *dict, char *key)
 	{
 		dict->head = tmp->next;
 		free_pair(tmp);
+		dict->size -= 1;
 		return ;
 	}
 	pre = find_pre_pair_in_dict(dict, key);
@@ -90,4 +91,5 @@ void	del_pair_in_dict(t_dict *dict, char *key)
 	if (tmp == dict->tail)
 		dict->tail = pre;
 	free_pair(tmp);
+	dict->size -= 1;
 }

@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:53 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 15:14:50 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:30:38 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*get_paths(t_dict *env)
 	return (find_val_in_dict(env, "PATH"));
 }
 
-void	absolute_or_relative_path(char **s_cmd)
+static void	absolute_or_relative_path(char **s_cmd, t_dict *env)
 {
 	if (access(s_cmd[0], F_OK) == -1)
 		exit_handler(127, PROGRAM_NAME, s_cmd[0]);
@@ -38,7 +38,7 @@ void	exec(t_exe_lst *exes, t_dict *env)
 		exit (0);
 	s_cmd = lst_to_2darr(exes);
 	if (ft_strchr(s_cmd[0], '/') != NULL)
-		absolute_or_relative_path(s_cmd);
+		absolute_or_relative_path(s_cmd, env);
 	else
 	{
 		path = get_cmd(s_cmd[0], env, F_OK | X_OK);

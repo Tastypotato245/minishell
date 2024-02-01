@@ -6,8 +6,13 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:52:02 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 18:52:03 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:28:51 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <builtin.h>
 
+void	builtin_exit(void)
+{
+	exit(0);
+}

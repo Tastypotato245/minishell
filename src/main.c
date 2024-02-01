@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 20:29:41 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:22:50 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 	env_dict = to_dict(envp);
 	while (1)
 	{
-		line = readline("🍔 $ ");
+		line = readline(" $ ");
 		if (line == NULL)
 			break ;
 		else

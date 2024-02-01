@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 15:34:45 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 20:13:54 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:21:48 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char		*find_val_in_dict(t_dict *dict, char *key);
 void		del_pair_in_dict(t_dict *dict, char *key);
 
 // dict_env.c
+void		dict_modi_val_or_new_in_sort(t_dict *dict, char *key, char *val);
 t_dict		*to_dict(char **envp);
 char		**to_2darr(t_dict *env_dict);
 

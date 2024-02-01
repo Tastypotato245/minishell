@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:53:55 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 17:44:00 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:19:05 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ void	dict_new_back(t_dict *dict, char *key, char *val)
 
 	if (!dict)
 		exit_handler(1, PROGRAM_NAME, "dict is NULL: dict_new_back().");
-	if (!key)
-		exit_handler(1, PROGRAM_NAME, "key is NULL: dict_new_back().");
-	if (!val)
-		exit_handler(1, PROGRAM_NAME, "val is NULL: dict_new_back().");
+	if (!key || key[0] == '\0')
+		exit_handler(1, PROGRAM_NAME, "key is NULL or empty : dict_new_back().");
 	new = null_guard(malloc(sizeof(*new)), PROGRAM_NAME, "dict_new_back().");
 	new->key = key;
 	new->val = val;

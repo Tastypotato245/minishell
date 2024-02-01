@@ -6,8 +6,14 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:50:42 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 18:50:43 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:29:14 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <builtin.h>
 
+// wrong parameter 
+int	builtin_pwd(void)
+{
+	return (0);
+}
