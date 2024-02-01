@@ -13,6 +13,7 @@
 #include <minishell.h>
 #include <kyusulib.h>
 #include <readline/readline.h>
+#include <readline/history.h>
 #include <ui.h>
 #include <list.h>
 #include <dict.h>
@@ -60,6 +61,7 @@ int	main(int argc, char **argv, char **envp)
 			}
 			if (DEBUG)
 				print_tree(tree, 0);
+			add_history(line);
 			here_doc_traverse(tree, &here_doc_list);
 			traverse(tree, env_dict);
 			unlink_here_doc_temp_file(&here_doc_list);
@@ -69,5 +71,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 	}
 	free_dict(env_dict);
+	rl_clear_history();
 	return (0);
 }
