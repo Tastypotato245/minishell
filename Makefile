@@ -34,6 +34,7 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)parse_print_tree.c		\
 				$(SRCS_DIR)parse_destroy_tree.c		\
 				$(SRCS_DIR)parse_error_handling.c	\
+				$(SRCS_DIR)here_document.c	\
 				$(SRCS_DIR)traverse.c	\
 				$(SRCS_DIR)vector.c		\
 				$(SRCS_DIR)panic.c		\
