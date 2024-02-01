@@ -14,7 +14,7 @@
 
 t_tree	*destroy_tree(t_tree *tree)
 {
-	if (tree != NULL)
+	if (tree == NULL)
 		return (NULL);
 	if (tree->category == TR_WORD
 		|| tree->category == TR_REDIRECT_IN

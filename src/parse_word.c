@@ -27,7 +27,7 @@ t_tree	*parse_word(t_list **tokens)
 	if (token->category != T_WORD)
 		return (print_parse_error(*tokens, tree));
 	tree->category = TR_WORD;
-	tree->left = token->content;
+	tree->left = ft_strdup(token->content);
 	tree->right = NULL;
 	*tokens = (*tokens)->next;
 	return (tree);
