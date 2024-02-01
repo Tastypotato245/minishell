@@ -52,9 +52,6 @@ static	void here_doc_action(char *filename, char *limiter)
 	len = ft_strlen(line);
 	while (len > 0 && !(ft_strncmp(line, limiter, limiter_len + 1) == 0))
 	{
-		printf("debug: %s\n", line);
-		printf("debug: %d\n", ft_strncmp(line, limiter, limiter_len) == 0);
-		printf("debug: %d\n", ft_strncmp(line + limiter_len, "\n", 2) == 0);
 		func_guard(write(heredoc_fd, line, len), PROGRAM_NAME, "here_doc_action().");
 		free(line);
 		line = readline("> ");
