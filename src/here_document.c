@@ -53,6 +53,7 @@ static	void here_doc_action(char *filename, char *limiter)
 	while (len > 0 && !(ft_strncmp(line, limiter, limiter_len + 1) == 0))
 	{
 		func_guard(write(heredoc_fd, line, len), PROGRAM_NAME, "here_doc_action().");
+		func_guard(write(heredoc_fd, "\n", 1), PROGRAM_NAME, "here_doc_action().");
 		free(line);
 		line = readline("> ");
 		if (line == NULL)
