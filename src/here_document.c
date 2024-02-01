@@ -39,12 +39,11 @@ static char	*random_path(void)
 	return (random);
 }
 
-static	void	here_doc_action(char *filename, char *limiter)
+static void	here_doc_action(char *filename, char *limiter)
 {
 	const size_t	limiter_len = ft_strlen(limiter);
 	char			*line;
 	int				heredoc_fd;
-	size_t			len;
 
 	heredoc_fd = func_guard(open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644),
 			PROGRAM_NAME, "here_doc_action().");
@@ -54,10 +53,9 @@ static	void	here_doc_action(char *filename, char *limiter)
 		close(heredoc_fd);
 		return ;
 	}
-	len = ft_strlen(line);
-	while (len > 0 && !(ft_strncmp(line, limiter, limiter_len + 1) == 0))
+	while (ft_strlen(line) > 0 && !(ft_strncmp(line, limiter, limiter_len + 1) == 0))
 	{
-		func_guard(write(heredoc_fd, line, len),
+		func_guard(write(heredoc_fd, line, ft_strlen(line)),
 			PROGRAM_NAME, "here_doc_action().");
 		func_guard(write(heredoc_fd, "\n", 1),
 			PROGRAM_NAME, "here_doc_action().");
@@ -68,7 +66,6 @@ static	void	here_doc_action(char *filename, char *limiter)
 			close(heredoc_fd);
 			return ;
 		}
-		len = ft_strlen(line);
 	}
 	free(line);
 	close(heredoc_fd);
