@@ -46,6 +46,6 @@ int		builtin_pwd(void);
 int		builtin_export(t_dict *env, t_exe_lst *exes);
 int		builtin_unset(t_dict *env, t_exe_lst *exes);
 int		builtin_env(t_dict *env, t_exe_lst *exes);
-void	builtin_exit(void);
+void	builtin_exit(t_exe_lst *exes);
 
 #endif

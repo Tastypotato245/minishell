@@ -79,6 +79,6 @@ int	builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case)
 	else if (builtin_case == BTIN_CASE_ENV)
 		return (builtin_env(env, cmd->exes));
 	else if (builtin_case == BTIN_CASE_EXIT)
-		builtin_exit();
+		builtin_exit(cmd->exes);
 	return (127);
 }
