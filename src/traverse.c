@@ -16,8 +16,8 @@
 #include <panic.h>
 #include <execute.h>
 
-static int traverse_list(t_tree *tree, t_dict *env_dict,
-		int prev_exit_status, t_tree_category prev_category);
+static int	traverse_list(t_tree *tree, t_dict *env_dict,
+				int prev_exit_status, t_tree_category prev_category);
 
 static void	traverse_word_and_redirect(t_exe_lst *exes,
 		t_rd_lst *rds, t_tree *tree)
@@ -95,7 +95,7 @@ int	traverse_pipe(t_tree *tree, t_dict *env_dict)
 	return (-1);
 }
 
-static int traverse_list(t_tree *tree, t_dict *env_dict,
+static int	traverse_list(t_tree *tree, t_dict *env_dict,
 		int prev_exit_status, t_tree_category prev_category)
 {
 	int	exit_status;
@@ -113,7 +113,8 @@ static int traverse_list(t_tree *tree, t_dict *env_dict,
 	}
 	if (tree->category == TR_LIST_AND
 		|| tree->category == TR_LIST_OR)
-		exit_status = traverse_list(tree->right, env_dict, exit_status, tree->category);
+		exit_status = traverse_list(tree->right, env_dict,
+				exit_status, tree->category);
 	return (exit_status);
 }
 
