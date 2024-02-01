@@ -24,13 +24,16 @@ static void	traverse_smpl_cmd(t_exe_lst *exes, t_rd_lst *rds, t_tree *tree)
 		panic("traverse_pipe()");
 	tree_left = tree->left;
 	if (tree_left->category == TR_WORD)
-		exe_lst_new_back(exes, tree_left->left);
+		exe_lst_new_back(exes, ft_strdup(tree_left->left));
 	else if (tree_left->category == TR_REDIRECT_IN)
-		rd_lst_new_back(rds, IN_RD, ((t_tree *)tree_left->left)->left);
+		rd_lst_new_back(rds, IN_RD,
+			ft_strdup(((t_tree *)tree_left->left)->left));
 	else if (tree_left->category == TR_REDIRECT_OUT)
-		rd_lst_new_back(rds, OUT_RD, ((t_tree *)tree_left->left)->left);
+		rd_lst_new_back(rds, OUT_RD,
+			ft_strdup(((t_tree *)tree_left->left)->left));
 	else if (tree_left->category == TR_REDIRECT_APPEND)
-		rd_lst_new_back(rds, APPEND_RD, ((t_tree *)tree_left->left)->left);
+		rd_lst_new_back(rds, APPEND_RD,
+			ft_strdup(((t_tree *)tree_left->left)->left));
 	else
 		panic("traverse_smpl_cmd(): unhandled case");
 	if (tree->category == TR_SMPL_CMD_CONTINUE)
@@ -73,6 +76,7 @@ void	traverse(t_tree *tree, t_dict *env_dict)
 		if (DEBUG)
 			print_cmd_lst(cmds);
 		pipex(cmds, env_dict);
+		free_cmd_lst(cmds);
 	}
 	else
 	{

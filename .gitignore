@@ -57,6 +57,8 @@ minishell
 kyusulib/libft/bonus
 infile*
 outfile*
+asset/.symbol.fk
 
 # for younghoc
 compile_flags.txt
+.venv

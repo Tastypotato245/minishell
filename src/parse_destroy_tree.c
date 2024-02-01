@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parse_destroy_tree.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/29 13:39:56 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/30 19:54:25 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/01/31 16:42:30 by younghoc          #+#    #+#             */
+/*   Updated: 2024/01/31 16:42:31 by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <parse.h>
-#include <tokenize.h>
-#include <panic.h>
 
-t_tree	*parse(t_list *tokens)
+t_tree	*destroy_tree(t_tree *tree)
 {
-	t_tree	*tree;
-
-	if (tokens == NULL)
+	if (tree == NULL)
 		return (NULL);
-	tree = parse_list(&tokens);
-	if (tokens != NULL)
-		return (print_parse_error(tokens, tree));
-	return (tree);
+	if (tree->category == TR_WORD)
+	{
+		free(tree->left);
+		free(tree);
+		return (NULL);
+	}
+	destroy_tree(tree->left);
+	destroy_tree(tree->right);
+	free(tree);
+	return (NULL);
 }

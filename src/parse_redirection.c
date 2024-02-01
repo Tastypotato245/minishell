@@ -19,7 +19,6 @@ static void	set_tree_to_redirect_in(t_list **tokens, t_tree *tree)
 	tree->category = TR_REDIRECT_IN;
 	*tokens = (*tokens)->next;
 	tree->left = parse_word(tokens);
-	tree->right = NULL;
 }
 
 static void	set_tree_to_redirect_out(t_list **tokens, t_tree *tree)
@@ -27,7 +26,6 @@ static void	set_tree_to_redirect_out(t_list **tokens, t_tree *tree)
 	tree->category = TR_REDIRECT_OUT;
 	*tokens = (*tokens)->next;
 	tree->left = parse_word(tokens);
-	tree->right = NULL;
 }
 
 static void	set_tree_to_redirect_append(t_list **tokens, t_tree *tree)
@@ -35,7 +33,6 @@ static void	set_tree_to_redirect_append(t_list **tokens, t_tree *tree)
 	tree->category = TR_REDIRECT_APPEND;
 	*tokens = (*tokens)->next;
 	tree->left = parse_word(tokens);
-	tree->right = NULL;
 }
 
 static void	set_tree_to_here_doc(t_list **tokens, t_tree *tree)
@@ -43,7 +40,6 @@ static void	set_tree_to_here_doc(t_list **tokens, t_tree *tree)
 	tree->category = TR_REDIRECT_HERE_DOC;
 	*tokens = (*tokens)->next;
 	tree->left = parse_word(tokens);
-	tree->right = NULL;
 }
 
 t_tree	*parse_redirection(t_list **tokens)
@@ -51,7 +47,7 @@ t_tree	*parse_redirection(t_list **tokens)
 	t_tree	*tree;
 	t_token	*token;
 
-	tree = null_guard(malloc(sizeof(t_tree)),
+	tree = null_guard(ft_calloc(1, sizeof(t_tree)),
 			PROGRAM_NAME, "parse_redirection().");
 	if (*tokens == NULL)
 		panic("parse_redirection()");
@@ -66,5 +62,7 @@ t_tree	*parse_redirection(t_list **tokens)
 		set_tree_to_here_doc(tokens, tree);
 	else
 		panic("parse_redirection()");
+	if (tree->left == NULL)
+		return (destroy_tree(tree));
 	return (tree);
 }

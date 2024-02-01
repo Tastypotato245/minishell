@@ -45,12 +45,21 @@ int	main(int argc, char **argv, char **envp)
 			if (is_valid_tokens(tokens))
 			{
 				ft_lstclear(&tokens, destroy_token);
-				continue;
+				free(line);
+				continue ;
 			}
 			tree = parse(tokens);
+			if (tree == NULL)
+			{
+				ft_lstclear(&tokens, destroy_token);
+				free(line);
+				continue ;
+			}
 			if (DEBUG)
 				print_tree(tree, 0);
 			traverse(tree, env_dict);
+			destroy_tree(tree);
+			ft_lstclear(&tokens, destroy_token);
 			free(line);
 		}
 	}
