@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 15:34:45 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 18:21:48 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:46:30 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_dict
 }	t_dict;
 
 // dict_ctl1.c
+void		dictionary_size_check(t_dict *dict);
 t_dict		*new_dictionary(void);
 void		dict_new_back(t_dict *dict, char *key, char *val);
 void		free_dict(t_dict *dict);

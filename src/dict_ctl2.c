@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:54:05 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 18:17:41 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:45:16 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ t_pair	*find_pair_in_dict(t_dict *dict, char *key)
 {
 	t_pair	*tmp;
 
-	if (!dict)
-		exit_handler(1, PROGRAM_NAME, "dict is NULL: find_pair_in_dict().");
 	if (!key)
 		exit_handler(1, PROGRAM_NAME, "key is NULL: find_pair_in_dict().");
 	tmp = dict->head;
@@ -69,8 +67,6 @@ void	del_pair_in_dict(t_dict *dict, char *key)
 	t_pair	*tmp;
 	t_pair	*pre;
 
-	if (!dict)
-		exit_handler(1, PROGRAM_NAME, "dict is NULL: get_val_in_dict().");
 	if (!key)
 		exit_handler(1, PROGRAM_NAME, "key is NULL: get_val_in_dict().");
 	tmp = dict->head;

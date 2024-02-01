@@ -6,13 +6,13 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:53:55 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 18:19:05 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:46:27 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <dict.h>
 
-static void	dictionary_size_check(t_dict *dict)
+void	dictionary_size_check(t_dict *dict)
 {
 	t_pair	*tmp;
 	int		cnt;
@@ -28,7 +28,6 @@ static void	dictionary_size_check(t_dict *dict)
 	}
 	if (cnt != dict->size)
 		exit_handler(1, PROGRAM_NAME, "size error: dict_size_check().");
-	return ;
 }
 
 t_dict	*new_dictionary(void)
@@ -66,7 +65,6 @@ void	dict_new_back(t_dict *dict, char *key, char *val)
 		dict->tail = new;
 		dict->size += 1;
 	}
-	return ;
 }
 
 void	free_dict(t_dict *dict)
@@ -91,8 +89,6 @@ void	print_dict(t_dict *dict)
 {
 	t_pair	*tmp;	
 
-	if (!dict)
-		exit_handler(1, PROGRAM_NAME, "dict is NULL: print_dict().");
 	tmp = dict->head;
 	printf(" - dictionary: \n");
 	printf("\tkey=val\n");
@@ -102,5 +98,4 @@ void	print_dict(t_dict *dict)
 		printf("\t%s=%s\n", tmp->key, tmp->val);
 		tmp = tmp->next;
 	}
-	return ;
 }
