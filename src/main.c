@@ -19,6 +19,7 @@
 #include <execute.h>
 #include <tokenize.h>
 #include <parse.h>
+#include <here_document.h>
 #include <traverse.h>
 
 int	main(int argc, char **argv, char **envp)
@@ -27,10 +28,12 @@ int	main(int argc, char **argv, char **envp)
 	t_list	*tokens;
 	t_tree	*tree;
 	t_dict	*env_dict;
+	t_list	*here_doc_list;
 
 	if (argc != 1 || argv == NULL)
 		exit_handler(0, PROGRAM_NAME, "enter ./minishell");
 	print_symbol();
+	here_doc_list = NULL;
 	env_dict = to_dict(envp);
 	while (1)
 	{
@@ -57,7 +60,9 @@ int	main(int argc, char **argv, char **envp)
 			}
 			if (DEBUG)
 				print_tree(tree, 0);
+			here_doc_traverse(tree, &here_doc_list);
 			traverse(tree, env_dict);
+			unlink_here_doc_temp_file(&here_doc_list);
 			destroy_tree(tree);
 			ft_lstclear(&tokens, destroy_token);
 			free(line);
