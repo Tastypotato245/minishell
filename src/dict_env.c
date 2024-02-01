@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:56:18 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 18:35:05 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:41:31 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void	dict_modi_val_or_new_in_sort(t_dict *dict, char *key, char *val)
 	tmp = find_pair_in_dict(dict, key);
 	if (tmp == NULL)
 		dict_new_in_sort(dict, key, val);
-	tmp->val = val;
+	else
+		tmp->val = val;
 }
 
 t_dict	*to_dict(char **envp)
@@ -90,14 +91,13 @@ t_dict	*to_dict(char **envp)
 		key = ft_substr(envp[i], 0, j);
 		++j;
 		val = ft_substr(envp[i], j, ft_strlen(envp[i]) - j);
-//		dict_modi_val_or_new_in_sort(env_dict, key, val);
-		dict_new_back(env_dict, key, val);
+		dict_modi_val_or_new_in_sort(env_dict, key, val);
 		i++;
 	}
 	return (env_dict);
 }
+//dict_new_back(env_dict, key, val);
 
-//printf("\tenvp[%d]: %s\n", i, envp[i]);
 char	**to_2darr(t_dict *env_dict)
 {
 	char	**envp;
