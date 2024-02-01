@@ -43,7 +43,8 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)list_rd_ctl.c	\
 				$(SRCS_DIR)dict_ctl1.c	\
 				$(SRCS_DIR)dict_ctl2.c	\
-				$(SRCS_DIR)dict_env.c	\
+				$(SRCS_DIR)dict_ctl3.c	\
+				$(SRCS_DIR)dict_ctl4.c	\
 				$(SRCS_DIR)builtin_ctl.c	\
 				$(SRCS_DIR)builtin_echo.c	\
 				$(SRCS_DIR)builtin_cd.c		\

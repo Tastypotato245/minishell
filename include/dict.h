@@ -44,9 +44,12 @@ t_pair		*find_pre_pair_in_dict(t_dict *dict, char *key);
 char		*find_val_in_dict(t_dict *dict, char *key);
 void		del_pair_in_dict(t_dict *dict, char *key);
 
-// dict_env.c
+// dict_ctl3.c
 void		dict_modi_val_or_new_in_sort(t_dict *dict, char *key, char *val);
+
+// dict_ctl4.c
 t_dict		*to_dict(char **envp);
 char		**to_2darr(t_dict *env_dict);
+
 
 #endif
