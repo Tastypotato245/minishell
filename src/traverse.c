@@ -10,10 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parse.h"
 #include <minishell.h>
 #include <traverse.h>
 #include <panic.h>
 #include <execute.h>
+
+static int traverse_list(t_tree *tree, t_dict *env_dict,
+		int prev_exit_status, t_tree_category prev_category);
 
 static void	traverse_word_and_redirect(t_exe_lst *exes,
 		t_rd_lst *rds, t_tree *tree)
@@ -75,7 +79,7 @@ int	traverse_pipe(t_tree *tree, t_dict *env_dict)
 	if (tree_left->category == TR_LIST_AND
 		|| tree_left->category == TR_LIST_OR
 		|| tree_left->category == TR_LIST_END)
-		return (traverse(tree_left, env_dict));
+		return (traverse_list(tree_left, env_dict, 0, TR_LIST_AND));
 	else if (tree_left->category == TR_SMPL_CMD_CONTINUE
 		|| tree_left->category == TR_SMPL_CMD_END)
 	{
@@ -91,20 +95,29 @@ int	traverse_pipe(t_tree *tree, t_dict *env_dict)
 	return (-1);
 }
 
-int	traverse(t_tree *tree, t_dict *env_dict)
+static int traverse_list(t_tree *tree, t_dict *env_dict,
+		int prev_exit_status, t_tree_category prev_category)
 {
 	int	exit_status;
 
-	exit_status = traverse_pipe(tree->left, env_dict);
-	if (tree->category == TR_LIST_AND)
+	exit_status = 0;
+	if (prev_category == TR_LIST_OR)
 	{
-		if (exit_status == 0)
-			exit_status = traverse(tree->right, env_dict);
+		if (prev_exit_status != 0)
+			exit_status = traverse_pipe(tree->left, env_dict);
 	}
-	else if (tree->category == TR_LIST_OR)
+	else
 	{
-		if (exit_status != 0)
-			exit_status = traverse(tree->right, env_dict);
+		if (prev_exit_status == 0)
+			exit_status = traverse_pipe(tree->left, env_dict);
 	}
-	return (-1);
+	if (tree->category == TR_LIST_AND
+		|| tree->category == TR_LIST_OR)
+		exit_status = traverse_list(tree->right, env_dict, exit_status, tree->category);
+	return (exit_status);
+}
+
+int	traverse(t_tree *tree, t_dict *env_dict)
+{
+	return (traverse_list(tree, env_dict, 0, TR_LIST_AND));
 }
