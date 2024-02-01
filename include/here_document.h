@@ -17,4 +17,4 @@
 
 void	here_doc_traverse(t_tree *tree, t_list **here_doc_list);
 
-#endif // !HERE_DOCUMENT_H
+#endif
