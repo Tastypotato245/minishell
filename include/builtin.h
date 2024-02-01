@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:51:19 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 18:37:38 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:05:21 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		return_handler(int return_no, char *cmd, char *obj, char *str);
 int		builtin_checker(t_cmd_node *cmd);
 int		builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case);
 
-int		builtin_echo(void);
+int		builtin_echo(t_exe_lst *exes);
 int		builtin_cd(void);
 int		builtin_pwd(void);
 int		builtin_export(t_dict *env, t_exe_lst *exes);

@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:51:10 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 18:37:51 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:01:20 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case)
 		printf("\t * now builtin command: %d\n", builtin_case);
 	repeat_redirection(cmd->rds);
 	if (builtin_case == BTIN_CASE_ECHO)
-		return (builtin_echo());
+		return (builtin_echo(cmd->exes));
 	else if (builtin_case == BTIN_CASE_CD)
 		return (builtin_cd());
 	else if (builtin_case == BTIN_CASE_PWD)
