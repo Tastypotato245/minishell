@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:53 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 23:30:28 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 15:14:50 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	exec(t_exe_lst *exes, t_dict *env)
 	{
 		path = get_cmd(s_cmd[0], env, F_OK | X_OK);
 		exist_path = get_cmd(s_cmd[0], env, F_OK);
-		if (path == NULL)
-			exit_handler(127, PROGRAM_NAME, s_cmd[0]);
 		if (access(path, F_OK) == -1 && access(exist_path, F_OK) == -1)
 			exit_handler(127, PROGRAM_NAME, s_cmd[0]);
 		if (execve(path, s_cmd, to_2darr(env)) == -1)
