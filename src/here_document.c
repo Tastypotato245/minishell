@@ -73,6 +73,7 @@ void	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
 	char	*filename;
 	char	*filename_dup;
 	char	*limiter;
+	t_list	*filename_element;
 
 	if (tree == NULL
 		|| tree->category == TR_WORD
@@ -86,7 +87,9 @@ void	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
 		filename = random_path();
 		filename_dup = ft_strdup(filename);
 		null_guard(filename_dup, PROGRAM_NAME, "here_doc_traverse().");
-		ft_lstadd_back(here_doc_list, (void *)filename_dup);
+		filename_element = ft_lstnew(filename_dup);
+		null_guard(filename_element, PROGRAM_NAME, "here_doc_traverse().");
+		ft_lstadd_back(here_doc_list, filename_element);
 		limiter = (char *)tree_left->left;
 		here_doc_action(filename, limiter);
 		free(limiter);
