@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 20:41:32 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:47:53 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv, char **envp)
 			if (is_valid_tokens(tokens))
 			{
 				ft_lstclear(&tokens, destroy_token);
-				continue;
+				continue ;
 			}
 			tree = parse(tokens);
 			if (DEBUG)

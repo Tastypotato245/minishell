@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:51:10 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 20:01:20 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:47:43 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void	print_error(char *cmd, char *obj, char *str)
 	ft_putendl_fd(str, STDERR_FILENO);
 }
 
-int		return_handler(int return_no, char *cmd, char *obj, char *str)
+int	return_handler(int return_no, char *cmd, char *obj, char *str)
 {
 	print_error(cmd, obj, str);
 	return (return_no);
 }
 
-int		builtin_checker(t_cmd_node *cmd)
+int	builtin_checker(t_cmd_node *cmd)
 {
 	char	*builtin_cmd;
 	int		len;
@@ -61,7 +61,7 @@ int		builtin_checker(t_cmd_node *cmd)
 	return (NONE_BTIN_CASE);
 }
 
-int		builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case)
+int	builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case)
 {
 	if (DEBUG)
 		printf("\t * now builtin command: %d\n", builtin_case);
