@@ -63,6 +63,7 @@ t_tree	*parse_pipeline(t_list **tokens)
 	if (*tokens == NULL)
 		return (print_parse_error(*tokens, tree));
 	token = (*tokens)->content;
+	ret = 0;
 	if (token->category == T_L_PAREN)
 		ret = parse_paren(tokens, tree, token);
 	else
