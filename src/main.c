@@ -45,14 +45,14 @@ int	main(int argc, char **argv, char **envp)
 			{
 				ft_lstclear(&tokens, destroy_token);
 				free(line);
-				continue;
+				continue ;
 			}
 			tree = parse(tokens);
 			if (tree == NULL)
 			{
 				ft_lstclear(&tokens, destroy_token);
 				free(line);
-				continue;
+				continue ;
 			}
 			if (DEBUG)
 				print_tree(tree, 0);
