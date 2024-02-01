@@ -71,5 +71,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 	}
 	free_dict(env_dict);
+	rl_clear_history();
 	return (0);
 }
