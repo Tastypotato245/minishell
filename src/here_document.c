@@ -48,7 +48,10 @@ static	void here_doc_action(char *filename, char *limiter)
 	heredoc_fd = func_guard(open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644), PROGRAM_NAME, "here_doc_action().");
 	line = readline("> ");
 	if (line == NULL)
-		panic("here_doc_action()");
+	{
+		close(heredoc_fd);
+		return ;
+	}
 	len = ft_strlen(line);
 	while (len > 0 && !(ft_strncmp(line, limiter, limiter_len + 1) == 0))
 	{
@@ -57,7 +60,10 @@ static	void here_doc_action(char *filename, char *limiter)
 		free(line);
 		line = readline("> ");
 		if (line == NULL)
-			panic("here_doc_action()");
+		{
+			close(heredoc_fd);
+			return ;
+		}
 		len = ft_strlen(line);
 	}
 	free(line);
