@@ -10,11 +10,68 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "panic.h"
+#include "parse.h"
+#include <minishell.h>
 #include <here_document.h>
+#include <fcntl.h>
+#include <readline/readline.h>
+
+static char	*random_path(void)
+{
+	int				urandom_fd;
+	unsigned char	b;
+	int				i;
+	char			*random;
+
+	random = null_guard(ft_calloc(70, sizeof(char)), PROGRAM_NAME, "random64().");
+	ft_strlcpy(random, "/tmp/", 70);
+	urandom_fd = func_guard(open("/dev/urandom", O_RDONLY), PROGRAM_NAME, "random64().");
+	i = 0;
+	while (i < 64)
+	{
+		func_guard(read(urandom_fd, &b, 1), PROGRAM_NAME, "random64().");
+		random[i + 5] = "01234567890abcdef"[b % 16];
+		i++;
+	}
+	close(urandom_fd);
+	return (random);
+}
+
+static	void here_doc_action(char *filename, char *limiter)
+{
+	const size_t	limiter_len = ft_strlen(limiter);
+	char			*line;
+	int				heredoc_fd;
+	size_t			len;
+
+	heredoc_fd = func_guard(open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644), PROGRAM_NAME, "here_doc_action().");
+	line = readline("> ");
+	if (line == NULL)
+		panic("here_doc_action()");
+	len = ft_strlen(line);
+	while (len > 0 && !(ft_strncmp(line, limiter, limiter_len + 1) == 0))
+	{
+		printf("debug: %s\n", line);
+		printf("debug: %d\n", ft_strncmp(line, limiter, limiter_len) == 0);
+		printf("debug: %d\n", ft_strncmp(line + limiter_len, "\n", 2) == 0);
+		func_guard(write(heredoc_fd, line, len), PROGRAM_NAME, "here_doc_action().");
+		free(line);
+		line = readline("> ");
+		if (line == NULL)
+			panic("here_doc_action()");
+		len = ft_strlen(line);
+	}
+	free(line);
+	close(heredoc_fd);
+}
+
 
 void	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
 {
 	t_tree	*tree_left;
+	char	*filename;
+	char	*limiter;
 
 	if (tree == NULL
 		|| tree->category == TR_WORD
@@ -25,8 +82,12 @@ void	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
 	if (tree->category == TR_REDIRECT_HERE_DOC)
 	{
 		tree_left = tree->left;
-		printf("here_doc_traverse() %d\n", tree->category);
-		printf("here_doc_traverse(%s)\n", (char *)tree_left->left);
+		filename = random_path();
+		limiter = (char *)tree_left->left;
+		here_doc_action(filename, limiter);
+		free(limiter);
+		tree->category = TR_REDIRECT_IN;
+		tree_left->left = filename;
 	}
 	else
 	{
