@@ -23,6 +23,7 @@ t_tree	*destroy_tree(t_tree *tree)
 		|| tree->category == TR_REDIRECT_HERE_DOC)
 	{
 		free(tree->left);
+		free(tree);
 		return (NULL);
 	}
 	destroy_tree(tree->left);
