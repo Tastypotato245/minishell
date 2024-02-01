@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse.h"
 #include <minishell.h>
 #include <traverse.h>
 #include <panic.h>
@@ -67,7 +66,7 @@ static void	traverse_smpl_cmd(t_cmd_lst *cmds, t_tree *tree)
 		traverse_smpl_cmd(cmds, tree->right);
 }
 
-int	traverse_pipe(t_tree *tree, t_dict *env_dict)
+static int	traverse_pipe(t_tree *tree, t_dict *env_dict)
 {
 	t_cmd_lst	*cmds;
 	int			exit_status;
