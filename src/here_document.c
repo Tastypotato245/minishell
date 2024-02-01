@@ -67,7 +67,7 @@ static int	here_doc_action(char *filename, char *limiter)
 	return (0);
 }
 
-void	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
+static void	switch_here_doc(t_tree *tree, t_list **here_doc_list)
 {
 	t_tree	*tree_left;
 	char	*filename;
@@ -75,6 +75,22 @@ void	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
 	char	*limiter;
 	t_list	*filename_element;
 
+	tree_left = tree->left;
+	filename = random_path();
+	filename_dup = ft_strdup(filename);
+	null_guard(filename_dup, PROGRAM_NAME, "here_doc_traverse().");
+	filename_element = ft_lstnew(filename_dup);
+	null_guard(filename_element, PROGRAM_NAME, "here_doc_traverse().");
+	ft_lstadd_back(here_doc_list, filename_element);
+	limiter = (char *)tree_left->left;
+	here_doc_action(filename, limiter);
+	free(limiter);
+	tree->category = TR_REDIRECT_IN;
+	tree_left->left = filename;
+}
+
+void	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
+{
 	if (tree == NULL
 		|| tree->category == TR_WORD
 		|| tree->category == TR_REDIRECT_IN
@@ -83,18 +99,7 @@ void	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
 		return ;
 	if (tree->category == TR_REDIRECT_HERE_DOC)
 	{
-		tree_left = tree->left;
-		filename = random_path();
-		filename_dup = ft_strdup(filename);
-		null_guard(filename_dup, PROGRAM_NAME, "here_doc_traverse().");
-		filename_element = ft_lstnew(filename_dup);
-		null_guard(filename_element, PROGRAM_NAME, "here_doc_traverse().");
-		ft_lstadd_back(here_doc_list, filename_element);
-		limiter = (char *)tree_left->left;
-		here_doc_action(filename, limiter);
-		free(limiter);
-		tree->category = TR_REDIRECT_IN;
-		tree_left->left = filename;
+		switch_here_doc(tree, here_doc_list);
 		return ;
 	}
 	here_doc_traverse(tree->left, here_doc_list);
