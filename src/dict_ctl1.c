@@ -48,7 +48,7 @@ void	dict_new_back(t_dict *dict, char *key, char *val)
 	if (!dict)
 		exit_handler(1, PROGRAM_NAME, "dict is NULL: dict_new_back().");
 	if (!key || key[0] == '\0')
-		exit_handler(1, PROGRAM_NAME, "key is NULL or empty : dict_new_back().");
+		exit_handler(1, PROGRAM_NAME, "key is NULL or empty: dict_new_back().");
 	new = null_guard(malloc(sizeof(*new)), PROGRAM_NAME, "dict_new_back().");
 	new->key = key;
 	new->val = val;

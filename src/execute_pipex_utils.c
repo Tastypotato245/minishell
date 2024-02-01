@@ -51,7 +51,7 @@ int	open_guard(int mod, char *file)
 }
 
 char	**lst_to_2darr(t_exe_lst *exes)
-{	
+{
 	char		**s_cmd;
 	t_exe_node	*exe;
 	int			i;
