@@ -15,6 +15,7 @@
 #include <here_document.h>
 #include <fcntl.h>
 #include <readline/readline.h>
+#include <unistd.h>
 
 static char	*random_path(void)
 {
@@ -87,6 +88,20 @@ static void	switch_here_doc(t_tree *tree, t_list **here_doc_list)
 	free(limiter);
 	tree->category = TR_REDIRECT_IN;
 	tree_left->left = filename;
+}
+
+void	unlink_here_doc_temp_file(t_list **here_doc_list)
+{
+	t_list	*node;
+
+	node = *here_doc_list;
+	while (node)
+	{
+		func_guard(unlink(node->content),
+			PROGRAM_NAME, "unlink_here_doc_temp_file().");
+		node = node->next;
+	}
+	ft_lstclear(here_doc_list, free);
 }
 
 void	here_doc_traverse(t_tree *tree, t_list **here_doc_list)

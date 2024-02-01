@@ -16,5 +16,6 @@
 # include <parse.h>
 
 void	here_doc_traverse(t_tree *tree, t_list **here_doc_list);
+void	unlink_here_doc_temp_file(t_list **here_doc_list);
 
 #endif
