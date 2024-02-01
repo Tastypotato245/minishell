@@ -16,6 +16,6 @@
 # include <parse.h>
 # include <dict.h>
 
-void	traverse(t_tree *tree, t_dict *env_dict);
+int	traverse(t_tree *tree, t_dict *env_dict);
 
 #endif
