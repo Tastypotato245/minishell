@@ -39,7 +39,7 @@ static char	*random_path(void)
 	return (random);
 }
 
-static void	here_doc_action(char *filename, char *limiter)
+static int	here_doc_action(char *filename, char *limiter)
 {
 	const size_t	limiter_len = ft_strlen(limiter);
 	char			*line;
@@ -49,11 +49,9 @@ static void	here_doc_action(char *filename, char *limiter)
 			PROGRAM_NAME, "here_doc_action().");
 	line = readline("> ");
 	if (line == NULL)
-	{
-		close(heredoc_fd);
-		return ;
-	}
-	while (ft_strlen(line) > 0 && !(ft_strncmp(line, limiter, limiter_len + 1) == 0))
+		return (close(heredoc_fd));
+	while (ft_strlen(line) > 0
+		&& !(ft_strncmp(line, limiter, limiter_len + 1) == 0))
 	{
 		func_guard(write(heredoc_fd, line, ft_strlen(line)),
 			PROGRAM_NAME, "here_doc_action().");
@@ -62,13 +60,11 @@ static void	here_doc_action(char *filename, char *limiter)
 		free(line);
 		line = readline("> ");
 		if (line == NULL)
-		{
-			close(heredoc_fd);
-			return ;
-		}
+			return (close(heredoc_fd));
 	}
 	free(line);
 	close(heredoc_fd);
+	return (0);
 }
 
 void	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
