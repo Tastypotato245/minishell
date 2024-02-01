@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   traverse.h                                         :+:      :+:    :+:   */
+/*   here_document.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 15:52:31 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/31 19:39:56 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/02/01 16:38:56 by younghoc          #+#    #+#             */
+/*   Updated: 2024/02/01 16:38:57 by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TRAVERSE_H
-# define TRAVERSE_H
+#ifndef HERE_DOCUMENT_H
+# define HERE_DOCUMENT_H
 
 # include <parse.h>
-# include <dict.h>
 
-int	traverse(t_tree *tree, t_dict *env_dict);
+void	here_doc_traverse(t_tree *tree, t_list **here_doc_list);
+void	unlink_here_doc_temp_file(t_list **here_doc_list);
 
 #endif

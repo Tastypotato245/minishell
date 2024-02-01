@@ -14,10 +14,9 @@
 #include <tokenize.h>
 #include <panic.h>
 
-static t_tree	*parse_smpl_cmd_end(t_tree *tree)
+static t_tree	*set_tree_to_smpl_cmd_end(t_tree *tree)
 {
 	tree->category = TR_SMPL_CMD_END;
-	tree->right = NULL;
 	return (tree);
 }
 
@@ -42,12 +41,21 @@ static int	is_control_operator(t_token_category category)
 	return (0);
 }
 
+static	t_tree	*set_tree_to_smpl_cmd_continue(t_list **tokens, t_tree *tree)
+{
+	tree->category = TR_SMPL_CMD_CONTINUE;
+	tree->right = parse_simple_command(tokens);
+	if (tree->right == NULL)
+		panic("parse_simple_command()");
+	return (tree);
+}
+
 t_tree	*parse_simple_command(t_list **tokens)
 {
 	t_tree	*tree;
 	t_token	*token;
 
-	tree = null_guard(malloc(sizeof(t_tree)),
+	tree = null_guard(ft_calloc(1, sizeof(t_tree)),
 			PROGRAM_NAME, "parse_simple_command().");
 	if (*tokens == NULL)
 		panic("parse_pipeline()");
@@ -56,15 +64,13 @@ t_tree	*parse_simple_command(t_list **tokens)
 		tree->left = parse_redirection(tokens);
 	else
 		tree->left = parse_word(tokens);
+	if (tree->left == NULL)
+		return (destroy_tree(tree));
 	if (*tokens == NULL)
-		return (parse_smpl_cmd_end(tree));
+		return (set_tree_to_smpl_cmd_end(tree));
 	token = (*tokens)->content;
 	if (is_control_operator(token->category))
-		return (parse_smpl_cmd_end(tree));
+		return (set_tree_to_smpl_cmd_end(tree));
 	else
-	{
-		tree->category = TR_SMPL_CMD_CONTINUE;
-		tree->right = parse_simple_command(tokens);
-		return (tree);
-	}
+		return (set_tree_to_smpl_cmd_continue(tokens, tree));
 }

@@ -58,6 +58,8 @@ int		ft_is_space(char c);
 int		ft_is_metacharacter(char c);
 void	destroy_token(void *content);
 
+t_token	*get_first_token(t_list *tokens);
+void	print_error_token(t_token *token);
 int		is_valid_tokens(t_list *tokens);
 
 #endif

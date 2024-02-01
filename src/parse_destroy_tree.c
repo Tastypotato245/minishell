@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   traverse.h                                         :+:      :+:    :+:   */
+/*   parse_destroy_tree.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 15:52:31 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/31 19:39:56 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/01/31 16:42:30 by younghoc          #+#    #+#             */
+/*   Updated: 2024/01/31 16:42:31 by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TRAVERSE_H
-# define TRAVERSE_H
+#include <parse.h>
 
-# include <parse.h>
-# include <dict.h>
-
-int	traverse(t_tree *tree, t_dict *env_dict);
-
-#endif
+t_tree	*destroy_tree(t_tree *tree)
+{
+	if (tree == NULL)
+		return (NULL);
+	if (tree->category == TR_WORD)
+	{
+		free(tree->left);
+		free(tree);
+		return (NULL);
+	}
+	destroy_tree(tree->left);
+	destroy_tree(tree->right);
+	free(tree);
+	return (NULL);
+}

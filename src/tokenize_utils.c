@@ -44,7 +44,9 @@ int	ft_is_metacharacter(char c)
 
 void	destroy_token(void *content)
 {
-	const t_token	*token = content;
+	t_token	*token;
 
+	token = content;
 	free(token->content);
+	free(token);
 }
