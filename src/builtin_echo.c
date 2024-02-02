@@ -12,18 +12,42 @@
 
 #include <builtin.h>
 
+static int	is_n(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i++] != 'n')
+			return (0);
+	}
+	return (1);
+}
+
+static int	is_option_n(t_exe_node **exe)
+{
+	int	option_n;
+
+	option_n = 0;
+	while ((*exe))
+	{
+		if (ft_strncmp((*exe)->word, "-", 1) == 0 && is_n(&((*exe)->word[1])))
+			option_n = 1;
+		else
+			return (option_n);
+		(*exe) = (*exe)->next;
+	}
+	return (option_n);
+}
+
 int	builtin_echo(t_exe_lst *exes)
 {
 	t_exe_node	*exe;
 	int			option_n;
 
 	exe = exes->head->next;
-	option_n = 0;
-	if (ft_strlen(exe->word) == 2 && ft_strncmp(exe->word, "-n", 2) == 0)
-	{
-		option_n = 1;
-		exe = exe->next;
-	}
+	option_n = is_option_n(&exe);
 	while (exe)
 	{
 		if (exe->next == NULL)
