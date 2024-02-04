@@ -6,11 +6,12 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 20:52:16 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:33:30 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <execute.h>
+#include <builtin.h>
 
 // func_guard(unlink(HD_FILE));
 // sequencial unlink 
@@ -62,9 +63,11 @@ static int	single_proccess(t_cmd_node *cmd, t_dict *env)
 {
 	pid_t	pid;
 	int		status;
+	int		builtin_case;
 
-//	if (builtin_checker(cmd, env))
-//		builtin_switcher(cmd, env);
+	builtin_case = builtin_checker(cmd);
+	if (builtin_case != NONE_BTIN_CASE)
+		return (builtin_switcher(cmd, env, builtin_case));
 	pid = func_guard(fork(), PROGRAM_NAME, "pipex().");
 	if (pid == 0)
 		single_child(cmd, env);

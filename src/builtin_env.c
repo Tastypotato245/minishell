@@ -6,56 +6,47 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:49:49 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 20:13:55 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/04 16:15:47 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtin.h>
 #include <stdio.h>
 
-void	builtin_env(t_dict *env_dict)
+int	env_naming_check(char *key)
+{
+	int	i;
+	int	len;
+
+	if (key == NULL)
+		return (0);
+	len = ft_strlen(key);
+	
+	if (!(ft_isalpha(key[0]) || key[0] == '_'))
+		return (0);
+	i = 0;
+	while (++i < len)
+	{
+		if (!(ft_isalpha(key[i]) || ft_isdigit(key[i]) || key[i] == '_'))
+			return (0);
+	}
+	return (1);
+}
+
+int	builtin_env(t_dict *env, t_exe_lst *exes)
 {
 	t_pair	*tmp;
 
-	if (!env_dict)
+	if (exes->size != 1)
+		return (return_handler(1, BTIN_ENV, NULL, "Invalid arguments."));
+	if (!env)
 		exit_handler(1, PROGRAM_NAME, "dict is NULL: builtin_env().");
-	tmp = env_dict->head;
+	tmp = env->head;
 	while (tmp)
 	{
-		printf("%s=%s\n", tmp->key, tmp->val);
+		if (tmp->val != NULL)
+			printf("%s=%s\n", tmp->key, tmp->val);
 		tmp = tmp->next;
 	}
-}
-
-void	builtin_export(t_dict *env_dict, t_exe_lst *exes)
-{
-	t_exe_node	*tmp;
-	char		*key;
-	char		*val;
-	int			i;
-
-	tmp = exes->head->next;
-	while (tmp)
-	{
-		i = 0;
-		while (tmp->word[i] != '=')
-			i++;
-		key = ft_substr(tmp->word, 0, i);
-		++i;
-		val = ft_substr(tmp->word, i, ft_strlen(tmp->word) - i);
-		dict_new_back(env_dict, key, val);
-		tmp = tmp->next;
-	}
-}
-
-void	builtin_unset(t_dict *env_dict, t_exe_lst *exes)
-{
-	t_exe_node	*tmp;
-
-	tmp = exes->head->next;
-	while (tmp)
-	{
-		del_pair_in_dict(env_dict, tmp->word);
-		tmp = tmp->next;
-	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:38 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 20:51:30 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/01 15:19:05 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	open_guard(int mod, char *file)
 }
 
 char	**lst_to_2darr(t_exe_lst *exes)
-{	
+{
 	char		**s_cmd;
 	t_exe_node	*exe;
 	int			i;
