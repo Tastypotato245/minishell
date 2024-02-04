@@ -6,12 +6,32 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:49:49 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 20:35:18 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/04 16:15:47 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtin.h>
 #include <stdio.h>
+
+int	env_naming_check(char *key)
+{
+	int	i;
+	int	len;
+
+	if (key == NULL)
+		return (0);
+	len = ft_strlen(key);
+	
+	if (!(ft_isalpha(key[0]) || key[0] == '_'))
+		return (0);
+	i = 0;
+	while (++i < len)
+	{
+		if (!(ft_isalpha(key[i]) || ft_isdigit(key[i]) || key[i] == '_'))
+			return (0);
+	}
+	return (1);
+}
 
 int	builtin_env(t_dict *env, t_exe_lst *exes)
 {
