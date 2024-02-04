@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:54:05 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/04 16:02:57 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/04 17:07:58 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_pair	*find_pair_in_dict(t_dict *dict, char *key)
 	tmp = dict->head;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->key, key, ft_strlen(tmp->key)) == 0)
+		if (ft_strncmp(tmp->key, key, ft_strlen(tmp->key) + 1) == 0)
 			return (tmp);
 		tmp = tmp->next;
 	}
@@ -45,7 +45,7 @@ t_pair	*find_pre_pair_in_dict(t_dict *dict, char *key)
 	tmp = dict->head;
 	while (tmp->next)
 	{
-		if (ft_strncmp(tmp->next->key, key, ft_strlen(tmp->next->key)) == 0)
+		if (ft_strncmp(tmp->next->key, key, ft_strlen(tmp->next->key) + 1) == 0)
 			return (tmp);
 		tmp = tmp->next;
 	}
@@ -70,7 +70,7 @@ void	del_pair_in_dict(t_dict *dict, char *key)
 	tmp = dict->head;
 	if (tmp == NULL)
 		return ;
-	if (ft_strncmp(tmp->key, key, ft_strlen(tmp->key)) == 0)
+	if (ft_strncmp(tmp->key, key, ft_strlen(tmp->key) + 1) == 0)
 	{
 		dict->head = tmp->next;
 		free_pair(tmp);
