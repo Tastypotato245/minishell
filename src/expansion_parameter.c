@@ -15,20 +15,37 @@
 #include <list.h>
 #include <vector.h>
 
+int	handle_dollar_exception_case(const char *word, size_t *i,
+		t_vector *vector, t_dict *env)
+{
+	char	*value;
+
+	(*i)++;
+	if (word[*i] == '\0'
+		|| (ft_strchr("\'\"_?", word[*i]) == NULL && !ft_isalpha(word[*i])))
+	{
+		push_back(vector, '$');
+		return (1);
+	}
+	if (word[*i] == '?')
+	{
+		(*i)++;
+		value = find_val_in_dict(env, "?");
+		if (value != NULL)
+			push_str(vector, value);
+		return (1);
+	}
+	return (0);
+}
+
 void	handle_dollar(const char *word, size_t *i,
 		t_vector *vector, t_dict *env)
 {
 	t_vector	key;
 	char		*value;
 
-	(void)key;
-	(*i)++;
-	if (word[*i] == '\0'
-		|| (ft_strchr("\'\"_", word[*i]) == NULL && !ft_isalpha(word[*i])))
-	{
-		push_back(vector, '$');
+	if (handle_dollar_exception_case(word, i, vector, env))
 		return ;
-	}
 	init_vector(&key);
 	while (ft_isalpha(word[*i]) || ft_isdigit(word[*i]) || word[*i] == '_')
 	{
