@@ -60,5 +60,8 @@ void	dict_modi_val_or_new_in_sort(t_dict *dict, char *key, char *val)
 	else if (val == NULL)
 		return ;
 	else
+	{
+		free(tmp->val);
 		tmp->val = val;
+	}
 }
