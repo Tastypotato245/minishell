@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:53 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 18:30:38 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/04 17:10:21 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*get_cmd(char *cmd, t_dict *env, int flag)
 	i = -1;
 	allpath = ft_split(get_paths(env), ':');
 	s_cmd = ft_split(cmd, ' ');
-	while (allpath[++i])
+	while (allpath && allpath[++i])
 	{
 		path_part = ft_strjoin(allpath[i], "/");
 		exec = ft_strjoin(path_part, s_cmd[0]);

@@ -6,7 +6,7 @@ static void	dict_add_pair_in_sort(t_dict *dict, t_pair *new)
 	int		new_key_len;
 
 	new_key_len = ft_strlen(new->key);
-	if (ft_strncmp(new->key, dict->head->key, new_key_len) <= 0)
+	if (ft_strncmp(new->key, dict->head->key, new_key_len + 1) <= 0)
 	{
 		new->next = dict->head;
 		dict->head = new;
@@ -16,7 +16,7 @@ static void	dict_add_pair_in_sort(t_dict *dict, t_pair *new)
 	pre = dict->head;
 	while (pre->next)
 	{
-		if (ft_strncmp(new->key, pre->next->key, new_key_len) <= 0)
+		if (ft_strncmp(new->key, pre->next->key, new_key_len + 1) <= 0)
 			break ;
 		pre = pre->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 18:09:39 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/04 16:15:47 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/04 16:50:27 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,29 @@ static int	print_declare(t_dict *env)
 	return (0);
 }
 
-static int	builtin_no_key(t_exe_node **tmp, int *no_key)
+static int	env_key_check(t_exe_node **tmp, char *word, int *rt)
 {
-	(*no_key) = 1;
-	print_error(BTIN_EXPORT, (*tmp)->word, "not a valid identifier");
-	(*tmp) = (*tmp)->next;
+	int	i;
+	int	len;
+
+	len = ft_strlen(word);
+	if (!(ft_isalpha(word[0]) || word[0] == '_'))
+	{
+		(*tmp) = (*tmp)->next;
+		(*rt) = 1;
+		return (return_handler(0, BTIN_EXPORT, word, "not a valid identifier"));
+	}
+	i = 1;
+	while (i < len && word[i] != '=')
+	{
+		if (!(ft_isalpha(word[i]) || ft_isdigit(word[i]) || word[i] == '_'))
+		{
+			(*tmp) = (*tmp)->next;
+			(*rt) = 1;
+			return (return_handler(0, BTIN_EXPORT, word, "not a valid identifier"));
+		}
+		++i;
+	}
 	return (1);
 }
 
@@ -67,23 +85,22 @@ int	builtin_export(t_dict *env, t_exe_lst *exes)
 {
 	t_exe_node	*tmp;
 	size_t		i;
-	int			no_key;
+	int			rt;
 
 	if (exes->size == 1)
 		return (print_declare(env));
-	no_key = 0;
+	rt = 0;
 	tmp = exes->head->next;
 	while (tmp)
 	{
 		i = 0;
 		while (tmp->word[i] && tmp->word[i] != '=')
 			i++;
-		if (i == 0 && builtin_no_key(&tmp, &no_key))
+		if (!env_key_check(&tmp, tmp->word, &rt))
 			continue ;
 		else if (i == ft_strlen(tmp->word) && builtin_no_val(env, &tmp, i))
 			continue ;
-		else
-			builtin_export_normal(env, &tmp, &i);
+		builtin_export_normal(env, &tmp, &i);
 	}
-	return (no_key);
+	return (rt);
 }
