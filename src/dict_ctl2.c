@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:54:05 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 20:45:16 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/04 16:02:57 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ void	del_pair_in_dict(t_dict *dict, char *key)
 	t_pair	*tmp;
 	t_pair	*pre;
 
-	if (!key)
-		exit_handler(1, PROGRAM_NAME, "key is NULL: get_val_in_dict().");
 	tmp = dict->head;
 	if (tmp == NULL)
 		return ;
@@ -77,6 +75,8 @@ void	del_pair_in_dict(t_dict *dict, char *key)
 		dict->head = tmp->next;
 		free_pair(tmp);
 		dict->size -= 1;
+		if (dict->size == 0)
+			dict->tail = NULL;
 		return ;
 	}
 	pre = find_pre_pair_in_dict(dict, key);
