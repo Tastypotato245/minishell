@@ -36,6 +36,7 @@ int	main(int argc, char **argv, char **envp)
 	print_symbol();
 	here_doc_list = NULL;
 	env_dict = to_dict(envp);
+	dict_modi_val_or_new_in_sort(env_dict, ft_strdup("?"), ft_itoa(0));
 	while (1)
 	{
 		line = readline("$ ");
