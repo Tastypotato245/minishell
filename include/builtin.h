@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:51:19 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/04 16:15:47 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/04 16:37:46 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	print_error(char *cmd, char *obj, char *str);
 int		return_handler(int return_no, char *cmd, char *obj, char *str);
 int		builtin_checker(t_cmd_node *cmd);
 int		builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case);
-
-int		env_naming_check(char *key);
 
 // builtin functions
 int		builtin_echo(t_exe_lst *exes);
