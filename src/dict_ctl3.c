@@ -57,6 +57,8 @@ void	dict_modi_val_or_new_in_sort(t_dict *dict, char *key, char *val)
 	tmp = find_pair_in_dict(dict, key);
 	if (tmp == NULL)
 		dict_new_in_sort(dict, key, val);
+	else if (val == NULL)
+		return ;
 	else
 		tmp->val = val;
 }
