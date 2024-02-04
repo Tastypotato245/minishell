@@ -36,6 +36,7 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)parse_error_handling.c	\
 				$(SRCS_DIR)here_document.c	\
 				$(SRCS_DIR)traverse.c	\
+				$(SRCS_DIR)expansion_parameter.c	\
 				$(SRCS_DIR)vector.c		\
 				$(SRCS_DIR)panic.c		\
 				$(SRCS_DIR)list_cmd_ctl.c	\
