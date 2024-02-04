@@ -15,6 +15,6 @@
 
 #include <dict.h>
 
-void	parameter_expansion(char *word, t_dict *env_dict);
+char	*parameter_expansion(const char *word, t_dict *env);
 
 #endif
