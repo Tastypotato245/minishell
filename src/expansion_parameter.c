@@ -23,9 +23,10 @@ void	handle_dollar(const char *word, size_t *i,
 
 	(void)key;
 	(*i)++;
-	if (ft_strchr("\'\"_", word[*i]) == NULL && !ft_isalpha(word[*i]))
+	if (word[*i] == '\0'
+		|| (ft_strchr("\'\"_", word[*i]) == NULL && !ft_isalpha(word[*i])))
 	{
-		push_back(vector, word[*i]);
+		push_back(vector, '$');
 		return ;
 	}
 	init_vector(&key);
