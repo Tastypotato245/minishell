@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:50:26 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 14:47:59 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 18:03:06 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	set_pwd(char mod, t_pair *n_pwd, t_pair *o_pwd)
 	}
 }
 
-static int	absolute_chdir(t_pair *n_pwd, t_pair *o_pwd, char *target_dir)
+static int	normal_cd(t_pair *n_pwd, t_pair *o_pwd, char *target_dir)
 {
 	set_pwd('o', n_pwd, o_pwd);
 	if (chdir(target_dir) == -1)
@@ -55,27 +55,7 @@ static int	go_home(t_dict *env, t_pair *n_pwd, t_pair *o_pwd)
 	target_dir = find_val_in_dict(env, "HOME");
 	if (target_dir == NULL)
 		return (return_handler(1, BTIN_CD, NULL, "HOME not set"));
-	return (absolute_chdir(n_pwd, o_pwd, target_dir));
-}
-
-static int	relative_chdir(t_exe_node *exe, t_pair *n_pwd, t_pair *o_pwd)
-{
-	char	*target_dir_part;
-	char	*target_dir;
-	char	*buf;
-	int		rt;
-
-	buf = getcwd(NULL, 0);
-	if (buf == NULL)
-		return (return_handler(0, BTIN_CD, NULL, \
-				"error retrieving current directory: getcwd"));
-	target_dir_part = ft_strjoin(buf, "/");
-	target_dir = ft_strjoin(target_dir_part, exe->word);
-	free(buf);
-	free(target_dir_part);
-	rt = absolute_chdir(n_pwd, o_pwd, target_dir);
-	free(target_dir);
-	return (rt);
+	return (normal_cd(n_pwd, o_pwd, target_dir));
 }
 
 int	builtin_cd(t_dict *env, t_exe_lst *exes)
@@ -89,7 +69,5 @@ int	builtin_cd(t_dict *env, t_exe_lst *exes)
 	if (exes->size == 1)
 		return (go_home(env, n_pwd, o_pwd));
 	exe = exes->head->next;
-	if (exe->word[0] == '/')
-		return (absolute_chdir(n_pwd, o_pwd, ft_strdup(exe->word)));
-	return (relative_chdir(exe, n_pwd, o_pwd));
+	return (normal_cd(n_pwd, o_pwd, ft_strdup(exe->word)));
 }

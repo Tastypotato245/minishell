@@ -6,7 +6,7 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 19:56:05 by kyusulee          #+#    #+#              #
-#    Updated: 2024/02/01 18:31:16 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/02/05 16:47:47 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)traverse.c	\
 				$(SRCS_DIR)expansion_parameter.c		\
 				$(SRCS_DIR)expansion_quote_removal.c	\
+				$(SRCS_DIR)expansion_filename.c	\
 				$(SRCS_DIR)vector.c				\
 				$(SRCS_DIR)vector_push_str.c	\
 				$(SRCS_DIR)panic.c		\
@@ -59,7 +60,8 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)execute_pipex.c			\
 				$(SRCS_DIR)execute_pipex_utils.c	\
 				$(SRCS_DIR)execute_access.c			\
-				$(SRCS_DIR)execute_process.c
+				$(SRCS_DIR)execute_process.c		\
+				$(SRCS_DIR)signal_handler.c
 
 SRCS_B		=	$(SRCS_B_DIR)main.c
 

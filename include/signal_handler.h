@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion.h                                        :+:      :+:    :+:   */
+/*   signal_handler.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/04 16:37:22 by younghoc          #+#    #+#             */
-/*   Updated: 2024/02/04 16:37:28 by younghoc         ###   ########.fr       */
+/*   Created: 2024/02/05 16:46:25 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/02/05 17:33:59 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPANSION_H
-# define EXPANSION_H
+#ifndef SIGNAL_HANDLER_H
+# define SIGNAL_HANDLER_H
 
-#include <dict.h>
-#include <list.h>
-
-char		*parameter_expansion(const char *word, t_dict *env);
-t_exe_lst	*filename_expansion(char *word);
-char		*quote_removal(char	*word);
+void	set_signal(void);
+void	cntl_d(t_dict *env);
 
 #endif
