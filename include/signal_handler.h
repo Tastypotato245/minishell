@@ -13,7 +13,10 @@
 #ifndef SIGNAL_HANDLER_H
 # define SIGNAL_HANDLER_H
 
+#include <dict.h>
+
 void	set_signal(void);
 void	cntl_d(t_dict *env);
+void	set_signal_for_heredoc(void);
 
 #endif
