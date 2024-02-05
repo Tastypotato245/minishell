@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 15:28:12 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:34:00 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@
 #include <parse.h>
 #include <here_document.h>
 #include <traverse.h>
+#include <signal_handler.h>
+
+
+void	init_frankshell(t_dict *env_dict)
+{
+	print_symbol();
+	dict_modi_val_or_new_in_sort(env_dict, "OLDPWD", NULL);
+	dict_modi_val_or_new_in_sort(env_dict, ft_strdup("?"), ft_itoa(0));
+	set_signal();
+	rl_catch_signals = 0;
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -33,16 +44,14 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1 || argv == NULL)
 		exit_handler(0, PROGRAM_NAME, "enter ./minishell");
-	print_symbol();
 	here_doc_list = NULL;
 	env_dict = to_dict(envp);
-	dict_modi_val_or_new_in_sort(env_dict, "OLDPWD", NULL);
-	dict_modi_val_or_new_in_sort(env_dict, ft_strdup("?"), ft_itoa(0));
+	init_frankshell(env_dict);
 	while (1)
 	{
 		line = readline("$ ");
 		if (line == NULL)
-			break ;
+			cntl_d(env_dict);
 		else
 		{
 			tokens = tokenize(line);
