@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 18:09:39 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/04 16:50:27 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 13:02:52 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static int	env_key_check(t_exe_node **tmp, char *word, int *rt)
 		{
 			(*tmp) = (*tmp)->next;
 			(*rt) = 1;
-			return (return_handler(0, BTIN_EXPORT, word, "not a valid identifier"));
+			return (return_handler(0, BTIN_EXPORT, word, \
+						"not a valid identifier"));
 		}
 		++i;
 	}

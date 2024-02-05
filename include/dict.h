@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 15:34:45 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 20:46:30 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 13:02:37 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,5 @@ void		dict_modi_val_or_new_in_sort(t_dict *dict, char *key, char *val);
 // dict_ctl4.c
 t_dict		*to_dict(char **envp);
 char		**to_2darr(t_dict *env_dict);
-
 
 #endif
