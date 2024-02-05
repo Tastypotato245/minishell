@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:50:26 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 12:58:59 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 13:02:07 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ static int	go_home(t_dict *env, t_pair *n_pwd, t_pair *o_pwd)
 		if (buf == NULL)
 			print_error(BTIN_CD, "error retrieving current directory: getcwd", \
 					strerror(errno));
-		printf("tasfjlsjdfkasdtest: %s\n", buf);
-		fflush(stdout);
 		n_pwd->val = buf;
 	}
 	return (0);
