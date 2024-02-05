@@ -16,5 +16,6 @@
 #include <dict.h>
 
 char	*parameter_expansion(const char *word, t_dict *env);
+char	*quote_removal(char	*word);
 
 #endif
