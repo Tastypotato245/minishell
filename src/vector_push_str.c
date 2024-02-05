@@ -17,7 +17,7 @@ char	*push_str(t_vector *vector, char *str)
 {
 	const size_t	strlen = ft_strlen(str);
 	size_t			i;
-	
+
 	i = 0;
 	while (i < strlen)
 	{

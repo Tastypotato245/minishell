@@ -13,8 +13,8 @@
 #ifndef EXPANSION_H
 # define EXPANSION_H
 
-#include <dict.h>
-#include <list.h>
+# include <dict.h>
+# include <list.h>
 
 char		*parameter_expansion(const char *word, t_dict *env);
 t_exe_lst	*filename_expansion(char *word);

@@ -10,12 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <_ctype.h>
 #include <panic.h>
 #include <minishell.h>
 #include <here_document.h>
 #include <fcntl.h>
 #include <readline/readline.h>
 #include <unistd.h>
+#include <signal_handler.h>
 
 static char	*random_path(void)
 {
@@ -68,15 +70,16 @@ static int	here_doc_action(char *filename, char *limiter)
 	return (0);
 }
 
-static void	switch_here_doc(t_tree *tree, t_list **here_doc_list)
+static int	switch_here_doc(t_tree *tree_left, t_list **here_doc_list)
 {
-	t_tree	*tree_left;
 	char	*filename;
 	char	*filename_dup;
 	char	*limiter;
 	t_list	*filename_element;
+	int		fd;
 
-	tree_left = tree->left;
+	fd = func_guard(dup(0), PROGRAM_NAME, "here_doc_traverse().");
+	set_signal_for_heredoc();
 	filename = random_path();
 	filename_dup = ft_strdup(filename);
 	null_guard(filename_dup, PROGRAM_NAME, "here_doc_traverse().");
@@ -87,8 +90,12 @@ static void	switch_here_doc(t_tree *tree, t_list **here_doc_list)
 	here_doc_action(filename, limiter);
 	free(limiter);
 	tree_left->left = filename;
+	if (g_signal)
+		func_guard(dup2(fd, 0), PROGRAM_NAME, "here_doc_traverse().");
+	func_guard(close(fd), PROGRAM_NAME, "here_doc_traverse().");
+	set_signal();
+	return (g_signal);
 }
-//tree->category = TR_REDIRECT_IN;
 
 void	unlink_here_doc_temp_file(t_list **here_doc_list)
 {
@@ -104,19 +111,17 @@ void	unlink_here_doc_temp_file(t_list **here_doc_list)
 	ft_lstclear(here_doc_list, free);
 }
 
-void	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
+int	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
 {
 	if (tree == NULL
 		|| tree->category == TR_WORD
 		|| tree->category == TR_REDIRECT_IN
 		|| tree->category == TR_REDIRECT_OUT
 		|| tree->category == TR_REDIRECT_APPEND)
-		return ;
+		return (0);
 	if (tree->category == TR_REDIRECT_HERE_DOC)
-	{
-		switch_here_doc(tree, here_doc_list);
-		return ;
-	}
-	here_doc_traverse(tree->left, here_doc_list);
-	here_doc_traverse(tree->right, here_doc_list);
+		return (switch_here_doc(tree->left, here_doc_list));
+	if (here_doc_traverse(tree->left, here_doc_list))
+		return (1);
+	return (here_doc_traverse(tree->right, here_doc_list));
 }
