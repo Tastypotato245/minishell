@@ -6,12 +6,13 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 16:28:08 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 22:48:48 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <execute.h>
 #include <builtin.h>
+#include <expansion.h>
 
 // func_guard(unlink(HD_FILE));
 // sequencial unlink 
@@ -80,6 +81,7 @@ int	pipex(t_cmd_lst *cmds, t_dict *env)
 	int	exit_code;
 
 	exit_code = 0;
+	cmds_expansion(cmds, env);
 	if (cmds->size == 1)
 		exit_code = single_proccess(cmds->head, env);
 	else if (cmds->size > 1)

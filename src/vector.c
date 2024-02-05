@@ -6,13 +6,12 @@
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 16:14:34 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/28 16:14:36 by younghoc         ###   ########.fr       */
+/*   Updated: 2024/02/05 22:00:09 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vector.h>
 #include <stdlib.h>
-
 
 void	init_vector(t_vector *vector)
 {

@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:53 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/04 17:10:21 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 22:27:31 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	absolute_or_relative_path(char **s_cmd, t_dict *env)
 	if (execve(s_cmd[0], s_cmd, to_2darr(env)) == -1)
 		exit_handler(126, PROGRAM_NAME, s_cmd[0]);
 }
+
 
 //printf("*** path: %s\n", path);
 //printf("*** s_cmd0: %s\n", s_cmd[0]);

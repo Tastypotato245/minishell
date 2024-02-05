@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:34:44 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 17:33:58 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:46:10 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	signal_handler(int sig)
 	if (sig == SIGINT)
 	{
 		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 1);
+		rl_redisplay();
 	}
-	rl_on_new_line();
-	rl_replace_line("", 1);
-	rl_redisplay();
 }
 
 void	set_signal(void)
