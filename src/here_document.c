@@ -96,7 +96,6 @@ static int	switch_here_doc(t_tree *tree_left, t_list **here_doc_list)
 	set_signal();
 	return (g_signal);
 }
-//tree->category = TR_REDIRECT_IN;
 
 void	unlink_here_doc_temp_file(t_list **here_doc_list)
 {
@@ -119,7 +118,7 @@ int	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
 		|| tree->category == TR_REDIRECT_IN
 		|| tree->category == TR_REDIRECT_OUT
 		|| tree->category == TR_REDIRECT_APPEND)
-		return 0;
+		return (0);
 	if (tree->category == TR_REDIRECT_HERE_DOC)
 		return (switch_here_doc(tree->left, here_doc_list));
 	if (here_doc_traverse(tree->left, here_doc_list))
