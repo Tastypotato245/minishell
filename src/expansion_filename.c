@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "list.h"
 #include <minishell.h>
 #include <expansion.h>
 #include <dirent.h>
@@ -38,6 +39,20 @@ static int	is_matched(const char *pattern, const char *string)
 	return (*pattern == *string);
 }
 
+static void	inner_while(char *word, int only_dir,
+		t_exe_lst *exes, struct dirent *entry)
+{
+	if (!((word[0] != '.' && entry->d_name[0] == '.')
+			|| (only_dir && entry->d_type != DT_DIR))
+		&& is_matched(word, entry->d_name))
+	{
+		if (only_dir)
+			exe_lst_new_back(exes, ft_strjoin(entry->d_name, "/"));
+		else
+			exe_lst_new_back(exes, ft_strdup(entry->d_name));
+	}
+}
+
 t_exe_lst	*filename_expansion(char *word)
 {
 	const size_t	wordlen = ft_strlen(word);
@@ -53,23 +68,16 @@ t_exe_lst	*filename_expansion(char *word)
 	entry = readdir(dir);
 	while (entry != NULL)
 	{
-		if ((word[0] != '.' && entry->d_name[0] == '.')
-			|| (only_dir && entry->d_type != DT_DIR))
-		{
-			entry = readdir(dir);
-			continue ;
-		}
-		if (is_matched(word, entry->d_name))
-		{
-			if (only_dir)
-				exe_lst_new_back(exes, ft_strjoin(entry->d_name, "/"));
-			else
-				exe_lst_new_back(exes, ft_strdup(entry->d_name));
-		}
+		inner_while(word, only_dir, exes, entry);
 		entry = readdir(dir);
 	}
 	closedir(dir);
 	if (exes->size == 0)
-		exe_lst_new_back(exes, ft_strdup(word));
+	{
+		if (only_dir)
+			exe_lst_new_back(exes, ft_strjoin(word, "/"));
+		else
+			exe_lst_new_back(exes, ft_strdup(word));
+	}
 	return (exes);
 }
