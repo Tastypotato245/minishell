@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion.h                                        :+:      :+:    :+:   */
+/*   expansion_filename.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/04 16:37:22 by younghoc          #+#    #+#             */
-/*   Updated: 2024/02/04 16:37:28 by younghoc         ###   ########.fr       */
+/*   Created: 2024/02/05 13:46:23 by younghoc          #+#    #+#             */
+/*   Updated: 2024/02/05 13:46:24 by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPANSION_H
-# define EXPANSION_H
+#include <expansion.h>
 
-#include <dict.h>
-#include <list.h>
+t_exe_lst	*filename_expansion(char *word)
+{
+	t_exe_lst	*exes;
 
-char		*parameter_expansion(const char *word, t_dict *env);
-t_exe_lst	*filename_expansion(char *word);
-char		*quote_removal(char	*word);
-
-#endif
+	(void)word;
+	exes = new_exe_lst();
+	exe_lst_new_back(exes, ft_strdup("hello"));
+	exe_lst_new_back(exes, ft_strdup("word"));
+	return (exes);
+}
