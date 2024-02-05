@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:38 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 16:05:20 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:28:49 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,20 @@ void	repeat_redirection(t_rd_lst *rds)
 		func_guard(close(rd_fd), PROGRAM_NAME, "repeat_redirection().");
 		rd = rd->next;
 	}
+}
+
+int	open_guard_no_exit(int mod, char *file)
+{
+	int	fd;
+
+	fd = -1;
+	if (mod == IN_RD || mod == HEREDOC_RD)
+		fd = open(file, O_RDONLY);
+	else if (mod == OUT_RD)
+		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (mod == APPEND_RD)
+		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	return (fd);
 }
 
 int	open_guard(int mod, char *file)
