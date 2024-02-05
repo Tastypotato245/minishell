@@ -6,7 +6,7 @@
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:38:37 by younghoc          #+#    #+#             */
-/*   Updated: 2024/02/01 16:38:38 by younghoc         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:49:04 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ static void	switch_here_doc(t_tree *tree, t_list **here_doc_list)
 	limiter = (char *)tree_left->left;
 	here_doc_action(filename, limiter);
 	free(limiter);
-	tree->category = TR_REDIRECT_IN;
 	tree_left->left = filename;
 }
+//tree->category = TR_REDIRECT_IN;
 
 void	unlink_here_doc_temp_file(t_list **here_doc_list)
 {

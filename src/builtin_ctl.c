@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:51:10 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 13:48:37 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:52:39 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	builtin_checker(t_cmd_node *cmd)
 	char	*builtin_cmd;
 	int		len;
 
+	if (cmd->exes->size == 0)
+		return (NONE_BTIN_CASE);
 	builtin_cmd = cmd->exes->head->word;
 	len = ft_strlen(builtin_cmd);
 	if (len == 4 && ft_strncmp(builtin_cmd, BTIN_ECHO, len) == 0)

@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:38 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 15:40:41 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:05:20 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,7 @@ void	repeat_redirection(t_rd_lst *rds)
 	while (rd)
 	{
 		rd_fd = open_guard(rd->rd_type, rd->file);
-		if (rd->rd_type == HEREDOC_RD)
-		{
-
-		}
-		else if (rd->rd_type == IN_RD)
+		if (rd->rd_type == IN_RD || rd->rd_type == HEREDOC_RD)
 			func_guard(dup2(rd_fd, STDIN_FILENO), \
 					PROGRAM_NAME, "repeat_redirection().");
 		else
@@ -41,7 +37,7 @@ int	open_guard(int mod, char *file)
 	int	fd;
 
 	fd = -1;
-	if (mod == IN_RD)
+	if (mod == IN_RD || mod == HEREDOC_RD)
 		fd = open(file, O_RDONLY);
 	else if (mod == OUT_RD)
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
