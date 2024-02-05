@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 13:07:43 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:02:41 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 	here_doc_list = NULL;
 	env_dict = to_dict(envp);
 	dict_modi_val_or_new_in_sort(env_dict, "OLDPWD", NULL);
+	dict_modi_val_or_new_in_sort(env_dict, ft_strdup("?"), ft_itoa(0));
 	while (1)
 	{
 		line = readline("$ ");

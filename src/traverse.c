@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <dict.h>
 #include <minishell.h>
 #include <traverse.h>
 #include <panic.h>
@@ -87,6 +88,7 @@ static int	traverse_pipe(t_tree *tree, t_dict *env_dict)
 		if (DEBUG)
 			print_cmd_lst(cmds);
 		exit_status = pipex(cmds, env_dict);
+		dict_modi_val_or_new_in_sort(env_dict, ft_strdup("?"), ft_itoa(exit_status));
 		free_cmd_lst(cmds);
 		return (exit_status);
 	}

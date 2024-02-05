@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.h                                           :+:      :+:    :+:   */
+/*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/28 16:15:36 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/30 19:45:43 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/02/04 16:37:22 by younghoc          #+#    #+#             */
+/*   Updated: 2024/02/04 16:37:28 by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_H
-# define VECTOR_H
+#ifndef EXPANSION_H
+# define EXPANSION_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 16
-# endif
+#include <dict.h>
 
-typedef struct s_vector
-{
-	char	*data;
-	int		len;
-	int		cap;
-}	t_vector;
-
-void		init_vector(t_vector *vector);
-char		*push_back(t_vector *vector, char c);
-char		*push_str(t_vector *vector, char *str);
-void		destroy_vector(t_vector *vector);
+char	*parameter_expansion(const char *word, t_dict *env);
+char	*quote_removal(char	*word);
 
 #endif
