@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:52:02 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 18:28:51 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:56:55 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	builtin_exit(t_exe_lst *exes)
 	{
 		ft_putendl_fd(BTIN_EXIT, STDERR_FILENO);
 		print_error(BTIN_EXIT, NULL, "too many arguments");
-		exit(1);
+		return ;
 	}
 	if (DEBUG)
 		printf("exit_num: %lld\n", exit_num);

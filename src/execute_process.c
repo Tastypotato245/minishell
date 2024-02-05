@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:45 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 21:51:38 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 13:11:26 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,24 @@ void	single_child(t_cmd_node *cmd, t_dict *env)
 
 void	first_child(int *fd, t_cmd_node *cmd, t_dict *env)
 {
+	int		builtin_case;
+
 	func_guard(close(fd[0]), PROGRAM_NAME, "close(fd[0]): first_child().");
 	repeat_redirection(cmd->rds);
 	func_guard(dup2(fd[1], STDOUT_FILENO), PROGRAM_NAME, \
 			"dup2(fd[1]): first_child().");
 	func_guard(close(fd[1]), PROGRAM_NAME, "close(fd[1]): first_child().");
-	exec(cmd->exes, env);
+	builtin_case = builtin_checker(cmd);
+	if (builtin_case != NONE_BTIN_CASE)
+		exit (builtin_switcher(cmd, env, builtin_case));
+	else
+		exec(cmd->exes, env);
 }
 
 void	middle_child(t_info *info, int *fd, t_cmd_node *cmd, t_dict *env)
 {
+	int		builtin_case;
+
 	func_guard(close(fd[0]), PROGRAM_NAME, \
 			"close(fd[0]): middle_child().");
 	func_guard(dup2(info->ex_fd, STDIN_FILENO), PROGRAM_NAME, \
@@ -41,17 +49,27 @@ void	middle_child(t_info *info, int *fd, t_cmd_node *cmd, t_dict *env)
 			"dup2(fd[1], STDOUT_FILENO): middle_child().");
 	func_guard(close(fd[1]), PROGRAM_NAME, \
 			"close(fd[1]): middle_child().");
-	exec(cmd->exes, env);
+	builtin_case = builtin_checker(cmd);
+	if (builtin_case != NONE_BTIN_CASE)
+		exit (builtin_switcher(cmd, env, builtin_case));
+	else
+		exec(cmd->exes, env);
 }
 
 void	last_child(t_info *info, t_cmd_node *cmd, t_dict *env)
 {
+	int		builtin_case;
+
 	func_guard(dup2(info->ex_fd, STDIN_FILENO), PROGRAM_NAME, \
 			"dup2(info->ex_fd, STDIN_FILENO): last_child().");
 	func_guard(close(info->ex_fd), PROGRAM_NAME, \
 			"close(info->ex_fd): last_child().");
 	repeat_redirection(cmd->rds);
-	exec(cmd->exes, env);
+	builtin_case = builtin_checker(cmd);
+	if (builtin_case != NONE_BTIN_CASE)
+		exit (builtin_switcher(cmd, env, builtin_case));
+	else
+		exec(cmd->exes, env);
 }
 
 void	children_switch(t_info *info, int *fd, t_cmd_node *cmd, t_dict *env)

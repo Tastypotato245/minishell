@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*   signal_handler.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 18:50:42 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 14:02:33 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/02/05 16:46:25 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/02/05 17:33:59 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtin.h>
+#ifndef SIGNAL_HANDLER_H
+# define SIGNAL_HANDLER_H
 
-int	builtin_pwd(void)
-{
-	char	*buf;
+void	set_signal(void);
+void	cntl_d(t_dict *env);
 
-	buf = getcwd(NULL, 0);
-	if (buf == NULL)
-		return (return_handler(1, BTIN_PWD, NULL, strerror(errno)));
-	printf("%s\n", buf);
-	free(buf);
-	return (0);
-}
+#endif

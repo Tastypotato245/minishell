@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:50:56 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 20:05:21 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 13:34:51 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	is_n(char *str)
 	int	i;
 
 	i = 0;
+	if (str[i] == '\0')
+		return (0);
 	while (str[i])
 	{
 		if (str[i++] != 'n')

@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:49:49 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/04 16:37:48 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:27:44 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ int	builtin_env(t_dict *env, t_exe_lst *exes)
 	tmp = env->head;
 	while (tmp)
 	{
+		if (ft_strncmp(tmp->key, "?", 2) == 0)
+		{
+			tmp = tmp->next;
+			continue ;
+		}
 		if (tmp->val != NULL)
 			printf("%s=%s\n", tmp->key, tmp->val);
 		tmp = tmp->next;

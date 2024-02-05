@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dict_ctl3.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/05 13:03:09 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/02/05 13:07:33 by kyusulee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <dict.h>
 
 static void	dict_add_pair_in_sort(t_dict *dict, t_pair *new)
@@ -60,5 +72,8 @@ void	dict_modi_val_or_new_in_sort(t_dict *dict, char *key, char *val)
 	else if (val == NULL)
 		return ;
 	else
+	{
+		free(tmp->val);
 		tmp->val = val;
+	}
 }
