@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:51:10 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 13:48:37 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:29:35 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@
 void	print_error(char *cmd, char *obj, char *str)
 {
 	ft_putstr_fd(PROGRAM_NAME, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd(cmd, STDERR_FILENO);
+	if (cmd != NULL)
+	{
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(cmd, STDERR_FILENO);
+	}
 	if (obj != NULL)
 	{
 		ft_putstr_fd(": ", STDERR_FILENO);
@@ -42,6 +45,8 @@ int	builtin_checker(t_cmd_node *cmd)
 	char	*builtin_cmd;
 	int		len;
 
+	if (cmd->exes->size == 0)
+		return (NONE_BTIN_CASE);
 	builtin_cmd = cmd->exes->head->word;
 	len = ft_strlen(builtin_cmd);
 	if (len == 4 && ft_strncmp(builtin_cmd, BTIN_ECHO, len) == 0)
@@ -61,11 +66,38 @@ int	builtin_checker(t_cmd_node *cmd)
 	return (NONE_BTIN_CASE);
 }
 
+static int	repeat_redirection_with_return(t_rd_lst *rds)
+{
+	int			rd_fd;
+	t_rd_node	*rd;
+
+	rd = rds->head;
+	while (rd)
+	{
+		rd_fd = open_guard_no_exit(rd->rd_type, rd->file);
+		if (rd->rd_type == IN_RD || rd->rd_type == HEREDOC_RD)
+		{
+			if (rd_fd == -1 || dup2(rd_fd, STDIN_FILENO) == -1)
+				return (return_handler(1, rd->file, NULL, strerror(errno)));
+		}
+		else
+		{
+			if (rd_fd == -1 || dup2(rd_fd, STDOUT_FILENO) == -1)
+				return (return_handler(1, rd->file, NULL, strerror(errno)));
+		}
+		if (close(rd_fd) == -1)
+			return (return_handler(1, rd->file, NULL, strerror(errno)));
+		rd = rd->next;
+	}
+	return (0);
+}
+
 int	builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case)
 {
 	if (DEBUG)
 		printf("\t * now builtin command: %d\n", builtin_case);
-	repeat_redirection(cmd->rds);
+	if (repeat_redirection_with_return(cmd->rds))
+		return (1);
 	if (builtin_case == BTIN_CASE_ECHO)
 		return (builtin_echo(cmd->exes));
 	else if (builtin_case == BTIN_CASE_CD)

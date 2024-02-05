@@ -6,7 +6,7 @@
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:52:23 by younghoc          #+#    #+#             */
-/*   Updated: 2024/02/05 15:28:11 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:49:00 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ static void	traverse_word_and_redirect(t_exe_lst *exes,
 			ft_strdup(((t_tree *)tree_left->left)->left));
 	else if (tree_left->category == TR_REDIRECT_APPEND)
 		rd_lst_new_back(rds, APPEND_RD,
+			ft_strdup(((t_tree *)tree_left->left)->left));
+	else if (tree_left->category == TR_REDIRECT_HERE_DOC)
+		rd_lst_new_back(rds, HEREDOC_RD,
 			ft_strdup(((t_tree *)tree_left->left)->left));
 	else
 		panic("traverse_word_and_redirect(): unhandled case");

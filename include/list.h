@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 19:13:16 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/31 13:51:38 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:40:41 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ typedef enum e_rd_type
 {
 	IN_RD = 0,
 	OUT_RD = 1,
-	APPEND_RD = 2
+	APPEND_RD = 2,
+	HEREDOC_RD = 3
 }	t_rd_type;
 
 typedef struct s_exe_node

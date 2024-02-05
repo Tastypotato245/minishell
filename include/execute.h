@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:36:52 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/01 15:19:40 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:28:49 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		pipex(t_cmd_lst *cmds, t_dict *env);
 
 // pipex_utils.c
 void	repeat_redirection(t_rd_lst *rds);
+int		open_guard_no_exit(int mod, char *file);
 int		open_guard(int mod, char *file);
 char	**lst_to_2darr(t_exe_lst *exes);
 
