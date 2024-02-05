@@ -6,7 +6,7 @@
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:52:23 by younghoc          #+#    #+#             */
-/*   Updated: 2024/01/31 19:39:56 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:16:32 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	traverse_pipe(t_tree *tree, t_dict *env_dict)
 		if (DEBUG)
 			print_cmd_lst(cmds);
 		exit_status = pipex(cmds, env_dict);
-		dict_modi_val_or_new_in_sort(env_dict, ft_strdup("?"), ft_itoa(exit_status));
+		dict_modi_val_or_new_in_sort(env_dict, "?", ft_itoa(exit_status));
 		free_cmd_lst(cmds);
 		return (exit_status);
 	}
