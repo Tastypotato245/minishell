@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:50:26 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/04 20:42:08 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 12:58:59 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	go_home(t_dict *env, t_pair *n_pwd, t_pair *o_pwd)
 	DIR		*dir;
 	char	*buf;
 
-	target_dir = find_val_in_dict(env, "HOME");
+	target_dir = ft_strdup(find_val_in_dict(env, "HOME"));
 	if (target_dir == NULL)
 		return (return_handler(1, BTIN_CD, NULL, "HOME not set"));
 	dir = opendir(target_dir);
