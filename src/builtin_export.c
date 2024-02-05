@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 18:09:39 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 13:02:52 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:27:48 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,12 @@ static int	print_declare(t_dict *env)
 	tmp = env->head;
 	while (tmp)
 	{
-		if (tmp->val == NULL)
+		if (ft_strncmp(tmp->key, "?", 2) == 0)
+		{
+			tmp = tmp->next;
+			continue ;
+		}
+		else if (tmp->val == NULL)
 			printf("declare -x %s\n", tmp->key);
 		else
 			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->val);
