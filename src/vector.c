@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include <vector.h>
+#include <stdlib.h>
+
 
 void	init_vector(t_vector *vector)
 {
