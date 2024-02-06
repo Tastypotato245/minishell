@@ -51,20 +51,23 @@ static void	add_filename(t_exe_lst *exes, char *filename,
 {
 	char	*tmp;
 
-	if (flag_no_match)
+	if (flag_no_match == -1)
+	{
+		tmp = ft_strjoin("\a", filename);
+		if (only_dir)
+			exe_lst_new_back(exes, ft_strjoin(tmp, "/\a"));
+		else
+			exe_lst_new_back(exes, ft_strjoin(tmp, "\a"));
+		free(tmp);
+		return ;
+	}
+	if (flag_no_match == 0)
 	{
 		if (only_dir)
 			exe_lst_new_back(exes, ft_strjoin(filename, "/"));
 		else
 			exe_lst_new_back(exes, ft_strdup(filename));
-		return ;
 	}
-	tmp = ft_strjoin("\a", filename);
-	if (only_dir)
-		exe_lst_new_back(exes, ft_strjoin(tmp, "/\a"));
-	else
-		exe_lst_new_back(exes, ft_strjoin(tmp, "\a"));
-	free(tmp);
 }
 
 static void	inner_while(char *word, int only_dir,
@@ -73,7 +76,7 @@ static void	inner_while(char *word, int only_dir,
 	if (!((word[0] != '.' && entry->d_name[0] == '.')
 			|| (only_dir && entry->d_type != DT_DIR))
 		&& is_matched(word, entry->d_name, 0, 0))
-		add_filename(exes, entry->d_name, only_dir, 0);
+		add_filename(exes, entry->d_name, only_dir, -1);
 }
 
 static int	check_valid_star(char *word)
@@ -123,7 +126,6 @@ t_exe_lst	*filename_expansion(char *word)
 		entry = readdir(dir);
 	}
 	closedir(dir);
-	if (exes->size == 0)
-		add_filename(exes, word, only_dir, 1);
+	add_filename(exes, word, only_dir, exes->size);
 	return (exes);
 }
