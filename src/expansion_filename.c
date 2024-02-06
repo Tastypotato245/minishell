@@ -46,18 +46,25 @@ static int	is_matched(const char *pattern, const char *string,
 	return (*pattern == *string);
 }
 
+static void	add_filename(t_exe_lst *exes, char *filename, int only_dir)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin("\a", filename);
+	if (only_dir)
+		exe_lst_new_back(exes, ft_strjoin(tmp, "/\a"));
+	else
+		exe_lst_new_back(exes, ft_strjoin(tmp, "\a"));
+	free(tmp);
+}
+
 static void	inner_while(char *word, int only_dir,
 		t_exe_lst *exes, struct dirent *entry)
 {
 	if (!((word[0] != '.' && entry->d_name[0] == '.')
 			|| (only_dir && entry->d_type != DT_DIR))
 		&& is_matched(word, entry->d_name, 0, 0))
-	{
-		if (only_dir)
-			exe_lst_new_back(exes, ft_strjoin(entry->d_name, "/"));
-		else
-			exe_lst_new_back(exes, ft_strdup(entry->d_name));
-	}
+		add_filename(exes, entry->d_name, only_dir);
 }
 
 t_exe_lst	*filename_expansion(char *word)
@@ -80,11 +87,6 @@ t_exe_lst	*filename_expansion(char *word)
 	}
 	closedir(dir);
 	if (exes->size == 0)
-	{
-		if (only_dir)
-			exe_lst_new_back(exes, ft_strjoin(word, "/"));
-		else
-			exe_lst_new_back(exes, ft_strdup(word));
-	}
+		add_filename(exes, word, only_dir);
 	return (exes);
 }
