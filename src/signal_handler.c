@@ -49,6 +49,5 @@ void	set_signal(void)
 
 void	cntl_d(t_dict *env)
 {
-	ft_putendl_fd("exit", STDOUT_FILENO);
 	exit(ft_atoi(find_val_in_dict(env, "?")));
 }

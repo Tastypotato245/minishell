@@ -27,7 +27,6 @@
 
 void	init_frankshell(t_dict *env_dict)
 {
-	print_symbol();
 	dict_modi_val_or_new_in_sort(env_dict, "OLDPWD", NULL);
 	dict_modi_val_or_new_in_sort(env_dict, ft_strdup("?"), ft_itoa(0));
 	set_signal();
