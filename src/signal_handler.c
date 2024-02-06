@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:34:44 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/06 14:51:48 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 18:58:29 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,32 @@ static void	signal_handler_for_heredoc(int sig)
 	g_signal = 1;
 }
 
-void	set_signal_for_heredoc(void)
+// 0 = default
+// 1 = heredoc
+// 2 = exec_parant
+// 3 = exec_child
+void	set_signal(int mod)
 {
-	signal(SIGINT, signal_handler_for_heredoc);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	set_signal(void)
-{
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, SIG_IGN);
+	if (mod == 0)
+	{
+		signal(SIGINT, signal_handler);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (mod == 1)
+	{
+		signal(SIGINT, signal_handler_for_heredoc);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (mod == 2)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (mod == 3)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+	}
 }
 
 void	cntl_d(t_dict *env)

@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:46:25 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 17:33:59 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 18:15:37 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 # include <dict.h>
 
-void	set_signal(void);
+void	set_signal(int mod);
 void	cntl_d(t_dict *env);
-void	set_signal_for_heredoc(void);
 
 #endif

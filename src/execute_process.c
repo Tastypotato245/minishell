@@ -6,15 +6,17 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:45 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/06 12:39:48 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:10:03 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <execute.h>
+#include <signal_handler.h>
 
 void	single_child(t_cmd_node *cmd, t_dict *env)
 {
 	repeat_redirection(cmd->rds, env);
+	set_signal(3);
 	exec(cmd->exes, env);
 }
 
@@ -74,6 +76,7 @@ void	last_child(t_info *info, t_cmd_node *cmd, t_dict *env)
 
 void	children_switch(t_info *info, int *fd, t_cmd_node *cmd, t_dict *env)
 {
+	set_signal(3);
 	if (info->pidx == 0)
 		first_child(fd, cmd, env);
 	else if (info->pidx == info->pnum - 1)
