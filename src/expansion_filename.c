@@ -107,15 +107,12 @@ t_exe_lst	*filename_expansion(char *word)
 	struct dirent	*entry;
 
 	exes = new_exe_lst();
-	if (wordlen == 0)
-		exe_lst_new_back(exes, ft_strdup(word));
-	only_dir = word[wordlen - 1] == '/';
-	return (exes);
-	if (!check_valid_star(word))
+	if (wordlen == 0 || !check_valid_star(word))
 	{
 		exe_lst_new_back(exes, ft_strdup(word));
 		return (exes);
 	}
+	only_dir = word[wordlen - 1] == '/';
 	if (only_dir)
 		word[wordlen - 1] = '\0';
 	dir = null_guard(opendir("."), PROGRAM_NAME, "filename_expansion().");
