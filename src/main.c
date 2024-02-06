@@ -24,7 +24,7 @@
 #include <traverse.h>
 #include <signal_handler.h>
 
-void	init_frankshell(t_dict **env_dict, char **envp)
+static void	init_frankshell(t_dict **env_dict, char **envp)
 {
 	print_symbol();
 	*env_dict = to_dict(envp);
@@ -36,6 +36,13 @@ void	init_frankshell(t_dict **env_dict, char **envp)
 		dict_modi_val_or_new_in_sort(*env_dict, "PATH", DEFAULT_PATH);
 }
 
+static int	free_tokens_and_line(t_list **tokens, char *line)
+{
+	ft_lstclear(tokens, destroy_token);
+	free(line);
+	return (-1);
+}
+
 static int	frontend(t_dict *env_dict, t_list **tokens,
 		t_tree **tree, char *line)
 {
@@ -43,25 +50,17 @@ static int	frontend(t_dict *env_dict, t_list **tokens,
 	if (is_valid_tokens(*tokens))
 	{
 		dict_modi_val_or_new_in_sort(env_dict, "?", ft_itoa(2));
-		ft_lstclear(tokens, destroy_token);
-		free(line);
-		return (-1);
+		return (free_tokens_and_line(tokens, line));
 	}
 	if (DEBUG)
 		ft_lstiter(*tokens, print_token);
 	if (ft_lstsize(*tokens) == 0)
-	{
-		ft_lstclear(tokens, destroy_token);
-		free(line);
-		return (-1);
-	}
+		return (free_tokens_and_line(tokens, line));
 	*tree = parse(*tokens);
 	if (*tree == NULL)
 	{
 		dict_modi_val_or_new_in_sort(env_dict, "?", ft_itoa(2));
-		ft_lstclear(tokens, destroy_token);
-		free(line);
-		return (-1);
+		return (free_tokens_and_line(tokens, line));
 	}
 	if (DEBUG)
 		print_tree(*tree, 0);
