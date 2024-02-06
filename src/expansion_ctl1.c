@@ -6,14 +6,14 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:13:53 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/06 16:25:55 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 16:38:17 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <expansion.h>
 #include <stdlib.h>
 
-static void	exes_append(t_exe_lst *dst_exes, t_exe_lst *src_exes, int mod)
+static int	exes_append(t_exe_lst *dst_exes, t_exe_lst *src_exes, int mod)
 {
 	t_exe_node	*tmp;
 
@@ -37,6 +37,7 @@ static void	exes_append(t_exe_lst *dst_exes, t_exe_lst *src_exes, int mod)
 		dst_exes->size += src_exes->size;
 	}
 	free(src_exes);
+	return (1);
 }
 
 static void	exes_quote_removal(t_exe_lst *exes)
@@ -54,16 +55,13 @@ static void	exes_quote_removal(t_exe_lst *exes)
 	}
 }
 
-static t_exe_lst	*exes_expansion(t_exe_lst *exes, t_dict *env)
+static t_exe_lst	*exes_expansion(t_exe_lst *exes, t_dict *env, \
+		t_exe_lst	*f_exes, int checker)
 {
 	t_exe_node	*exe;
 	t_exe_lst	*tmp_exes;
-	t_exe_lst	*final_exes;
-	int			checker;
 	char		*tmp_str;
 
-	checker = 0;
-	final_exes = new_exe_lst();
 	exe = exes->head;
 	while (exe && !checker)
 	{
@@ -72,20 +70,17 @@ static t_exe_lst	*exes_expansion(t_exe_lst *exes, t_dict *env)
 		{
 			tmp_exes = filename_expansion(tmp_str);
 			exes_quote_removal(tmp_exes);
-			exes_append(final_exes, tmp_exes, 0);
-			if (ft_strncmp(final_exes->head->word, "export", 7) == 0)
+			exes_append(f_exes, tmp_exes, 0);
+			if (ft_strncmp(f_exes->head->word, "export", 7) == 0)
 				checker = 1;
 		}
 		free (tmp_str);
 		exe = exe->next;
 	}
-	if (checker)
-	{
-		exes_append(final_exes, exes, 1);
-		return (final_exes);
-	}
+	if (checker && exes_append(f_exes, exes, 1))
+		return (f_exes);
 	free_exe_lst(exes);
-	return (final_exes);
+	return (f_exes);
 }
 
 void	exes_export_expansion(t_exe_lst *exes, t_dict *env)
@@ -110,7 +105,7 @@ void	cmds_expansion(t_cmd_lst *cmds, t_dict *env)
 	cmd = cmds->head;
 	while (cmd)
 	{
-		cmd->exes = exes_expansion(cmd->exes, env);
+		cmd->exes = exes_expansion(cmd->exes, env, new_exe_lst(), 0);
 		cmd = cmd->next;
 	}
 }
