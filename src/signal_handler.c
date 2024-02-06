@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:34:44 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/06 18:58:29 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:17:32 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ void	set_signal(int mod)
 
 void	cntl_d(t_dict *env)
 {
+	ft_putendl_fd("exit", STDOUT_FILENO);
 	exit(ft_atoi(find_val_in_dict(env, "?")));
 }
