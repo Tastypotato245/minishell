@@ -5,16 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 21:57:20 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/06 12:32:20 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/02/06 14:27:34 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/02/06 15:01:54 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtin.h>
-#include <execute.h>
-#include <dict.h>
-#include <list.h>
 #include <expansion.h>
+#include <builtin.h>
+#include <kyusulib.h>
+#include <minishell.h>
+#include <execute.h>
 
 int	builtin_checker(t_cmd_node *cmd)
 {
@@ -70,18 +70,39 @@ static int	repeat_redirection_with_return(t_rd_lst *rds, t_dict *env)
 	return (0);
 }
 
+static int	save_n_load_stdin_n_out(char mod, int *stdin_fd, int *stdout_fd)
+{
+	if (mod == 's')
+	{
+		(*stdin_fd) = func_guard(dup(STDIN_FILENO), PROGRAM_NAME, \
+				"save stdin_fd: save_n_load_stdin_n_out().");
+		(*stdout_fd) = func_guard(dup(STDOUT_FILENO), PROGRAM_NAME, \
+				"save stdout_fd: save_n_load_stdin_n_out().");
+	}
+	else if (mod == 'l')
+	{
+		func_guard(dup2(*stdin_fd, STDIN_FILENO), PROGRAM_NAME, \
+				"load stdin_fd: save_n_load_stdin_n_out().");
+		func_guard(dup2(*stdout_fd, STDOUT_FILENO), PROGRAM_NAME, \
+				"load stdout_fd: save_n_load_stdin_n_out().");
+		func_guard(close(*stdin_fd), PROGRAM_NAME, \
+				"close stdin_fd: save_n_load_stdin_n_out().");
+		func_guard(close(*stdout_fd), PROGRAM_NAME, \
+				"close stdout_fd: save_n_load_stdin_n_out().");
+	}
+	return (1);
+}
+
 int	builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case)
 {
-//	const int	stdin_fd = ;
-//	const int	stdout_fd = ;
 	int	rt_val;
+	int	stdin_fd;
+	int	stdout_fd;
 
 	rt_val = 127;
-	if (DEBUG)
-		printf("\t * now builtin command: %d\n", builtin_case);
-	// 임시로 stdin 과 stdout을 dup 떠놓고
+	save_n_load_stdin_n_out('s', &stdin_fd, &stdout_fd);
 	if (repeat_redirection_with_return(cmd->rds, env))
-		return (1);
+		return (save_n_load_stdin_n_out('l', &stdin_fd, &stdout_fd));
 	if (builtin_case == BTIN_CASE_ECHO)
 		rt_val = builtin_echo(cmd->exes);
 	else if (builtin_case == BTIN_CASE_CD)
@@ -95,8 +116,7 @@ int	builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case)
 	else if (builtin_case == BTIN_CASE_ENV)
 		rt_val = builtin_env(env, cmd->exes);
 	else if (builtin_case == BTIN_CASE_EXIT)
-		builtin_exit(cmd->exes);
-	//funcdup();
-	// stdin 과 stdout을 돌려놓아야 함
+		rt_val = builtin_exit(cmd->exes);
+	save_n_load_stdin_n_out('l', &stdin_fd, &stdout_fd);
 	return (rt_val);
 }

@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:51:19 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/04 20:29:39 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:18:57 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@
 # define BTIN_CASE_ENV		(6)
 # define BTIN_CASE_EXIT		(7)
 
+// builtin_ctl1.c
 void	print_error(char *cmd, char *obj, char *str);
 int		return_handler(int return_no, char *cmd, char *obj, char *str);
+
+// builtin_ctl2.c
 int		builtin_checker(t_cmd_node *cmd);
 int		builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case);
 
@@ -47,6 +50,6 @@ int		builtin_pwd(void);
 int		builtin_export(t_dict *env, t_exe_lst *exes);
 int		builtin_unset(t_dict *env, t_exe_lst *exes);
 int		builtin_env(t_dict *env, t_exe_lst *exes);
-void	builtin_exit(t_exe_lst *exes);
+int		builtin_exit(t_exe_lst *exes);
 
 #endif

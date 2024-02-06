@@ -6,7 +6,7 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 19:56:05 by kyusulee          #+#    #+#              #
-#    Updated: 2024/02/06 13:13:30 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/02/06 14:23:28 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,6 @@ CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
 RM			=	rm -f
 ECHO		=	echo
-
 
 ifdef WITH_BONUS
     OBJS_SWITCH		= $(OBJS_B)
