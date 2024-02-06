@@ -73,7 +73,14 @@ int	main(int argc, char **argv, char **envp)
 			if (DEBUG)
 				print_tree(tree, 0);
 			add_history(line);
-			here_doc_traverse(tree, &here_doc_list);
+			if (here_doc_traverse(tree, &here_doc_list))
+			{
+				unlink_here_doc_temp_file(&here_doc_list);
+				destroy_tree(tree);
+				ft_lstclear(&tokens, destroy_token);
+				free(line);
+				continue ;
+			}
 			traverse(tree, env_dict);
 			unlink_here_doc_temp_file(&here_doc_list);
 			destroy_tree(tree);
