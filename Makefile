@@ -39,6 +39,7 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)expansion_ctl1.c				\
 				$(SRCS_DIR)expansion_ctl2.c				\
 				$(SRCS_DIR)expansion_parameter.c		\
+				$(SRCS_DIR)expansion_parameter_utils.c		\
 				$(SRCS_DIR)expansion_quote_removal.c	\
 				$(SRCS_DIR)expansion_filename.c			\
 				$(SRCS_DIR)vector.c				\
