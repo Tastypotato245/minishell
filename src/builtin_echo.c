@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:50:56 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 13:34:51 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 15:27:39 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,15 @@ int	builtin_echo(t_exe_lst *exes)
 	while (exe)
 	{
 		if (exe->next == NULL)
-			printf("%s", exe->word);
+			ft_putstr_fd(exe->word, STDOUT_FILENO);
 		else
-			printf("%s ", exe->word);
+		{
+			ft_putstr_fd(exe->word, STDOUT_FILENO);
+			ft_putstr_fd(" ", STDOUT_FILENO);
+		}
 		exe = exe->next;
 	}
 	if (option_n == 0)
-		printf("\n");
+		ft_putstr_fd("\n", STDOUT_FILENO);
 	return (0);
 }
