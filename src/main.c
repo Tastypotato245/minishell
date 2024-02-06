@@ -24,7 +24,6 @@
 #include <traverse.h>
 #include <signal_handler.h>
 
-
 void	init_frankshell(t_dict *env_dict)
 {
 	dict_modi_val_or_new_in_sort(env_dict, "OLDPWD", NULL);
@@ -58,6 +57,7 @@ int	main(int argc, char **argv, char **envp)
 				ft_lstiter(tokens, print_token);
 			if (is_valid_tokens(tokens))
 			{
+				dict_modi_val_or_new_in_sort(env_dict, "?", ft_itoa(2));
 				ft_lstclear(&tokens, destroy_token);
 				free(line);
 				continue ;
@@ -65,6 +65,7 @@ int	main(int argc, char **argv, char **envp)
 			tree = parse(tokens);
 			if (tree == NULL)
 			{
+				dict_modi_val_or_new_in_sort(env_dict, "?", ft_itoa(2));
 				ft_lstclear(&tokens, destroy_token);
 				free(line);
 				continue ;
@@ -89,6 +90,5 @@ int	main(int argc, char **argv, char **envp)
 	}
 	free_dict(env_dict);
 	rl_clear_history();
-//	clear_history();
 	return (0);
 }
