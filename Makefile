@@ -6,7 +6,7 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 19:56:05 by kyusulee          #+#    #+#              #
-#    Updated: 2024/02/06 14:19:17 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/02/06 14:23:28 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,9 +36,11 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)parse_error_handling.c	\
 				$(SRCS_DIR)here_document.c	\
 				$(SRCS_DIR)traverse.c	\
+				$(SRCS_DIR)expansion_ctl1.c				\
+				$(SRCS_DIR)expansion_ctl2.c				\
 				$(SRCS_DIR)expansion_parameter.c		\
 				$(SRCS_DIR)expansion_quote_removal.c	\
-				$(SRCS_DIR)expansion_filename.c	\
+				$(SRCS_DIR)expansion_filename.c			\
 				$(SRCS_DIR)vector.c				\
 				$(SRCS_DIR)vector_push_str.c	\
 				$(SRCS_DIR)panic.c		\
@@ -83,7 +85,6 @@ CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
 RM			=	rm -f
 ECHO		=	echo
-
 
 ifdef WITH_BONUS
     OBJS_SWITCH		= $(OBJS_B)

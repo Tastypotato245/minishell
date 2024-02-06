@@ -6,12 +6,13 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 18:09:39 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 15:27:48 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 13:20:40 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtin.h>
 #include <stdio.h>
+#include <expansion.h>
 
 static int	print_declare(t_dict *env)
 {
@@ -93,6 +94,7 @@ int	builtin_export(t_dict *env, t_exe_lst *exes)
 	size_t		i;
 	int			rt;
 
+	exes_export_expansion(exes, env);
 	if (exes->size == 1)
 		return (print_declare(env));
 	rt = 0;

@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:50:26 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 18:03:06 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:59:44 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	set_pwd(char mod, t_pair *n_pwd, t_pair *o_pwd)
 
 	if (mod == 'o')
 	{
-		if (n_pwd != NULL && o_pwd != NULL && n_pwd->val !=NULL)
+		if (n_pwd != NULL && o_pwd != NULL && n_pwd->val != NULL)
 		{
 			free(o_pwd->val);
 			o_pwd->val = ft_strdup(n_pwd->val);
