@@ -113,7 +113,7 @@ void	unlink_here_doc_temp_file(t_list **here_doc_list)
 
 int	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
 {
-	int ret;
+	int	ret;
 
 	if (tree == NULL
 		|| tree->category == TR_WORD
@@ -123,7 +123,7 @@ int	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
 		return (0);
 	if (tree->category == TR_REDIRECT_HERE_DOC)
 	{
-		ret =  switch_here_doc(tree->left, here_doc_list);
+		ret = switch_here_doc(tree->left, here_doc_list);
 		g_signal = 0;
 		return (ret);
 	}
