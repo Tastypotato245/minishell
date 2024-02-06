@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 14:27:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/06 14:28:09 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 15:01:54 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	repeat_redirection_with_return(t_rd_lst *rds, t_dict *env)
 	return (0);
 }
 
-static void	save_n_load_stdin_n_out(char mod, int *stdin_fd, int *stdout_fd)
+static int	save_n_load_stdin_n_out(char mod, int *stdin_fd, int *stdout_fd)
 {
 	if (mod == 's')
 	{
@@ -90,6 +90,7 @@ static void	save_n_load_stdin_n_out(char mod, int *stdin_fd, int *stdout_fd)
 		func_guard(close(*stdout_fd), PROGRAM_NAME, \
 				"close stdout_fd: save_n_load_stdin_n_out().");
 	}
+	return (1);
 }
 
 int	builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case)
@@ -101,7 +102,7 @@ int	builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case)
 	rt_val = 127;
 	save_n_load_stdin_n_out('s', &stdin_fd, &stdout_fd);
 	if (repeat_redirection_with_return(cmd->rds, env))
-		return (1);
+		return (save_n_load_stdin_n_out('l', &stdin_fd, &stdout_fd));
 	if (builtin_case == BTIN_CASE_ECHO)
 		rt_val = builtin_echo(cmd->exes);
 	else if (builtin_case == BTIN_CASE_CD)
