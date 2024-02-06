@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/06 20:13:04 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:17:04 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	init_frankshell(t_dict **env_dict, char **envp)
 	dict_modi_val_or_new_in_sort(*env_dict, ft_strdup("?"), ft_itoa(0));
 	set_signal(0);
 	rl_catch_signals = 0;
-	if (find_pair_in_dict(env_dict, "PATH") == NULL)
-		dict_modi_val_or_new_in_sort(env_dict, "PATH", DEFAULT_PATH);
+	if (find_pair_in_dict(*env_dict, "PATH") == NULL)
+		dict_modi_val_or_new_in_sort(*env_dict, "PATH", DEFAULT_PATH);
 }
 
 static int	frontend(t_dict *env_dict, t_list **tokens,
