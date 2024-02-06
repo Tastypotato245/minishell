@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_ctl.c                                      :+:      :+:    :+:   */
+/*   builtin_ctl1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 18:51:10 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 16:29:35 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/02/05 21:57:20 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/02/06 12:32:20 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,7 @@
 #include <execute.h>
 #include <dict.h>
 #include <list.h>
-
-void	print_error(char *cmd, char *obj, char *str)
-{
-	ft_putstr_fd(PROGRAM_NAME, STDERR_FILENO);
-	if (cmd != NULL)
-	{
-		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putstr_fd(cmd, STDERR_FILENO);
-	}
-	if (obj != NULL)
-	{
-		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putstr_fd("`", STDERR_FILENO);
-		ft_putstr_fd(obj, STDERR_FILENO);
-		ft_putstr_fd("\'", STDERR_FILENO);
-	}
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd(str, STDERR_FILENO);
-}
-
-int	return_handler(int return_no, char *cmd, char *obj, char *str)
-{
-	print_error(cmd, obj, str);
-	return (return_no);
-}
+#include <expansion.h>
 
 int	builtin_checker(t_cmd_node *cmd)
 {
@@ -66,7 +42,7 @@ int	builtin_checker(t_cmd_node *cmd)
 	return (NONE_BTIN_CASE);
 }
 
-static int	repeat_redirection_with_return(t_rd_lst *rds)
+static int	repeat_redirection_with_return(t_rd_lst *rds, t_dict *env)
 {
 	int			rd_fd;
 	t_rd_node	*rd;
@@ -74,6 +50,8 @@ static int	repeat_redirection_with_return(t_rd_lst *rds)
 	rd = rds->head;
 	while (rd)
 	{
+		if (expand_is_ambiguous(rd, env))
+			return (return_handler(1, NULL, rd->file, "ambiguous redirect"));
 		rd_fd = open_guard_no_exit(rd->rd_type, rd->file);
 		if (rd->rd_type == IN_RD || rd->rd_type == HEREDOC_RD)
 		{
@@ -94,23 +72,31 @@ static int	repeat_redirection_with_return(t_rd_lst *rds)
 
 int	builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case)
 {
+//	const int	stdin_fd = ;
+//	const int	stdout_fd = ;
+	int	rt_val;
+
+	rt_val = 127;
 	if (DEBUG)
 		printf("\t * now builtin command: %d\n", builtin_case);
-	if (repeat_redirection_with_return(cmd->rds))
+	// 임시로 stdin 과 stdout을 dup 떠놓고
+	if (repeat_redirection_with_return(cmd->rds, env))
 		return (1);
 	if (builtin_case == BTIN_CASE_ECHO)
-		return (builtin_echo(cmd->exes));
+		rt_val = builtin_echo(cmd->exes);
 	else if (builtin_case == BTIN_CASE_CD)
-		return (builtin_cd(env, cmd->exes));
+		rt_val = builtin_cd(env, cmd->exes);
 	else if (builtin_case == BTIN_CASE_PWD)
-		return (builtin_pwd());
+		rt_val = builtin_pwd();
 	else if (builtin_case == BTIN_CASE_EXPORT)
-		return (builtin_export(env, cmd->exes));
+		rt_val = builtin_export(env, cmd->exes);
 	else if (builtin_case == BTIN_CASE_UNSET)
-		return (builtin_unset(env, cmd->exes));
+		rt_val = builtin_unset(env, cmd->exes);
 	else if (builtin_case == BTIN_CASE_ENV)
-		return (builtin_env(env, cmd->exes));
+		rt_val = builtin_env(env, cmd->exes);
 	else if (builtin_case == BTIN_CASE_EXIT)
 		builtin_exit(cmd->exes);
-	return (127);
+	//funcdup();
+	// stdin 과 stdout을 돌려놓아야 함
+	return (rt_val);
 }

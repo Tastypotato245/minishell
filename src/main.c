@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 17:34:00 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:46:34 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 	}
 	free_dict(env_dict);
-//	rl_clear_history();
-	clear_history();
+	rl_clear_history();
+//	clear_history();
 	return (0);
 }

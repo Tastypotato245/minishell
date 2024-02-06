@@ -6,11 +6,11 @@
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:46:23 by younghoc          #+#    #+#             */
-/*   Updated: 2024/02/05 13:46:24 by younghoc         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:48:52 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
+#include <list.h>
 #include <minishell.h>
 #include <expansion.h>
 #include <dirent.h>
