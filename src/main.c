@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/06 20:17:04 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:22:43 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 #include <here_document.h>
 #include <traverse.h>
 #include <signal_handler.h>
+
+int	g_signal;
 
 void	init_frankshell(t_dict **env_dict, char **envp)
 {
