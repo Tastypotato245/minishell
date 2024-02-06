@@ -6,11 +6,10 @@
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:38:37 by younghoc          #+#    #+#             */
-/*   Updated: 2024/02/06 18:23:45 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:11:32 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <_ctype.h>
 #include <panic.h>
 #include <minishell.h>
 #include <here_document.h>
