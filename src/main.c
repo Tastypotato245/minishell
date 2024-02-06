@@ -20,7 +20,6 @@
 #include <execute.h>
 #include <tokenize.h>
 #include <parse.h>
-#include <semantic_analysis.h>
 #include <here_document.h>
 #include <traverse.h>
 #include <signal_handler.h>
@@ -65,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 				continue ;
 			}
 			tree = parse(tokens);
-			if (tree == NULL || semantic_analysis(tree))
+			if (tree == NULL)
 			{
 				ft_lstclear(&tokens, destroy_token);
 				free(line);

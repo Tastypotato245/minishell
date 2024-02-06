@@ -32,6 +32,12 @@ static int	parse_paren(t_list **tokens, t_tree *tree, t_token *token)
 	if (token->category != T_R_PAREN)
 		panic("parse_paren()");
 	*tokens = (*tokens)->next;
+	token = (*tokens)->content;
+	if (token->category == T_PIPE)
+	{
+		print_parse_error(*tokens, tree);
+		return (-1);
+	}
 	return (0);
 }
 
