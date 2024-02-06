@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 20:46:34 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 17:41:36 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 #include <traverse.h>
 #include <signal_handler.h>
 
-
 void	init_frankshell(t_dict *env_dict)
 {
 	print_symbol();
@@ -32,6 +31,8 @@ void	init_frankshell(t_dict *env_dict)
 	dict_modi_val_or_new_in_sort(env_dict, ft_strdup("?"), ft_itoa(0));
 	set_signal();
 	rl_catch_signals = 0;
+	if (find_pair_in_dict(env_dict, "PATH") == NULL)
+		dict_modi_val_or_new_in_sort(env_dict, "PATH", DEFAULT_PATH);
 }
 
 int	main(int argc, char **argv, char **envp)
