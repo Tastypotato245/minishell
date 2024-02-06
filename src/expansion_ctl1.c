@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:13:53 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/06 13:20:39 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 16:25:55 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,23 @@ static t_exe_lst	*exes_expansion(t_exe_lst *exes, t_dict *env)
 	t_exe_lst	*tmp_exes;
 	t_exe_lst	*final_exes;
 	int			checker;
+	char		*tmp_str;
 
 	checker = 0;
 	final_exes = new_exe_lst();
 	exe = exes->head;
 	while (exe && !checker)
 	{
-		tmp_exes = filename_expansion(parameter_expansion(exe->word, env));
-		exes_quote_removal(tmp_exes);
-		exes_append(final_exes, tmp_exes, 0);
-		if (ft_strncmp(final_exes->head->word, "export", 7) == 0)
-			checker = 1;
+		tmp_str = parameter_expansion(exe->word, env);
+		if (tmp_str[0] != '\0')
+		{
+			tmp_exes = filename_expansion(tmp_str);
+			exes_quote_removal(tmp_exes);
+			exes_append(final_exes, tmp_exes, 0);
+			if (ft_strncmp(final_exes->head->word, "export", 7) == 0)
+				checker = 1;
+		}
+		free (tmp_str);
 		exe = exe->next;
 	}
 	if (checker)
