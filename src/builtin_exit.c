@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:52:02 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 16:56:55 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 13:55:25 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	is_long_long_digit_str(char *str, long long *exit_num)
 	return (in_of_range);
 }
 
-void	builtin_exit(t_exe_lst *exes)
+int	builtin_exit(t_exe_lst *exes)
 {
 	long long	exit_num;
 	t_exe_node	*exe;
@@ -83,10 +83,8 @@ void	builtin_exit(t_exe_lst *exes)
 	{
 		ft_putendl_fd(BTIN_EXIT, STDERR_FILENO);
 		print_error(BTIN_EXIT, NULL, "too many arguments");
-		return ;
+		return (1);
 	}
-	if (DEBUG)
-		printf("exit_num: %lld\n", exit_num);
 	ft_putendl_fd(BTIN_EXIT, STDERR_FILENO);
 	exit(exit_num);
 }

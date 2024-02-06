@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_ctl.c                                      :+:      :+:    :+:   */
+/*   builtin_ctl2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 18:51:10 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 16:29:35 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/02/06 14:08:00 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/02/06 14:18:49 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,6 @@
 #include <execute.h>
 #include <dict.h>
 #include <list.h>
-
-void	print_error(char *cmd, char *obj, char *str)
-{
-	ft_putstr_fd(PROGRAM_NAME, STDERR_FILENO);
-	if (cmd != NULL)
-	{
-		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putstr_fd(cmd, STDERR_FILENO);
-	}
-	if (obj != NULL)
-	{
-		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putstr_fd("`", STDERR_FILENO);
-		ft_putstr_fd(obj, STDERR_FILENO);
-		ft_putstr_fd("\'", STDERR_FILENO);
-	}
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd(str, STDERR_FILENO);
-}
-
-int	return_handler(int return_no, char *cmd, char *obj, char *str)
-{
-	print_error(cmd, obj, str);
-	return (return_no);
-}
 
 int	builtin_checker(t_cmd_node *cmd)
 {
@@ -92,25 +67,52 @@ static int	repeat_redirection_with_return(t_rd_lst *rds)
 	return (0);
 }
 
+static void	save_n_load_stdin_n_out(char mod, int *stdin_fd, int *stdout_fd)
+{
+	if (mod == 's')
+	{
+		(*stdin_fd) = func_guard(dup(STDIN_FILENO), PROGRAM_NAME, \
+				"save stdin_fd: save_n_load_stdin_n_out().");
+		(*stdout_fd) = func_guard(dup(STDOUT_FILENO), PROGRAM_NAME, \
+				"save stdout_fd: save_n_load_stdin_n_out().");
+	}
+	else if (mod == 'l')
+	{
+		func_guard(dup2(*stdin_fd, STDIN_FILENO), PROGRAM_NAME, \
+				"load stdin_fd: save_n_load_stdin_n_out().");
+		func_guard(dup2(*stdout_fd, STDOUT_FILENO), PROGRAM_NAME, \
+				"load stdout_fd: save_n_load_stdin_n_out().");
+		func_guard(close(*stdin_fd), PROGRAM_NAME, \
+				"close stdin_fd: save_n_load_stdin_n_out().");
+		func_guard(close(*stdout_fd), PROGRAM_NAME, \
+				"close stdout_fd: save_n_load_stdin_n_out().");
+	}
+}
+
 int	builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case)
 {
-	if (DEBUG)
-		printf("\t * now builtin command: %d\n", builtin_case);
+	int	rt_val;
+	int	stdin_fd;
+	int	stdout_fd;
+
+	rt_val = 127;
+	save_n_load_stdin_n_out('s', &stdin_fd, &stdout_fd);
 	if (repeat_redirection_with_return(cmd->rds))
 		return (1);
 	if (builtin_case == BTIN_CASE_ECHO)
-		return (builtin_echo(cmd->exes));
+		rt_val = builtin_echo(cmd->exes);
 	else if (builtin_case == BTIN_CASE_CD)
-		return (builtin_cd(env, cmd->exes));
+		rt_val = builtin_cd(env, cmd->exes);
 	else if (builtin_case == BTIN_CASE_PWD)
-		return (builtin_pwd());
+		rt_val = builtin_pwd();
 	else if (builtin_case == BTIN_CASE_EXPORT)
-		return (builtin_export(env, cmd->exes));
+		rt_val = builtin_export(env, cmd->exes);
 	else if (builtin_case == BTIN_CASE_UNSET)
-		return (builtin_unset(env, cmd->exes));
+		rt_val = builtin_unset(env, cmd->exes);
 	else if (builtin_case == BTIN_CASE_ENV)
-		return (builtin_env(env, cmd->exes));
+		rt_val = builtin_env(env, cmd->exes);
 	else if (builtin_case == BTIN_CASE_EXIT)
-		builtin_exit(cmd->exes);
-	return (127);
+		rt_val = builtin_exit(cmd->exes);
+	save_n_load_stdin_n_out('l', &stdin_fd, &stdout_fd);
+	return (rt_val);
 }
