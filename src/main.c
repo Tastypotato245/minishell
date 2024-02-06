@@ -24,12 +24,52 @@
 #include <traverse.h>
 #include <signal_handler.h>
 
-void	init_frankshell(t_dict *env_dict)
+void	init_frankshell(t_dict **env_dict, char **envp)
 {
-	dict_modi_val_or_new_in_sort(env_dict, "OLDPWD", NULL);
-	dict_modi_val_or_new_in_sort(env_dict, ft_strdup("?"), ft_itoa(0));
+	*env_dict = to_dict(envp);
+	dict_modi_val_or_new_in_sort(*env_dict, "OLDPWD", NULL);
+	dict_modi_val_or_new_in_sort(*env_dict, ft_strdup("?"), ft_itoa(0));
 	set_signal();
 	rl_catch_signals = 0;
+}
+
+static int	frontend(t_dict *env_dict, t_list **tokens,
+		t_tree **tree, char *line)
+{
+	*tokens = tokenize(line);
+	if (is_valid_tokens(*tokens))
+	{
+		dict_modi_val_or_new_in_sort(env_dict, "?", ft_itoa(2));
+		ft_lstclear(tokens, destroy_token);
+		free(line);
+		return (-1);
+	}
+	if (DEBUG)
+		ft_lstiter(*tokens, print_token);
+	*tree = parse(*tokens);
+	if (*tree == NULL)
+	{
+		dict_modi_val_or_new_in_sort(env_dict, "?", ft_itoa(2));
+		ft_lstclear(tokens, destroy_token);
+		free(line);
+		return (-1);
+	}
+	if (DEBUG)
+		print_tree(*tree, 0);
+	return (0);
+}
+
+static void	backend(t_tree *tree, t_dict *env_dict, char *line, t_list **tokens)
+{
+	t_list	*here_doc_list;
+
+	here_doc_list = NULL;
+	if (!here_doc_traverse(tree, &here_doc_list))
+		traverse(tree, env_dict);
+	unlink_here_doc_temp_file(&here_doc_list);
+	destroy_tree(tree);
+	ft_lstclear(tokens, destroy_token);
+	free(line);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -38,13 +78,10 @@ int	main(int argc, char **argv, char **envp)
 	t_list	*tokens;
 	t_tree	*tree;
 	t_dict	*env_dict;
-	t_list	*here_doc_list;
 
 	if (argc != 1 || argv == NULL)
 		exit_handler(0, PROGRAM_NAME, "enter ./minishell");
-	here_doc_list = NULL;
-	env_dict = to_dict(envp);
-	init_frankshell(env_dict);
+	init_frankshell(&env_dict, envp);
 	while (1)
 	{
 		line = readline("$ ");
@@ -52,40 +89,10 @@ int	main(int argc, char **argv, char **envp)
 			cntl_d(env_dict);
 		else
 		{
-			tokens = tokenize(line);
-			if (DEBUG)
-				ft_lstiter(tokens, print_token);
-			if (is_valid_tokens(tokens))
-			{
-				dict_modi_val_or_new_in_sort(env_dict, "?", ft_itoa(2));
-				ft_lstclear(&tokens, destroy_token);
-				free(line);
+			if (frontend(env_dict, &tokens, &tree, line))
 				continue ;
-			}
-			tree = parse(tokens);
-			if (tree == NULL)
-			{
-				dict_modi_val_or_new_in_sort(env_dict, "?", ft_itoa(2));
-				ft_lstclear(&tokens, destroy_token);
-				free(line);
-				continue ;
-			}
-			if (DEBUG)
-				print_tree(tree, 0);
 			add_history(line);
-			if (here_doc_traverse(tree, &here_doc_list))
-			{
-				unlink_here_doc_temp_file(&here_doc_list);
-				destroy_tree(tree);
-				ft_lstclear(&tokens, destroy_token);
-				free(line);
-				continue ;
-			}
-			traverse(tree, env_dict);
-			unlink_here_doc_temp_file(&here_doc_list);
-			destroy_tree(tree);
-			ft_lstclear(&tokens, destroy_token);
-			free(line);
+			backend(tree, env_dict, line, &tokens);
 		}
 	}
 	free_dict(env_dict);
