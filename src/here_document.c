@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <_ctype.h>
 #include <panic.h>
 #include <minishell.h>
 #include <here_document.h>
@@ -18,6 +17,7 @@
 #include <readline/readline.h>
 #include <unistd.h>
 #include <signal_handler.h>
+#include <expansion.h>
 
 static char	*random_path(void)
 {
@@ -42,7 +42,21 @@ static char	*random_path(void)
 	return (random);
 }
 
-static int	here_doc_action(char *filename, char *limiter)
+static void	inner_while(int heredoc_fd, char **line, t_dict *env_dict)
+{
+	char	*tmp;
+
+	tmp = parameter_expansion(*line, env_dict);
+	func_guard(write(heredoc_fd, tmp, ft_strlen(tmp)),
+		PROGRAM_NAME, "here_doc_action().");
+	func_guard(write(heredoc_fd, "\n", 1),
+		PROGRAM_NAME, "here_doc_action().");
+	free(*line);
+	free(tmp);
+	*line = readline("> ");
+}
+
+static int	here_doc_action(char *filename, char *limiter, t_dict *env_dict)
 {
 	const size_t	limiter_len = ft_strlen(limiter);
 	char			*line;
@@ -56,12 +70,7 @@ static int	here_doc_action(char *filename, char *limiter)
 	while (ft_strlen(line) > 0
 		&& !(ft_strncmp(line, limiter, limiter_len + 1) == 0))
 	{
-		func_guard(write(heredoc_fd, line, ft_strlen(line)),
-			PROGRAM_NAME, "here_doc_action().");
-		func_guard(write(heredoc_fd, "\n", 1),
-			PROGRAM_NAME, "here_doc_action().");
-		free(line);
-		line = readline("> ");
+		inner_while(heredoc_fd, &line, env_dict);
 		if (line == NULL)
 			return (close(heredoc_fd));
 	}
@@ -70,7 +79,7 @@ static int	here_doc_action(char *filename, char *limiter)
 	return (0);
 }
 
-static int	switch_here_doc(t_tree *tree_left, t_list **here_doc_list)
+static int	switch_here_doc(t_tree *tree_left, t_list **here_doc_list, t_dict *env_dict)
 {
 	char	*filename;
 	char	*filename_dup;
@@ -87,7 +96,7 @@ static int	switch_here_doc(t_tree *tree_left, t_list **here_doc_list)
 	null_guard(filename_element, PROGRAM_NAME, "here_doc_traverse().");
 	ft_lstadd_back(here_doc_list, filename_element);
 	limiter = (char *)tree_left->left;
-	here_doc_action(filename, limiter);
+	here_doc_action(filename, limiter, env_dict);
 	free(limiter);
 	tree_left->left = filename;
 	if (g_signal)
@@ -111,7 +120,7 @@ void	unlink_here_doc_temp_file(t_list **here_doc_list)
 	ft_lstclear(here_doc_list, free);
 }
 
-int	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
+int	here_doc_traverse(t_tree *tree, t_list **here_doc_list, t_dict *env_dict)
 {
 	if (tree == NULL
 		|| tree->category == TR_WORD
@@ -120,8 +129,8 @@ int	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
 		|| tree->category == TR_REDIRECT_APPEND)
 		return (0);
 	if (tree->category == TR_REDIRECT_HERE_DOC)
-		return (switch_here_doc(tree->left, here_doc_list));
-	if (here_doc_traverse(tree->left, here_doc_list))
+		return (switch_here_doc(tree->left, here_doc_list, env_dict));
+	if (here_doc_traverse(tree->left, here_doc_list, env_dict))
 		return (1);
-	return (here_doc_traverse(tree->right, here_doc_list));
+	return (here_doc_traverse(tree->right, here_doc_list, env_dict));
 }
