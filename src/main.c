@@ -49,6 +49,12 @@ static int	frontend(t_dict *env_dict, t_list **tokens,
 	}
 	if (DEBUG)
 		ft_lstiter(*tokens, print_token);
+	if (ft_lstsize(*tokens) == 0)
+	{
+		ft_lstclear(tokens, destroy_token);
+		free(line);
+		return (-1);
+	}
 	*tree = parse(*tokens);
 	if (*tree == NULL)
 	{
