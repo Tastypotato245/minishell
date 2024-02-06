@@ -101,12 +101,16 @@ static int	check_valid_star(char *word)
 t_exe_lst	*filename_expansion(char *word)
 {
 	const size_t	wordlen = ft_strlen(word);
-	const int		only_dir = word[wordlen - 1] == '/';
+	int				only_dir;
 	t_exe_lst		*exes;
 	DIR				*dir;
 	struct dirent	*entry;
 
 	exes = new_exe_lst();
+	if (wordlen == 0)
+		exe_lst_new_back(exes, ft_strdup(word));
+	only_dir = word[wordlen - 1] == '/';
+	return (exes);
 	if (!check_valid_star(word))
 	{
 		exe_lst_new_back(exes, ft_strdup(word));
