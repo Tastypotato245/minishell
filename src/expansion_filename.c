@@ -46,10 +46,19 @@ static int	is_matched(const char *pattern, const char *string,
 	return (*pattern == *string);
 }
 
-static void	add_filename(t_exe_lst *exes, char *filename, int only_dir)
+static void	add_filename(t_exe_lst *exes, char *filename,
+		int only_dir, int flag_no_match)
 {
 	char	*tmp;
 
+	if (flag_no_match)
+	{
+		if (only_dir)
+			exe_lst_new_back(exes, ft_strjoin(filename, "/"));
+		else
+			exe_lst_new_back(exes, ft_strdup(filename));
+		return ;
+	}
 	tmp = ft_strjoin("\a", filename);
 	if (only_dir)
 		exe_lst_new_back(exes, ft_strjoin(tmp, "/\a"));
@@ -64,7 +73,29 @@ static void	inner_while(char *word, int only_dir,
 	if (!((word[0] != '.' && entry->d_name[0] == '.')
 			|| (only_dir && entry->d_type != DT_DIR))
 		&& is_matched(word, entry->d_name, 0, 0))
-		add_filename(exes, entry->d_name, only_dir);
+		add_filename(exes, entry->d_name, only_dir, 0);
+}
+
+static int	check_valid_star(char *word)
+{
+	int		in_single_quotes;
+	int		in_double_quotes;
+	size_t	i;
+
+	in_single_quotes = 0;
+	in_double_quotes = 0;
+	i = 0;
+	while (word[i] != '\0')
+	{
+		if (word[i] == '\'' && !in_double_quotes)
+			in_single_quotes = !in_single_quotes;
+		else if (word[i] == '\"' && !in_single_quotes)
+			in_double_quotes = !in_double_quotes;
+		if (word[i] == '*' && !in_double_quotes && !in_single_quotes)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 t_exe_lst	*filename_expansion(char *word)
@@ -75,9 +106,14 @@ t_exe_lst	*filename_expansion(char *word)
 	DIR				*dir;
 	struct dirent	*entry;
 
+	exes = new_exe_lst();
+	if (!check_valid_star(word))
+	{
+		exe_lst_new_back(exes, ft_strdup(word));
+		return (exes);
+	}
 	if (only_dir)
 		word[wordlen - 1] = '\0';
-	exes = new_exe_lst();
 	dir = null_guard(opendir("."), PROGRAM_NAME, "filename_expansion().");
 	entry = readdir(dir);
 	while (entry != NULL)
@@ -87,6 +123,6 @@ t_exe_lst	*filename_expansion(char *word)
 	}
 	closedir(dir);
 	if (exes->size == 0)
-		add_filename(exes, word, only_dir);
+		add_filename(exes, word, only_dir, 1);
 	return (exes);
 }
