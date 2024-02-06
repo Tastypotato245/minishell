@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:36:52 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 21:59:02 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:05:51 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # define INFILE_O (0)
 # define OUTFILE_T_O (1)
 # define OUTFILE_A_O (2)
-# define DEFAULT_PATH "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:."
 
 typedef struct s_info
 {

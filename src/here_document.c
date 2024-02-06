@@ -6,11 +6,10 @@
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:38:37 by younghoc          #+#    #+#             */
-/*   Updated: 2024/02/05 15:49:04 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:11:32 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <_ctype.h>
 #include <panic.h>
 #include <minishell.h>
 #include <here_document.h>
@@ -79,7 +78,7 @@ static int	switch_here_doc(t_tree *tree_left, t_list **here_doc_list)
 	int		fd;
 
 	fd = func_guard(dup(0), PROGRAM_NAME, "here_doc_traverse().");
-	set_signal_for_heredoc();
+	set_signal(1);
 	filename = random_path();
 	filename_dup = ft_strdup(filename);
 	null_guard(filename_dup, PROGRAM_NAME, "here_doc_traverse().");
@@ -93,7 +92,7 @@ static int	switch_here_doc(t_tree *tree_left, t_list **here_doc_list)
 	if (g_signal)
 		func_guard(dup2(fd, 0), PROGRAM_NAME, "here_doc_traverse().");
 	func_guard(close(fd), PROGRAM_NAME, "here_doc_traverse().");
-	set_signal();
+	set_signal(0);
 	return (g_signal);
 }
 
