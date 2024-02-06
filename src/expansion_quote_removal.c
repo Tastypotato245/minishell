@@ -35,7 +35,7 @@ char	*quote_removal(char	*word)
 	init_vector(&vector);
 	while (word[i] != '\0')
 	{
-		if (word[i] == '\"' || word[i] == '\'')
+		if (word[i] == '\"' || word[i] == '\'' || word[i] == '\a')
 			handling_quote(word, &i, &vector);
 		else
 			push_back(&vector, word[i++]);
