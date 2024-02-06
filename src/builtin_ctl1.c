@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 21:57:20 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 22:42:51 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 12:32:20 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static int	repeat_redirection_with_return(t_rd_lst *rds, t_dict *env)
 
 int	builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case)
 {
+//	const int	stdin_fd = ;
+//	const int	stdout_fd = ;
 	int	rt_val;
 
 	rt_val = 127;
@@ -94,6 +96,7 @@ int	builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case)
 		rt_val = builtin_env(env, cmd->exes);
 	else if (builtin_case == BTIN_CASE_EXIT)
 		builtin_exit(cmd->exes);
+	//funcdup();
 	// stdin 과 stdout을 돌려놓아야 함
 	return (rt_val);
 }

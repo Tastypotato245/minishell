@@ -6,7 +6,7 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 19:56:05 by kyusulee          #+#    #+#              #
-#    Updated: 2024/02/05 22:49:45 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/02/06 13:13:30 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)parse_error_handling.c	\
 				$(SRCS_DIR)here_document.c	\
 				$(SRCS_DIR)traverse.c	\
-				$(SRCS_DIR)expansion_ctl.c				\
+				$(SRCS_DIR)expansion_ctl1.c				\
+				$(SRCS_DIR)expansion_ctl2.c				\
 				$(SRCS_DIR)expansion_parameter.c		\
 				$(SRCS_DIR)expansion_quote_removal.c	\
 				$(SRCS_DIR)expansion_filename.c			\
