@@ -24,9 +24,8 @@
 #include <traverse.h>
 #include <signal_handler.h>
 
-void	init_frankshell(t_dict **env_dict, char **envp, t_list **here_doc_list)
+void	init_frankshell(t_dict **env_dict, char **envp)
 {
-	*here_doc_list = NULL;
 	*env_dict = to_dict(envp);
 	dict_modi_val_or_new_in_sort(*env_dict, "OLDPWD", NULL);
 	dict_modi_val_or_new_in_sort(*env_dict, ft_strdup("?"), ft_itoa(0));
@@ -60,17 +59,29 @@ static int	frontend(t_dict *env_dict, t_list **tokens,
 	return (0);
 }
 
+static void	backend(t_tree *tree, t_dict *env_dict, char *line, t_list **tokens)
+{
+	t_list	*here_doc_list;
+
+	here_doc_list = NULL;
+	if (!here_doc_traverse(tree, &here_doc_list))
+		traverse(tree, env_dict);
+	unlink_here_doc_temp_file(&here_doc_list);
+	destroy_tree(tree);
+	ft_lstclear(tokens, destroy_token);
+	free(line);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_list	*tokens;
 	t_tree	*tree;
 	t_dict	*env_dict;
-	t_list	*here_doc_list;
 
 	if (argc != 1 || argv == NULL)
 		exit_handler(0, PROGRAM_NAME, "enter ./minishell");
-	init_frankshell(&env_dict, envp, &here_doc_list);
+	init_frankshell(&env_dict, envp);
 	while (1)
 	{
 		line = readline("$ ");
@@ -81,12 +92,7 @@ int	main(int argc, char **argv, char **envp)
 			if (frontend(env_dict, &tokens, &tree, line))
 				continue ;
 			add_history(line);
-			if (!here_doc_traverse(tree, &here_doc_list))
-				traverse(tree, env_dict);
-			unlink_here_doc_temp_file(&here_doc_list);
-			destroy_tree(tree);
-			ft_lstclear(&tokens, destroy_token);
-			free(line);
+			backend(tree, env_dict, line, &tokens);
 		}
 	}
 	free_dict(env_dict);
