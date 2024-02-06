@@ -17,6 +17,7 @@
 # include <list.h>
 
 char		*parameter_expansion(const char *word, t_dict *env);
+int			check_valid_dollar(const char *word);
 t_exe_lst	*filename_expansion(char *word);
 char		*quote_removal(char	*word);
 

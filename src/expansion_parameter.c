@@ -15,7 +15,7 @@
 #include <list.h>
 #include <vector.h>
 
-int	handle_dollar_exception_case(const char *word, size_t *i,
+static int	handle_dollar_exception_case(const char *word, size_t *i,
 		t_vector *vector, t_dict *env)
 {
 	char	*value;
@@ -23,6 +23,11 @@ int	handle_dollar_exception_case(const char *word, size_t *i,
 	(*i)++;
 	if (word[*i] == '\0'
 		|| (ft_strchr("\'\"_?", word[*i]) == NULL && !ft_isalpha(word[*i])))
+	{
+		push_back(vector, '$');
+		return (1);
+	}
+	else if (ft_strchr("\'\"", word[*i]) && !check_valid_dollar(word))
 	{
 		push_back(vector, '$');
 		return (1);
@@ -38,7 +43,7 @@ int	handle_dollar_exception_case(const char *word, size_t *i,
 	return (0);
 }
 
-void	handle_dollar(const char *word, size_t *i,
+static void	handle_dollar(const char *word, size_t *i,
 		t_vector *vector, t_dict *env)
 {
 	t_vector	key;
@@ -59,7 +64,7 @@ void	handle_dollar(const char *word, size_t *i,
 		push_str(vector, value);
 }
 
-void	handle_single_quote(const char *word, size_t *i, t_vector *vector)
+static void	handle_single_quote(const char *word, size_t *i, t_vector *vector)
 {
 	push_back(vector, word[*i]);
 	(*i)++;
@@ -72,7 +77,7 @@ void	handle_single_quote(const char *word, size_t *i, t_vector *vector)
 	(*i)++;
 }
 
-void	handle_double_quote(const char *word, size_t *i,
+static void	handle_double_quote(const char *word, size_t *i,
 		t_vector *vector, t_dict *env)
 {
 	push_back(vector, word[*i]);
