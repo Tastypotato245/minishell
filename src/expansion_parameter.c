@@ -15,6 +15,28 @@
 #include <list.h>
 #include <vector.h>
 
+static int	check_valid_dollar(const char *word)
+{
+	int		in_single_quotes;
+	int		in_double_quotes;
+	size_t	i;
+
+	in_single_quotes = 0;
+	in_double_quotes = 0;
+	i = 0;
+	while (word[i] != '\0')
+	{
+		if (word[i] == '\'' && !in_double_quotes)
+			in_single_quotes = !in_single_quotes;
+		else if (word[i] == '\"' && !in_single_quotes)
+			in_double_quotes = !in_double_quotes;
+		if (word[i] == '$' && !in_double_quotes && !in_single_quotes)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	handle_dollar_exception_case(const char *word, size_t *i,
 		t_vector *vector, t_dict *env)
 {
@@ -23,6 +45,11 @@ int	handle_dollar_exception_case(const char *word, size_t *i,
 	(*i)++;
 	if (word[*i] == '\0'
 		|| (ft_strchr("\'\"_?", word[*i]) == NULL && !ft_isalpha(word[*i])))
+	{
+		push_back(vector, '$');
+		return (1);
+	}
+	else if (ft_strchr("\'\"", word[*i]) && !check_valid_dollar(word))
 	{
 		push_back(vector, '$');
 		return (1);
