@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_filename.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: younghoc <younghoc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:46:23 by younghoc          #+#    #+#             */
-/*   Updated: 2024/02/05 20:48:52 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 15:08:36 by younghoc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,19 @@
 #include <dirent.h>
 #include <kyusulib.h>
 
-static int	is_matched(const char *pattern, const char *string)
+static int	is_matched(const char *pattern, const char *string,
+		int in_single_quotes, int in_double_quotes)
 {
 	while (*pattern && *string)
 	{
-		if (*pattern == '*')
+		if (*pattern == '\'' && !in_double_quotes)
+			in_single_quotes = !in_single_quotes;
+		else if (*pattern == '\"' && !in_single_quotes)
+			in_double_quotes = !in_double_quotes;
+		if (*pattern == '*' && !in_single_quotes && !in_double_quotes)
 		{
-			if (is_matched(pattern + 1, string))
+			if (is_matched(pattern + 1, string,
+					in_single_quotes, in_double_quotes))
 				return (1);
 			++string;
 		}
@@ -34,7 +40,8 @@ static int	is_matched(const char *pattern, const char *string)
 			++string;
 		}
 	}
-	if (*pattern == '*' && *(pattern + 1) == '\0')
+	if (*pattern == '*' && *(pattern + 1) == '\0'
+		&& !in_single_quotes && !in_double_quotes)
 		return (1);
 	return (*pattern == *string);
 }
@@ -44,7 +51,7 @@ static void	inner_while(char *word, int only_dir,
 {
 	if (!((word[0] != '.' && entry->d_name[0] == '.')
 			|| (only_dir && entry->d_type != DT_DIR))
-		&& is_matched(word, entry->d_name))
+		&& is_matched(word, entry->d_name, 0, 0))
 	{
 		if (only_dir)
 			exe_lst_new_back(exes, ft_strjoin(entry->d_name, "/"));
