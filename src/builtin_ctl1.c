@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 14:27:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/06 20:59:57 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 15:46:02 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	builtin_switcher(t_cmd_node *cmd, t_dict *env, int builtin_case)
 	else if (builtin_case == BTIN_CASE_ENV)
 		rt_val = builtin_env(env, cmd->exes);
 	else if (builtin_case == BTIN_CASE_EXIT)
-		rt_val = builtin_exit(cmd->exes);
+		rt_val = builtin_exit(env, cmd->exes);
 	save_n_load_stdin_n_out('l', &stdin_fd, &stdout_fd);
 	return (rt_val);
 }
