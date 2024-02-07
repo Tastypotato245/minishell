@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 18:09:39 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/06 13:20:40 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 14:32:22 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ static void	builtin_export_normal(t_dict *env, t_exe_node **tmp, size_t *i)
 	++(*i);
 	val = ft_substr((*tmp)->word, *i, ft_strlen((*tmp)->word) - *i);
 	dict_modi_val_or_new_in_sort(env, key, val);
-	free(key);
 	(*tmp) = (*tmp)->next;
 }
 

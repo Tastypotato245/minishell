@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:03:09 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 13:07:33 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 14:33:01 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,13 @@ void	dict_modi_val_or_new_in_sort(t_dict *dict, char *key, char *val)
 	if (tmp == NULL)
 		dict_new_in_sort(dict, key, val);
 	else if (val == NULL)
+	{
+		free(key);
 		return ;
+	}
 	else
 	{
+		free(key);
 		free(tmp->val);
 		tmp->val = val;
 	}
