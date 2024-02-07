@@ -35,3 +35,18 @@ char	*random_path(void)
 	close(urandom_fd);
 	return (random);
 }
+
+int	is_contain_quote(char *limiter)
+{
+	const size_t	limiter_len = ft_strlen(limiter);
+	size_t			i;
+
+	i = 0;
+	while (i < limiter_len)
+	{
+		if (ft_strchr("\"\'", limiter[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}

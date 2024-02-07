@@ -19,17 +19,24 @@
 #include <signal_handler.h>
 #include <expansion.h>
 
-static void	inner_while(int heredoc_fd, char **line, t_dict *env_dict)
+static void	inner_while(int heredoc_fd, char **line,
+		t_dict *env_dict, int do_expansion)
 {
 	char	*tmp;
 
-	tmp = parameter_expansion(*line, env_dict);
-	func_guard(write(heredoc_fd, tmp, ft_strlen(tmp)),
-		PROGRAM_NAME, "here_doc_action().");
+	if (do_expansion)
+	{
+		tmp = parameter_expansion(*line, env_dict);
+		func_guard(write(heredoc_fd, tmp, ft_strlen(tmp)),
+			PROGRAM_NAME, "here_doc_action().");
+		free(tmp);
+	}
+	else
+		func_guard(write(heredoc_fd, *line, ft_strlen(*line)),
+			PROGRAM_NAME, "here_doc_action().");
 	func_guard(write(heredoc_fd, "\n", 1),
 		PROGRAM_NAME, "here_doc_action().");
 	free(*line);
-	free(tmp);
 	*line = readline("> ");
 }
 
@@ -44,10 +51,9 @@ static int	here_doc_action(char *filename, char *limiter, t_dict *env_dict)
 	line = readline("> ");
 	if (line == NULL)
 		return (close(heredoc_fd));
-	while (ft_strlen(line) > 0
-		&& !(ft_strncmp(line, limiter, limiter_len + 1) == 0))
+	while (!(ft_strncmp(line, limiter, limiter_len + 1) == 0))
 	{
-		inner_while(heredoc_fd, &line, env_dict);
+		inner_while(heredoc_fd, &line, env_dict, !is_contain_quote(limiter));
 		if (line == NULL)
 			return (close(heredoc_fd));
 	}
