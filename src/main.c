@@ -105,6 +105,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (frontend(env_dict, &tokens, &tree, line))
 				continue ;
+			add_history(line);
 			backend(tree, env_dict, line, &tokens);
 		}
 	}
