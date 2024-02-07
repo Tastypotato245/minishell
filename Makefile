@@ -6,7 +6,7 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 19:56:05 by kyusulee          #+#    #+#              #
-#    Updated: 2024/02/06 14:23:28 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/02/07 14:18:15 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)parse_destroy_tree.c		\
 				$(SRCS_DIR)parse_error_handling.c	\
 				$(SRCS_DIR)here_document.c			\
+				$(SRCS_DIR)here_document_unlink.c	\
 				$(SRCS_DIR)here_document_utils.c	\
 				$(SRCS_DIR)traverse.c	\
 				$(SRCS_DIR)expansion_ctl1.c				\
@@ -84,7 +85,7 @@ SRCS_B_DIR	=	./src_bonus/
 INCL_DIR	=	./include/
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror # -g -fsanitize=address
 RM			=	rm -f
 ECHO		=	echo
 

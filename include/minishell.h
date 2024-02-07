@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:14 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 19:30:20 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:22:44 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # endif
 
 # define PROGRAM_NAME "minishell"
+# define DEFAULT_PATH "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:."
 
-int	g_signal;
+extern int	g_signal;
 
 #endif

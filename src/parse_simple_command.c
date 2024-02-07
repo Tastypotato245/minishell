@@ -46,7 +46,7 @@ static	t_tree	*set_tree_to_smpl_cmd_continue(t_list **tokens, t_tree *tree)
 	tree->category = TR_SMPL_CMD_CONTINUE;
 	tree->right = parse_simple_command(tokens);
 	if (tree->right == NULL)
-		panic("parse_simple_command()");
+		return (destroy_tree(tree));
 	return (tree);
 }
 
