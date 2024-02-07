@@ -14,8 +14,9 @@
 # define HERE_DOCUMENT_H
 
 # include <parse.h>
+#include <dict.h>
 
-int		here_doc_traverse(t_tree *tree, t_list **here_doc_list);
+int		here_doc_traverse(t_tree *tree, t_list **here_doc_list, t_dict *env_dict);
 void	unlink_here_doc_temp_file(t_list **here_doc_list);
 
 #endif
