@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "panic.h"
+#include <panic.h>
 #include <parse.h>
 
 static int	print_tree1(t_tree *tree)
