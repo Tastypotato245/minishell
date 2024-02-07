@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:03:09 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/07 15:08:24 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:05:41 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ static void	dict_new_in_sort(t_dict *dict, char *key, char *val)
 
 // 0 : new
 // 1 : modi
-int	dict_modi_val_or_new_in_sort(t_dict *dict, char *key, char *val)
+int	dict_modi_val_or_new(t_dict *dict, char *key, char *val)
 {
 	t_pair	*tmp;
 
 	if (!dict)
-		exit_handler(1, PROGRAM_NAME, "dict is NULL: dict_mv_nis().");
+		exit_handler(1, PROGRAM_NAME, "dict is NULL: dict_mv_n().");
 	if (!key || key[0] == '\0')
-		exit_handler(1, PROGRAM_NAME, "key is NULL or empty: dict_mv_nis().");
+		exit_handler(1, PROGRAM_NAME, "key is NULL or empty: dict_mv_n().");
 	tmp = find_pair_in_dict(dict, key);
 	if (tmp == NULL)
 	{

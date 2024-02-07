@@ -6,7 +6,7 @@
 /*   By: younghoc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:38:37 by younghoc          #+#    #+#             */
-/*   Updated: 2024/02/06 20:11:32 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:10:59 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	here_doc_action(char *filename, char *limiter, t_dict *env_dict)
 
 static void	switch_here_doc_norm(t_dict *env_dict, int fd)
 {
-	dict_modi_val_or_new_in_sort(env_dict, "?", ft_itoa(1));
+	dict_modi_val_or_new(env_dict, "?", ft_itoa(1));
 	func_guard(dup2(fd, 0), PROGRAM_NAME, "here_doc_traverse().");
 }
 

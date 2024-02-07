@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/07 15:12:54 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:18:31 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ int	g_signal;
 
 static void	init_frankshell(t_dict **env_dict, char **envp)
 {
-	print_symbol();
+//	print_symbol();
 	*env_dict = to_dict(envp);
 	set_signal(0);
 	rl_catch_signals = 0;
 	if (find_pair_in_dict(*env_dict, "OLDPWD") == NULL)
-		dict_modi_val_or_new_in_sort(*env_dict, ft_strdup("OLDPWD"), NULL);
+		dict_modi_val_or_new(*env_dict, ft_strdup("OLDPWD"), NULL);
 	if (find_pair_in_dict(*env_dict, "?") == NULL)
-		dict_modi_val_or_new_in_sort(*env_dict, ft_strdup("?"), ft_itoa(0));
+		dict_modi_val_or_new(*env_dict, ft_strdup("?"), ft_itoa(0));
 	if (find_pair_in_dict(*env_dict, "PATH") == NULL)
-		dict_modi_val_or_new_in_sort(*env_dict, ft_strdup("PATH"),
-			ft_strdup(DEFAULT_PATH));
+		dict_modi_val_or_new(*env_dict, ft_strdup("PATH"), \
+				ft_strdup(DEFAULT_PATH));
 }
 
 static int	free_tokens_and_line(t_list **tokens, char *line)
@@ -54,7 +54,7 @@ static int	frontend(t_dict *env_dict, t_list **tokens,
 	*tokens = tokenize(line);
 	if (is_valid_tokens(*tokens))
 	{
-		dict_modi_val_or_new_in_sort(env_dict, "?", ft_itoa(2));
+		dict_modi_val_or_new(env_dict, "?", ft_itoa(2));
 		add_history(line);
 		return (free_tokens_and_line(tokens, line));
 	}
@@ -65,7 +65,7 @@ static int	frontend(t_dict *env_dict, t_list **tokens,
 	*tree = parse(*tokens);
 	if (*tree == NULL)
 	{
-		dict_modi_val_or_new_in_sort(env_dict, "?", ft_itoa(2));
+		dict_modi_val_or_new(env_dict, "?", ft_itoa(2));
 		add_history(line);
 		return (free_tokens_and_line(tokens, line));
 	}
@@ -78,6 +78,8 @@ static void	backend(t_tree *tree, t_dict *env_dict, char *line, t_list **tokens)
 {
 	t_list	*here_doc_list;
 
+	if (g_signal == 1 && dict_modi_val_or_new(env_dict, "?", ft_itoa(1)))
+		g_signal = 0;
 	here_doc_list = NULL;
 	if (!here_doc_traverse(tree, &here_doc_list, env_dict))
 		traverse(tree, env_dict);
