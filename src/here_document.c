@@ -17,31 +17,23 @@
 #include <readline/readline.h>
 #include <unistd.h>
 #include <signal_handler.h>
+#include <expansion.h>
 
-static char	*random_path(void)
+static void	inner_while(int heredoc_fd, char **line, t_dict *env_dict)
 {
-	int				urandom_fd;
-	unsigned char	b;
-	int				i;
-	char			*random;
+	char	*tmp;
 
-	random = null_guard(ft_calloc(70, sizeof(char)),
-			PROGRAM_NAME, "random64().");
-	ft_strlcpy(random, "/tmp/", 70);
-	urandom_fd = func_guard(open("/dev/urandom", O_RDONLY),
-			PROGRAM_NAME, "random64().");
-	i = 0;
-	while (i < 64)
-	{
-		func_guard(read(urandom_fd, &b, 1), PROGRAM_NAME, "random64().");
-		random[i + 5] = "01234567890abcdef"[b % 16];
-		i++;
-	}
-	close(urandom_fd);
-	return (random);
+	tmp = parameter_expansion(*line, env_dict);
+	func_guard(write(heredoc_fd, tmp, ft_strlen(tmp)),
+		PROGRAM_NAME, "here_doc_action().");
+	func_guard(write(heredoc_fd, "\n", 1),
+		PROGRAM_NAME, "here_doc_action().");
+	free(*line);
+	free(tmp);
+	*line = readline("> ");
 }
 
-static int	here_doc_action(char *filename, char *limiter)
+static int	here_doc_action(char *filename, char *limiter, t_dict *env_dict)
 {
 	const size_t	limiter_len = ft_strlen(limiter);
 	char			*line;
@@ -55,12 +47,7 @@ static int	here_doc_action(char *filename, char *limiter)
 	while (ft_strlen(line) > 0
 		&& !(ft_strncmp(line, limiter, limiter_len + 1) == 0))
 	{
-		func_guard(write(heredoc_fd, line, ft_strlen(line)),
-			PROGRAM_NAME, "here_doc_action().");
-		func_guard(write(heredoc_fd, "\n", 1),
-			PROGRAM_NAME, "here_doc_action().");
-		free(line);
-		line = readline("> ");
+		inner_while(heredoc_fd, &line, env_dict);
 		if (line == NULL)
 			return (close(heredoc_fd));
 	}
@@ -93,7 +80,7 @@ static int	switch_here_doc(t_tree *tree_left, t_list **here_doc_list,
 	null_guard(filename_element, PROGRAM_NAME, "here_doc_traverse().");
 	ft_lstadd_back(here_doc_list, filename_element);
 	limiter = (char *)tree_left->left;
-	here_doc_action(filename, limiter);
+	here_doc_action(filename, limiter, env_dict);
 	free(limiter);
 	tree_left->left = filename;
 	if (g_signal)
