@@ -54,7 +54,7 @@ static int	frontend(t_dict *env_dict, t_list **tokens,
 	*tokens = tokenize(line);
 	if (is_valid_tokens(*tokens))
 	{
-		dict_modi_val_or_new(env_dict, "?", ft_itoa(2));
+		dict_modi_val_or_new(env_dict, "?", ft_itoa(258));
 		add_history(line);
 		return (free_tokens_and_line(tokens, line));
 	}
@@ -65,7 +65,7 @@ static int	frontend(t_dict *env_dict, t_list **tokens,
 	*tree = parse(*tokens);
 	if (*tree == NULL)
 	{
-		dict_modi_val_or_new(env_dict, "?", ft_itoa(2));
+		dict_modi_val_or_new(env_dict, "?", ft_itoa(258));
 		add_history(line);
 		return (free_tokens_and_line(tokens, line));
 	}
