@@ -69,7 +69,14 @@ static int	here_doc_action(char *filename, char *limiter)
 	return (0);
 }
 
-static int	switch_here_doc(t_tree *tree_left, t_list **here_doc_list)
+static void	switch_here_doc_norm(t_dict *env_dict, int fd)
+{
+	dict_modi_val_or_new_in_sort(env_dict, "?", ft_itoa(1));
+	func_guard(dup2(fd, 0), PROGRAM_NAME, "here_doc_traverse().");
+}
+
+static int	switch_here_doc(t_tree *tree_left, t_list **here_doc_list,
+		t_dict *env_dict)
 {
 	char	*filename;
 	char	*filename_dup;
@@ -90,27 +97,13 @@ static int	switch_here_doc(t_tree *tree_left, t_list **here_doc_list)
 	free(limiter);
 	tree_left->left = filename;
 	if (g_signal)
-		func_guard(dup2(fd, 0), PROGRAM_NAME, "here_doc_traverse().");
+		switch_here_doc_norm(env_dict, fd);
 	func_guard(close(fd), PROGRAM_NAME, "here_doc_traverse().");
 	set_signal(0);
 	return (g_signal);
 }
 
-void	unlink_here_doc_temp_file(t_list **here_doc_list)
-{
-	t_list	*node;
-
-	node = *here_doc_list;
-	while (node)
-	{
-		func_guard(unlink(node->content),
-			PROGRAM_NAME, "unlink_here_doc_temp_file().");
-		node = node->next;
-	}
-	ft_lstclear(here_doc_list, free);
-}
-
-int	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
+int	here_doc_traverse(t_tree *tree, t_list **here_doc_list, t_dict *env_dict)
 {
 	int	ret;
 
@@ -122,11 +115,11 @@ int	here_doc_traverse(t_tree *tree, t_list **here_doc_list)
 		return (0);
 	if (tree->category == TR_REDIRECT_HERE_DOC)
 	{
-		ret = switch_here_doc(tree->left, here_doc_list);
+		ret = switch_here_doc(tree->left, here_doc_list, env_dict);
 		g_signal = 0;
 		return (ret);
 	}
-	if (here_doc_traverse(tree->left, here_doc_list))
+	if (here_doc_traverse(tree->left, here_doc_list, env_dict))
 		return (1);
-	return (here_doc_traverse(tree->right, here_doc_list));
+	return (here_doc_traverse(tree->right, here_doc_list, env_dict));
 }

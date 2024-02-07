@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/07 16:08:44 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:10:33 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	backend(t_tree *tree, t_dict *env_dict, char *line, t_list **tokens)
 	t_list	*here_doc_list;
 
 	here_doc_list = NULL;
-	if (!here_doc_traverse(tree, &here_doc_list))
+	if (!here_doc_traverse(tree, &here_doc_list, env_dict))
 		traverse(tree, env_dict);
 	unlink_here_doc_temp_file(&here_doc_list);
 	destroy_tree(tree);
@@ -108,6 +108,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (frontend(env_dict, &tokens, &tree, line))
 				continue ;
+			add_history(line);
 			backend(tree, env_dict, line, &tokens);
 		}
 	}
