@@ -52,6 +52,7 @@ static int	frontend(t_dict *env_dict, t_list **tokens,
 	if (is_valid_tokens(*tokens))
 	{
 		dict_modi_val_or_new_in_sort(env_dict, "?", ft_itoa(2));
+		add_history(line);
 		return (free_tokens_and_line(tokens, line));
 	}
 	if (DEBUG)
@@ -62,6 +63,7 @@ static int	frontend(t_dict *env_dict, t_list **tokens,
 	if (*tree == NULL)
 	{
 		dict_modi_val_or_new_in_sort(env_dict, "?", ft_itoa(2));
+		add_history(line);
 		return (free_tokens_and_line(tokens, line));
 	}
 	if (DEBUG)
@@ -101,7 +103,6 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (frontend(env_dict, &tokens, &tree, line))
 				continue ;
-			add_history(line);
 			backend(tree, env_dict, line, &tokens);
 		}
 	}
