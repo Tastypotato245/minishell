@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/07 16:10:33 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:14:56 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	g_signal;
 
 static void	init_frankshell(t_dict **env_dict, char **envp)
 {
-	print_symbol();
+//	print_symbol();
 	*env_dict = to_dict(envp);
 	set_signal(0);
 	rl_catch_signals = 0;
@@ -78,6 +78,8 @@ static void	backend(t_tree *tree, t_dict *env_dict, char *line, t_list **tokens)
 {
 	t_list	*here_doc_list;
 
+	if (g_signal == 1 && dict_modi_val_or_new(env_dict, "?", ft_itoa(1)))
+		g_signal = 0;
 	here_doc_list = NULL;
 	if (!here_doc_traverse(tree, &here_doc_list, env_dict))
 		traverse(tree, env_dict);
@@ -100,8 +102,6 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		line = readline("$ ");
-		if (g_signal == 1 && dict_modi_val_or_new(env_dict, "?", ft_itoa(1)))
-			g_signal = 0;
 		if (line == NULL)
 			cntl_d(env_dict);
 		else
