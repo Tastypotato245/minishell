@@ -85,6 +85,7 @@ static void	builtin_export_normal(t_dict *env, t_exe_node **tmp, size_t *i)
 	++(*i);
 	val = ft_substr((*tmp)->word, *i, ft_strlen((*tmp)->word) - *i);
 	dict_modi_val_or_new_in_sort(env, key, val);
+	free(key);
 	(*tmp) = (*tmp)->next;
 }
 
