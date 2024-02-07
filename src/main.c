@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/07 13:39:23 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 15:12:54 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ static void	init_frankshell(t_dict **env_dict, char **envp)
 {
 	print_symbol();
 	*env_dict = to_dict(envp);
-	dict_modi_val_or_new_in_sort(*env_dict, "OLDPWD", NULL);
-	dict_modi_val_or_new_in_sort(*env_dict, ft_strdup("?"), ft_itoa(0));
 	set_signal(0);
 	rl_catch_signals = 0;
+	if (find_pair_in_dict(*env_dict, "OLDPWD") == NULL)
+		dict_modi_val_or_new_in_sort(*env_dict, ft_strdup("OLDPWD"), NULL);
+	if (find_pair_in_dict(*env_dict, "?") == NULL)
+		dict_modi_val_or_new_in_sort(*env_dict, ft_strdup("?"), ft_itoa(0));
 	if (find_pair_in_dict(*env_dict, "PATH") == NULL)
-		dict_modi_val_or_new_in_sort(*env_dict, "PATH", DEFAULT_PATH);
+		dict_modi_val_or_new_in_sort(*env_dict, ft_strdup("PATH"), ft_strdup(DEFAULT_PATH));
 }
 
 static int	free_tokens_and_line(t_list **tokens, char *line)

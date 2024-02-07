@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:03:03 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 13:03:04 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 14:53:37 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ t_dict	*to_dict(char **envp)
 		key = ft_substr(envp[i], 0, j);
 		++j;
 		val = ft_substr(envp[i], j, ft_strlen(envp[i]) - j);
-		dict_modi_val_or_new_in_sort(env_dict, key, val);
+		if (dict_modi_val_or_new_in_sort(env_dict, key, val))
+			free(key);
 		i++;
 	}
 	return (env_dict);
@@ -67,7 +68,7 @@ char	**to_2darr(t_dict *env_dict)
 	i = 0;
 	while (tmp)
 	{
-		if (tmp->val != NULL)
+		if (tmp->val != NULL && ft_strncmp(tmp->key, "?", 2) != 0)
 		{
 			len = ft_strlen(tmp->key) + 1 + ft_strlen(tmp->val);
 			envp[i] = null_guard(malloc(len + 1), PROGRAM_NAME, "to_2darr().");
