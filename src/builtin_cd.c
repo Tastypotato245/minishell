@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:50:26 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/05 21:59:44 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 14:23:35 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,5 @@ int	builtin_cd(t_dict *env, t_exe_lst *exes)
 	if (exes->size == 1)
 		return (go_home(env, n_pwd, o_pwd));
 	exe = exes->head->next;
-	return (normal_cd(n_pwd, o_pwd, ft_strdup(exe->word)));
+	return (normal_cd(n_pwd, o_pwd, exe->word));
 }
