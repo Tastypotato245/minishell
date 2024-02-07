@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:34:44 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/06 20:12:59 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:03:25 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	signal_handler(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 1);
 		rl_redisplay();
+		g_signal = 1;
 	}
 }
 

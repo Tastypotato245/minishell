@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:03:03 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/07 14:53:37 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:07:11 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_dict	*to_dict(char **envp)
 		key = ft_substr(envp[i], 0, j);
 		++j;
 		val = ft_substr(envp[i], j, ft_strlen(envp[i]) - j);
-		if (dict_modi_val_or_new_in_sort(env_dict, key, val))
+		if (dict_modi_val_or_new(env_dict, key, val))
 			free(key);
 		i++;
 	}
