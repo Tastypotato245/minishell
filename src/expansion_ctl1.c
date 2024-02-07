@@ -87,11 +87,14 @@ void	exes_export_expansion(t_exe_lst *exes, t_dict *env)
 {
 	t_exe_node	*exe;
 	char		*tmp_str;
+	char		*tmp_str2;
 
 	exe = exes->head->next;
 	while (exe)
 	{
-		tmp_str = quote_removal(parameter_expansion(exe->word, env));
+		tmp_str2 = parameter_expansion(exe->word, env);
+		tmp_str = quote_removal(tmp_str2);
+		free(tmp_str2);
 		free(exe->word);
 		exe->word = tmp_str;
 		exe = exe->next;
