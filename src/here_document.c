@@ -51,8 +51,7 @@ static int	here_doc_action(char *filename, char *limiter, t_dict *env_dict)
 	line = readline("> ");
 	if (line == NULL)
 		return (close(heredoc_fd));
-	while (ft_strlen(line) > 0
-		&& !(ft_strncmp(line, limiter, limiter_len + 1) == 0))
+	while (!(ft_strncmp(line, limiter, limiter_len + 1) == 0))
 	{
 		inner_while(heredoc_fd, &line, env_dict, !is_contain_quote(limiter));
 		if (line == NULL)
