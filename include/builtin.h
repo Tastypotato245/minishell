@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:51:19 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/06 14:18:57 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 15:46:21 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int		builtin_pwd(void);
 int		builtin_export(t_dict *env, t_exe_lst *exes);
 int		builtin_unset(t_dict *env, t_exe_lst *exes);
 int		builtin_env(t_dict *env, t_exe_lst *exes);
-int		builtin_exit(t_exe_lst *exes);
+int		builtin_exit(t_dict *env, t_exe_lst *exes);
 
 #endif
