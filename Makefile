@@ -6,7 +6,7 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 19:56:05 by kyusulee          #+#    #+#              #
-#    Updated: 2024/02/07 13:37:35 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/02/07 14:18:15 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ SRCS_B_DIR	=	./src_bonus/
 INCL_DIR	=	./include/
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror # -g -fsanitize=address
 RM			=	rm -f
 ECHO		=	echo
 
