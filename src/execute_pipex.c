@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/06 19:09:17 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 13:03:30 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static int	parent_wait(t_info *info, pid_t last_pid)
 	int	status;
 
 	i = -1;
+	exit_save = 0;
+	status = 0;
 	while (++i < info->pnum)
 	{
 		if (wait(&status) == last_pid)
@@ -81,6 +83,7 @@ static int	single_proccess(t_cmd_node *cmd, t_dict *env)
 	int		exit_save;
 
 	exit_save = 0;
+	status = 0;
 	builtin_case = builtin_checker(cmd);
 	if (builtin_case != NONE_BTIN_CASE)
 		return (builtin_switcher(cmd, env, builtin_case));
