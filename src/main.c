@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/07 16:18:31 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 17:06:32 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void	init_frankshell(t_dict **env_dict, char **envp)
 	*env_dict = to_dict(envp);
 	set_signal(0);
 	rl_catch_signals = 0;
+	if (find_pair_in_dict(*env_dict, "PWD") == NULL)
+		dict_modi_val_or_new(*env_dict, ft_strdup("PWD"), NULL);
 	if (find_pair_in_dict(*env_dict, "OLDPWD") == NULL)
 		dict_modi_val_or_new(*env_dict, ft_strdup("OLDPWD"), NULL);
 	if (find_pair_in_dict(*env_dict, "?") == NULL)
