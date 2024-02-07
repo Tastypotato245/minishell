@@ -19,21 +19,6 @@
 #include <signal_handler.h>
 #include <expansion.h>
 
-static int	is_contain_quote(char *limiter)
-{
-	const size_t	limiter_len = ft_strlen(limiter);
-	size_t			i;
-
-	i = 0;
-	while (i < limiter_len)
-	{
-		if (ft_strchr("\"\'", limiter[i]))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 static void	inner_while(int heredoc_fd, char **line,
 		t_dict *env_dict, int do_expansion)
 {
