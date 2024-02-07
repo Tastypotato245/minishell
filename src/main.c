@@ -37,7 +37,8 @@ static void	init_frankshell(t_dict **env_dict, char **envp)
 	if (find_pair_in_dict(*env_dict, "?") == NULL)
 		dict_modi_val_or_new_in_sort(*env_dict, ft_strdup("?"), ft_itoa(0));
 	if (find_pair_in_dict(*env_dict, "PATH") == NULL)
-		dict_modi_val_or_new_in_sort(*env_dict, ft_strdup("PATH"), ft_strdup(DEFAULT_PATH));
+		dict_modi_val_or_new_in_sort(*env_dict, ft_strdup("PATH"),
+			ft_strdup(DEFAULT_PATH));
 }
 
 static int	free_tokens_and_line(t_list **tokens, char *line)
@@ -78,7 +79,7 @@ static void	backend(t_tree *tree, t_dict *env_dict, char *line, t_list **tokens)
 	t_list	*here_doc_list;
 
 	here_doc_list = NULL;
-	if (!here_doc_traverse(tree, &here_doc_list))
+	if (!here_doc_traverse(tree, &here_doc_list, env_dict))
 		traverse(tree, env_dict);
 	unlink_here_doc_temp_file(&here_doc_list);
 	destroy_tree(tree);
@@ -105,6 +106,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (frontend(env_dict, &tokens, &tree, line))
 				continue ;
+			add_history(line);
 			backend(tree, env_dict, line, &tokens);
 		}
 	}
