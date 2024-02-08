@@ -6,11 +6,14 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:42:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 17:46:52 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/07 13:03:30 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <execute.h>
+#include <builtin.h>
+#include <expansion.h>
+#include <signal_handler.h>
 
 // func_guard(unlink(HD_FILE));
 // sequencial unlink 
@@ -21,15 +24,29 @@ static int	parent_wait(t_info *info, pid_t last_pid)
 	int	status;
 
 	i = -1;
+	exit_save = 0;
+	status = 0;
 	while (++i < info->pnum)
 	{
 		if (wait(&status) == last_pid)
-			exit_save = WEXITSTATUS(status);
+		{
+			if (WEXITSTATUS(status))
+				exit_save = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+			{
+				if (status == 2)
+					ft_putendl_fd("", STDERR_FILENO);
+				else if (status == 3)
+					ft_putendl_fd("Quit: 3", STDERR_FILENO);
+				exit_save = WTERMSIG(status) + 128;
+			}
+		}
 	}
+	set_signal(0);
 	return (exit_save);
 }
 
-static int	multiple_proccess(t_cmd_lst *cmds, char **env)
+static int	multiple_proccess(t_cmd_lst *cmds, t_dict *env)
 {
 	int			fd[2];
 	pid_t		pid;
@@ -58,26 +75,46 @@ static int	multiple_proccess(t_cmd_lst *cmds, char **env)
 	return (parent_wait(&info, pid));
 }
 
-static int	single_proccess(t_cmd_node *cmd, char **env)
+static int	single_proccess(t_cmd_node *cmd, t_dict *env)
 {
 	pid_t	pid;
 	int		status;
+	int		builtin_case;
+	int		exit_save;
 
+	exit_save = 0;
+	status = 0;
+	builtin_case = builtin_checker(cmd);
+	if (builtin_case != NONE_BTIN_CASE)
+		return (builtin_switcher(cmd, env, builtin_case));
 	pid = func_guard(fork(), PROGRAM_NAME, "pipex().");
 	if (pid == 0)
 		single_child(cmd, env);
 	wait(&status);
-	return (WEXITSTATUS(status));
+	if (WEXITSTATUS(status))
+		exit_save = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+	{
+		if (status == 2)
+			ft_putendl_fd("", STDERR_FILENO);
+		else if (status == 3)
+			ft_putendl_fd("Quit: 3", STDERR_FILENO);
+		exit_save = WTERMSIG(status) + 128;
+	}
+	return (exit_save);
 }
 
-int			pipex(t_cmd_lst *cmds, char **env)
+int	pipex(t_cmd_lst *cmds, t_dict *env)
 {
 	int	exit_code;
 
 	exit_code = 0;
+	cmds_expansion(cmds, env);
+	set_signal(2);
 	if (cmds->size == 1)
 		exit_code = single_proccess(cmds->head, env);
 	else if (cmds->size > 1)
 		exit_code = multiple_proccess(cmds, env);
+	set_signal(0);
 	return (exit_code);
 }

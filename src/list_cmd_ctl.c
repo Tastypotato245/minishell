@@ -6,13 +6,12 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 21:56:34 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 19:23:28 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:59:29 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <list.h>
 
-// for debug
 static void	cmd_lst_size_check(t_cmd_lst *cmds)
 {
 	t_cmd_node	*tmp;	
@@ -71,14 +70,6 @@ void	cmd_lst_new_back(t_cmd_lst *cmds, t_exe_lst *exes, t_rd_lst *rds)
 	}
 	return ;
 }
-/* 
-	if (!cmds->head)
-		cmds->head = new;
-	else
-		cmds->tail->next = new;
-	cmds->tail = new;
-	cmds->size += 1;
-*/
 
 void	free_cmd_lst(t_cmd_lst *cmds)
 {
@@ -112,10 +103,10 @@ void	print_cmd_lst(t_cmd_lst *cmds)
 	tmp = cmds->head;
 	while (tmp)
 	{
-		printf(" 🍔 cmd[%d]: ", cnt);
+		printf(" - cmd[%d]: ", cnt);
 		print_exe_lst(tmp->exes);
 		print_rd_lst(tmp->rds);
-		printf("| 🍔\n");
+		printf("\n");
 		tmp = tmp->next;
 		++cnt;
 	}

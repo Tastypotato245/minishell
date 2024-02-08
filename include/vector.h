@@ -17,8 +17,6 @@
 #  define BUFFER_SIZE 16
 # endif
 
-# include <stdlib.h>
-
 typedef struct s_vector
 {
 	char	*data;
@@ -28,6 +26,7 @@ typedef struct s_vector
 
 void		init_vector(t_vector *vector);
 char		*push_back(t_vector *vector, char c);
+char		*push_str(t_vector *vector, char *str);
 void		destroy_vector(t_vector *vector);
 
 #endif

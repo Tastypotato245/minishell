@@ -1,0 +1,118 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 13:08:42 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/02/08 13:27:43 by kyusulee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <minishell_bonus.h>
+#include <kyusulib_bonus.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <ui_bonus.h>
+#include <list_bonus.h>
+#include <dict_bonus.h>
+#include <execute_bonus.h>
+#include <tokenize_bonus.h>
+#include <parse_bonus.h>
+#include <here_document_bonus.h>
+#include <traverse_bonus.h>
+#include <signal_handler_bonus.h>
+
+int	g_signal;
+
+static void	init_frankshell(t_dict **env_dict, char **envp)
+{
+	print_symbol();
+	*env_dict = to_dict(envp);
+	set_signal(0);
+	rl_catch_signals = 0;
+	if (find_pair_in_dict(*env_dict, "OLDPWD") == NULL)
+		dict_modi_val_or_new(*env_dict, ft_strdup("OLDPWD"), NULL);
+	if (find_pair_in_dict(*env_dict, "?") == NULL)
+		dict_modi_val_or_new(*env_dict, ft_strdup("?"), ft_itoa(0));
+	if (find_pair_in_dict(*env_dict, "PATH") == NULL)
+		dict_modi_val_or_new(*env_dict, ft_strdup("PATH"), \
+				ft_strdup(DEFAULT_PATH));
+}
+
+static int	free_tokens_and_line(t_list **tokens, char *line)
+{
+	ft_lstclear(tokens, destroy_token);
+	free(line);
+	return (-1);
+}
+
+static int	frontend(t_dict *env_dict, t_list **tokens,
+		t_tree **tree, char *line)
+{
+	*tokens = tokenize(line);
+	if (is_valid_tokens(*tokens))
+	{
+		dict_modi_val_or_new(env_dict, "?", ft_itoa(2));
+		add_history(line);
+		return (free_tokens_and_line(tokens, line));
+	}
+	if (DEBUG)
+		ft_lstiter(*tokens, print_token);
+	if (ft_lstsize(*tokens) == 0)
+		return (free_tokens_and_line(tokens, line));
+	*tree = parse(*tokens);
+	if (*tree == NULL)
+	{
+		dict_modi_val_or_new(env_dict, "?", ft_itoa(2));
+		add_history(line);
+		return (free_tokens_and_line(tokens, line));
+	}
+	if (DEBUG)
+		print_tree(*tree, 0);
+	return (0);
+}
+
+static void	backend(t_tree *tree, t_dict *env_dict, char *line, t_list **tokens)
+{
+	t_list	*here_doc_list;
+
+	if (g_signal == 1 && dict_modi_val_or_new(env_dict, "?", ft_itoa(1)))
+		g_signal = 0;
+	here_doc_list = NULL;
+	if (!here_doc_traverse(tree, &here_doc_list, env_dict))
+		traverse(tree, env_dict);
+	unlink_here_doc_temp_file(&here_doc_list);
+	destroy_tree(tree);
+	ft_lstclear(tokens, destroy_token);
+	free(line);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	char	*line;
+	t_list	*tokens;
+	t_tree	*tree;
+	t_dict	*env_dict;
+
+	if (argc != 1 || argv == NULL)
+		exit_handler(0, PROGRAM_NAME, "enter ./minishell");
+	init_frankshell(&env_dict, envp);
+	while (1)
+	{
+		line = readline("$ ");
+		if (line == NULL)
+			cntl_d(env_dict);
+		else
+		{
+			if (frontend(env_dict, &tokens, &tree, line))
+				continue ;
+			add_history(line);
+			backend(tree, env_dict, line, &tokens);
+		}
+	}
+	free_dict(env_dict);
+	rl_clear_history();
+	exit(0);
+}

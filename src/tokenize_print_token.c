@@ -10,34 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <panic.h>
 #include <tokenize.h>
 
-void	print_token(void *content)
+void	print_token(void *token)
 {
-	const t_token	*token = content;
-
-	if (token->category == T_OR)
+	if (((t_token *)token)->category == T_OR)
 		printf("T_OR\n");
-	else if (token->category == T_AND)
+	else if (((t_token *)token)->category == T_AND)
 		printf("T_AND\n");
-	else if (token->category == T_PIPE)
+	else if (((t_token *)token)->category == T_PIPE)
 		printf("T_PIPE\n");
-	else if (token->category == T_L_PAREN)
+	else if (((t_token *)token)->category == T_L_PAREN)
 		printf("T_L_PAREN\n");
-	else if (token->category == T_R_PAREN)
+	else if (((t_token *)token)->category == T_R_PAREN)
 		printf("T_R_PAREN\n");
-	else if (token->category == T_IN_REDIRECT)
+	else if (((t_token *)token)->category == T_IN_REDIRECT)
 		printf("T_IN_REDIRECT\n");
-	else if (token->category == T_OUT_REDIRECT)
+	else if (((t_token *)token)->category == T_OUT_REDIRECT)
 		printf("T_OUT_REDIRECT\n");
-	else if (token->category == T_APPEND_REDIRECT)
+	else if (((t_token *)token)->category == T_APPEND_REDIRECT)
 		printf("T_APPEND_REDIRECT\n");
-	else if (token->category == T_HERE_DOC)
+	else if (((t_token *)token)->category == T_HERE_DOC)
 		printf("T_HERE_DOC\n");
-	else if (token->category == T_WORD)
-		printf("T_WORD(%s)\n", token->content);
-	else if (token->category == T_ERROR)
+	else if (((t_token *)token)->category == T_WORD)
+		printf("T_WORD(%s)\n", ((t_token *)token)->content);
+	else if (((t_token *)token)->category == T_ERROR)
 		printf("T_ERROR\n");
 	else
-		printf("error: uncatched token category\n");
+		panic("uncatched token category");
 }

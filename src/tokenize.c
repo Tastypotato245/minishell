@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <minishell.h>
 #include <tokenize.h>
 
 t_list	*tokenize(const char *line)
@@ -21,6 +22,7 @@ t_list	*tokenize(const char *line)
 	size_t			i;
 
 	i = 0;
+	tokens = NULL;
 	while (i < line_len)
 	{
 		if (ft_is_space(line[i]))
@@ -30,6 +32,7 @@ t_list	*tokenize(const char *line)
 		}
 		token = categorize_token(line, &i);
 		token_element = ft_lstnew(token);
+		null_guard(token_element, PROGRAM_NAME, "tokenize().");
 		ft_lstadd_back(&tokens, token_element);
 	}
 	return (tokens);

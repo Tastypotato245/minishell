@@ -6,13 +6,12 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 15:40:26 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/01/30 19:23:46 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/05 22:46:54 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <list.h>
 
-// for debug
 static void	exe_lst_size_check(t_exe_lst *exes)
 {
 	t_exe_node	*tmp;	
@@ -68,14 +67,6 @@ void	exe_lst_new_back(t_exe_lst *exes, char *word)
 	}
 	return ;
 }
-/*
-	if (!exes->head)
-		exes->head = new;
-	else
-		exes->tail->next = new;
-	exes->tail = new;
-	exes->size += 1;
-*/
 
 void	free_exe_lst(t_exe_lst *exes)
 {
