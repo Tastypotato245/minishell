@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/08 13:27:48 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/02/08 13:08:42 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/02/08 13:27:43 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
-#include <kyusulib.h>
+#include <minishell_bonus.h>
+#include <kyusulib_bonus.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <ui.h>
-#include <list.h>
-#include <dict.h>
-#include <execute.h>
-#include <tokenize.h>
-#include <parse.h>
-#include <here_document.h>
-#include <traverse.h>
-#include <signal_handler.h>
+#include <ui_bonus.h>
+#include <list_bonus.h>
+#include <dict_bonus.h>
+#include <execute_bonus.h>
+#include <tokenize_bonus.h>
+#include <parse_bonus.h>
+#include <here_document_bonus.h>
+#include <traverse_bonus.h>
+#include <signal_handler_bonus.h>
 
 int	g_signal;
 

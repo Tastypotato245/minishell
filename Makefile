@@ -6,14 +6,44 @@
 #    By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 19:56:05 by kyusulee          #+#    #+#              #
-#    Updated: 2024/02/07 14:18:15 by kyusulee         ###   ########.fr        #
+#    Updated: 2024/02/08 13:24:54 by kyusulee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	minishell
 
-HEAD		=	$(INCL_DIR)minishell.h
-HEAD_B		=	$(INCL_DIR)minishell_bonus.h
+HEAD		=	$(INCL_DIR)builtin.h	\
+				$(INCL_DIR)dict.h	\
+				$(INCL_DIR)execute.h	\
+				$(INCL_DIR)expansion.h	\
+				$(INCL_DIR)here_document.h	\
+				$(INCL_DIR)kyusulib.h	\
+				$(INCL_DIR)list.h	\
+				$(INCL_DIR)minishell.h	\
+				$(INCL_DIR)panic.h	\
+				$(INCL_DIR)parse.h	\
+				$(INCL_DIR)signal_handler.h	\
+				$(INCL_DIR)tokenize.h	\
+				$(INCL_DIR)traverse.h	\
+				$(INCL_DIR)ui.h	\
+				$(INCL_DIR)vector.h
+
+
+HEAD_B		=	$(INCL_DIR)builtin_bonus.h	\
+				$(INCL_DIR)dict_bonus.h	\
+				$(INCL_DIR)execute_bonus.h	\
+				$(INCL_DIR)expansion_bonus.h	\
+				$(INCL_DIR)here_document_bonus.h	\
+				$(INCL_DIR)kyusulib_bonus.h	\
+				$(INCL_DIR)list_bonus.h	\
+				$(INCL_DIR)minishell_bonus.h	\
+				$(INCL_DIR)panic_bonus.h	\
+				$(INCL_DIR)parse_bonus.h	\
+				$(INCL_DIR)signal_handler_bonus.h	\
+				$(INCL_DIR)tokenize_bonus.h	\
+				$(INCL_DIR)traverse_bonus.h	\
+				$(INCL_DIR)ui_bonus.h	\
+				$(INCL_DIR)vector_bonus.h
 
 SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)ui_symbol.c	\
@@ -69,7 +99,60 @@ SRCS		=	$(SRCS_DIR)main.c	\
 				$(SRCS_DIR)execute_process.c		\
 				$(SRCS_DIR)signal_handler.c
 
-SRCS_B		=	$(SRCS_B_DIR)main.c
+
+SRCS_B		=	$(SRCS_B_DIR)main_bonus.c	\
+				$(SRCS_B_DIR)ui_symbol_bonus.c	\
+				$(SRCS_B_DIR)tokenize_bonus.c							\
+				$(SRCS_B_DIR)tokenize_categorize_token_bonus.c			\
+				$(SRCS_B_DIR)tokenize_create_token1_bonus.c				\
+				$(SRCS_B_DIR)tokenize_create_token2_bonus.c				\
+				$(SRCS_B_DIR)tokenize_create_token3_bonus.c				\
+				$(SRCS_B_DIR)tokenize_check_validity_of_tokens_bonus.c	\
+				$(SRCS_B_DIR)tokenize_print_token_bonus.c				\
+				$(SRCS_B_DIR)tokenize_utils_bonus.c						\
+				$(SRCS_B_DIR)parse_bonus.c					\
+				$(SRCS_B_DIR)parse_list_bonus.c				\
+				$(SRCS_B_DIR)parse_pipeline_bonus.c			\
+				$(SRCS_B_DIR)parse_simple_command_bonus.c	\
+				$(SRCS_B_DIR)parse_word_bonus.c				\
+				$(SRCS_B_DIR)parse_redirection_bonus.c		\
+				$(SRCS_B_DIR)parse_print_tree_bonus.c		\
+				$(SRCS_B_DIR)parse_destroy_tree_bonus.c		\
+				$(SRCS_B_DIR)parse_error_handling_bonus.c	\
+				$(SRCS_B_DIR)here_document_bonus.c			\
+				$(SRCS_B_DIR)here_document_unlink_bonus.c	\
+				$(SRCS_B_DIR)here_document_utils_bonus.c	\
+				$(SRCS_B_DIR)traverse_bonus.c	\
+				$(SRCS_B_DIR)expansion_ctl1_bonus.c				\
+				$(SRCS_B_DIR)expansion_ctl2_bonus.c				\
+				$(SRCS_B_DIR)expansion_parameter_bonus.c		\
+				$(SRCS_B_DIR)expansion_parameter_utils_bonus.c		\
+				$(SRCS_B_DIR)expansion_quote_removal_bonus.c	\
+				$(SRCS_B_DIR)expansion_filename_bonus.c			\
+				$(SRCS_B_DIR)vector_bonus.c				\
+				$(SRCS_B_DIR)vector_push_str_bonus.c	\
+				$(SRCS_B_DIR)panic_bonus.c		\
+				$(SRCS_B_DIR)list_cmd_ctl_bonus.c	\
+				$(SRCS_B_DIR)list_exe_ctl_bonus.c	\
+				$(SRCS_B_DIR)list_rd_ctl_bonus.c	\
+				$(SRCS_B_DIR)dict_ctl1_bonus.c	\
+				$(SRCS_B_DIR)dict_ctl2_bonus.c	\
+				$(SRCS_B_DIR)dict_ctl3_bonus.c	\
+				$(SRCS_B_DIR)dict_ctl4_bonus.c	\
+				$(SRCS_B_DIR)builtin_ctl1_bonus.c	\
+				$(SRCS_B_DIR)builtin_ctl2_bonus.c	\
+				$(SRCS_B_DIR)builtin_echo_bonus.c	\
+				$(SRCS_B_DIR)builtin_cd_bonus.c		\
+				$(SRCS_B_DIR)builtin_pwd_bonus.c	\
+				$(SRCS_B_DIR)builtin_export_bonus.c	\
+				$(SRCS_B_DIR)builtin_unset_bonus.c	\
+				$(SRCS_B_DIR)builtin_env_bonus.c	\
+				$(SRCS_B_DIR)builtin_exit_bonus.c	\
+				$(SRCS_B_DIR)execute_pipex_bonus.c			\
+				$(SRCS_B_DIR)execute_pipex_utils_bonus.c	\
+				$(SRCS_B_DIR)execute_access_bonus.c			\
+				$(SRCS_B_DIR)execute_process_bonus.c		\
+				$(SRCS_B_DIR)signal_handler_bonus.c
 
 OBJS		=	$(SRCS:.c=.o)
 OBJS_B		=	$(SRCS_B:.c=.o)
@@ -83,6 +166,7 @@ KYUSULIB	=	./kyusulib/
 SRCS_DIR	=	./src/
 SRCS_B_DIR	=	./src_bonus/
 INCL_DIR	=	./include/
+INCL_B_DIR	=	./include_bonus/
 
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror # -g -fsanitize=address

@@ -1,0 +1,65 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenize_bonus.h                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 13:21:12 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/02/08 13:22:24 by kyusulee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef TOKENIZE_BONUS_H
+# define TOKENIZE_BONUS_H
+
+# include <kyusulib_bonus.h>
+
+typedef enum e_token_category
+{
+	T_OR,
+	T_AND,
+	T_PIPE,
+	T_L_PAREN,
+	T_R_PAREN,
+	T_IN_REDIRECT,
+	T_OUT_REDIRECT,
+	T_APPEND_REDIRECT,
+	T_HERE_DOC,
+	T_WORD,
+	T_ERROR,
+}	t_token_category;
+
+typedef struct s_token
+{
+	t_token_category	category;
+	char				*content;
+}	t_token;
+
+t_list	*tokenize(const char *line);
+
+t_token	*categorize_token(const char *line, size_t *i);
+
+t_token	*create_or_token(size_t *i);
+t_token	*create_and_token(size_t *i);
+t_token	*create_pipe_token(void);
+t_token	*create_lparen_token(size_t *i);
+t_token	*create_rparen_token(size_t *i);
+t_token	*create_in_redirect_token(void);
+t_token	*create_out_redirect_token(void);
+t_token	*create_append_redirect_token(size_t *i);
+t_token	*create_here_doc_token(size_t *i);
+t_token	*create_word_token(const char *line, size_t *i);
+t_token	*create_error_token(void);
+
+void	print_token(void *content);
+
+int		ft_is_space(char c);
+int		ft_is_metacharacter(char c);
+void	destroy_token(void *content);
+
+t_token	*get_first_token(t_list *tokens);
+void	print_error_token(t_token *token);
+int		is_valid_tokens(t_list *tokens);
+
+#endif
