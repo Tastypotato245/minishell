@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/07 16:18:31 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:03:26 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	g_signal;
 
 static void	init_frankshell(t_dict **env_dict, char **envp)
 {
-//	print_symbol();
+	print_symbol();
 	*env_dict = to_dict(envp);
 	set_signal(0);
 	rl_catch_signals = 0;
