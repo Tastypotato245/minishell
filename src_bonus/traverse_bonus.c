@@ -6,7 +6,7 @@
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:13:57 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/08 13:14:05 by kyusulee         ###   ########.fr       */
+/*   Updated: 2024/02/08 14:25:09 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,24 +102,28 @@ static int	traverse_pipe(t_tree *tree, t_dict *env_dict)
 static int	traverse_list(t_tree *tree, t_dict *env_dict,
 		int prev_exit_status, t_tree_category prev_category)
 {
-	int	exit_status;
+	int	left_exit_status;
+	int	right_exit_status;
 
-	exit_status = 0;
+	left_exit_status = prev_exit_status;
+	right_exit_status = -1;
 	if (prev_category == TR_LIST_OR)
 	{
 		if (prev_exit_status != 0)
-			exit_status = traverse_pipe(tree->left, env_dict);
+			left_exit_status = traverse_pipe(tree->left, env_dict);
 	}
 	else
 	{
 		if (prev_exit_status == 0)
-			exit_status = traverse_pipe(tree->left, env_dict);
+			left_exit_status = traverse_pipe(tree->left, env_dict);
 	}
 	if (tree->category == TR_LIST_AND
 		|| tree->category == TR_LIST_OR)
-		exit_status = traverse_list(tree->right, env_dict,
-				exit_status, tree->category);
-	return (exit_status);
+		right_exit_status = traverse_list(tree->right, env_dict,
+				left_exit_status, tree->category);
+	if (right_exit_status == -1)
+		return (left_exit_status);
+	return (right_exit_status);
 }
 
 int	traverse(t_tree *tree, t_dict *env_dict)
