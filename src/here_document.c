@@ -42,22 +42,26 @@ static void	inner_while(int heredoc_fd, char **line,
 
 static int	here_doc_action(char *filename, char *limiter, t_dict *env_dict)
 {
-	const size_t	limiter_len = ft_strlen(limiter);
-	char			*line;
-	int				heredoc_fd;
+	size_t	limiter_len;
+	char	*line;
+	int		heredoc_fd;
+	char	*limiter_without_quote;
 
+	limiter_without_quote = quote_removal(limiter);
+	limiter_len = ft_strlen(limiter_without_quote);
 	heredoc_fd = func_guard(open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644),
 			PROGRAM_NAME, "here_doc_action().");
 	line = readline("> ");
 	if (line == NULL)
 		return (close(heredoc_fd));
-	while (!(ft_strncmp(line, limiter, limiter_len + 1) == 0))
+	while (!(ft_strncmp(line, limiter_without_quote, limiter_len + 1) == 0))
 	{
 		inner_while(heredoc_fd, &line, env_dict, !is_contain_quote(limiter));
 		if (line == NULL)
 			return (close(heredoc_fd));
 	}
 	free(line);
+	free(limiter_without_quote);
 	close(heredoc_fd);
 	return (0);
 }
