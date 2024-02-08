@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyusulee <kyusulee@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/26 19:57:47 by kyusulee          #+#    #+#             */
-/*   Updated: 2024/02/08 14:24:16 by kyusulee         ###   ########.fr       */
+/*   Created: 2024/02/08 13:08:42 by kyusulee          #+#    #+#             */
+/*   Updated: 2024/02/08 13:27:43 by kyusulee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
-#include <kyusulib.h>
+#include <minishell_bonus.h>
+#include <kyusulib_bonus.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <ui.h>
-#include <list.h>
-#include <dict.h>
-#include <execute.h>
-#include <tokenize.h>
-#include <parse.h>
-#include <here_document.h>
-#include <traverse.h>
-#include <signal_handler.h>
+#include <ui_bonus.h>
+#include <list_bonus.h>
+#include <dict_bonus.h>
+#include <execute_bonus.h>
+#include <tokenize_bonus.h>
+#include <parse_bonus.h>
+#include <here_document_bonus.h>
+#include <traverse_bonus.h>
+#include <signal_handler_bonus.h>
 
 int	g_signal;
 
@@ -32,8 +32,6 @@ static void	init_frankshell(t_dict **env_dict, char **envp)
 	*env_dict = to_dict(envp);
 	set_signal(0);
 	rl_catch_signals = 0;
-	if (find_pair_in_dict(*env_dict, "PWD") == NULL)
-		dict_modi_val_or_new(*env_dict, ft_strdup("PWD"), NULL);
 	if (find_pair_in_dict(*env_dict, "OLDPWD") == NULL)
 		dict_modi_val_or_new(*env_dict, ft_strdup("OLDPWD"), NULL);
 	if (find_pair_in_dict(*env_dict, "?") == NULL)
@@ -56,7 +54,7 @@ static int	frontend(t_dict *env_dict, t_list **tokens,
 	*tokens = tokenize(line);
 	if (is_valid_tokens(*tokens))
 	{
-		dict_modi_val_or_new(env_dict, "?", ft_itoa(258));
+		dict_modi_val_or_new(env_dict, "?", ft_itoa(2));
 		add_history(line);
 		return (free_tokens_and_line(tokens, line));
 	}
@@ -67,7 +65,7 @@ static int	frontend(t_dict *env_dict, t_list **tokens,
 	*tree = parse(*tokens);
 	if (*tree == NULL)
 	{
-		dict_modi_val_or_new(env_dict, "?", ft_itoa(258));
+		dict_modi_val_or_new(env_dict, "?", ft_itoa(2));
 		add_history(line);
 		return (free_tokens_and_line(tokens, line));
 	}
