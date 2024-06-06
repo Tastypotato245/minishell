@@ -23,7 +23,7 @@ static void	signal_handler(int sig)
 	{
 		printf("\n");
 		rl_on_new_line();
-		rl_replace_line("", 1);
+		//rl_replace_line("", 1);
 		rl_redisplay();
 		g_signal = 1;
 	}
