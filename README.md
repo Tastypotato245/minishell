@@ -56,6 +56,26 @@
 $ echo "Hello World!!"
 ```
 
+# Explanation
+해당 프로젝트에서는, 쉘 프로그램인 bash를 모방하여 built-in functions, external binary functions, pipe, && || (command chaining operators), subshell 등을 구현 했습니다. 
+
+그 과정에서 프로세스 fork, 프로세스 생성 과정과 부모 프로세스와 자식프로세스 관리, 구문분석기(Parser와 Syntax Analyzer, Abstract Syntax Tree), 프로세스 시그널 처리 등을 학습할 수 있었습니다.
+
+해당 프로젝트에서 기술적으로 어려웠던 점은, rm abc* 같은 와일드 카드 패턴 매칭이었습니다. 이를 구현하고자 관련 오픈소스를 읽고 재귀함수를 분석했습니다.
+
+또한 런타임에 터지는 오류를 관리하기 위해 관련된 유틸 함수를 직접 만들어 활용했던 기억이 인상적이었습니다.
+
+오류가 생겨 return하는 동작에서, bash도 어떤 프로세스, 어떤 바이너리에서 무슨 오류 메세지를 내뱉는지 관리합니다. 이러한 구조를 파악하고 우리 팀 역시 오류가 생길 수 있는 부분에서 오류 핸들링 함수를 감싸 문제를 방지했습니다.
+
+In this project, we built a shell program modeled after bash, implementing features such as built-in functions, external binary execution, pipes, logical operators (&& and ||), and subshells.
+
+Through this, I learned about process forking, process creation and management between parent and child processes, parsers and syntax analyzers (including Abstract Syntax Trees), as well as process signal handling.
+
+One of the technically challenging parts of the project was handling wildcard pattern matching (e.g., rm abc*). To implement this, I studied related open-source code and analyzed recursive functions.
+
+I also found it memorable to design and use custom utility functions to manage runtime errors. In bash, when an error occurs, it manages which process or binary produced the error message. By understanding this structure, our team also wrapped potential failure points with custom error-handling functions to prevent issues.
+
+
 # Branching Strategy
 ## Git Flow Strategy
 ![image](https://github.com/Tastypotato245/minishell/assets/63251068/8d18aae6-eb5a-4991-b2b4-751afede239d)
